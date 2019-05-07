@@ -45,6 +45,10 @@ ui <- fluidPage(
                      ),
         # checkbox input
         tags$p("Your IV / Predictor Variable(s):"),
+        # wired_select(inputId = "predictor",
+        #              label = "Independent Variable(s):", 
+        #              choices = textOutput(outputId = "variable_names"), 
+        #              multiple = TRUE),
         # selectizeInput(inputId, label, choices, selected = NULL, multiple = FALSE,
         #                options = NULL),
         # or just include "multiple = TRUE"
@@ -58,7 +62,8 @@ ui <- fluidPage(
                          "Multilevel Model / LME")
              ),
         tags$br(), 
-        tags$br()
+        tags$br(),
+        tags$p(textOutput(outputId = "variable_names"))
     ), #sidebar panel
     mainPanel(
         tabsetPanel(
@@ -72,6 +77,9 @@ ui <- fluidPage(
                      ), 
             tabPanel("Describe Data", 
                      DT::dataTableOutput("description")
+                     ),
+            tabPanel("Correlations",
+                     tags$p("SjPlot's Correlations go here")
                      ),
             tabPanel("Plot"), 
             tabPanel("Output Summary")
@@ -119,12 +127,12 @@ server <- function(input, output, session) {
    # 
    # or is it???
    observe({
-       x <- names(input$datasetInput)
-       
+       x <- names(datasetInput())
+
        # Can use character(0) to remove all choices
        if (is.null(x))
            x <- character(0)
-       
+
        # Can also set the label and select items
        updateSelectInput(session, "responsevar",
                          label = paste("Dependent Varibale:", length(x)),
@@ -132,7 +140,7 @@ server <- function(input, output, session) {
                          selected = tail(x, 1)
        )
    })
-   
+
    
    
    
