@@ -19,3 +19,5 @@ Output should include `SjPlot`'s tab_model output for APA-style regression table
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, provided I can figure out what exactly the error was with `mice`'s MCMC imputation. 
 
+## Better names:
+www.backoftheenvelope.com  ?
