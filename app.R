@@ -26,7 +26,13 @@ library(magrittr)
 ui <- fluidPage(
     titlePanel("Regression by Hand"),
     sidebarLayout(sidebarPanel(
-        fileInput("FileInput", "Input Your Data Set (Must be .csv)"),
+        fileInput("FileInput", "Input Your Data Set (Must be .csv)", 
+                 placeholder = "No file selected",
+                 accept = c(
+                    "text/csv",
+                    "text/comma-separated-values,text/plain",
+                    ".csv")
+                 ), #fileinput
 
         tags$br(),
         tags$p(tags$b("Build your Model:")), 
