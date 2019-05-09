@@ -5,3 +5,12 @@ select2Input("select2Input1","This is a multiple select2Input. The items are re-
 
 
 f()<-as.formula(paste0(...))
+
+
+fa("envelope", fill = "steelblue")
+fa("envelope-open", fill = "steelblue")
+fa("envelope-open-text", fill = "steelblue")
+fa("chart-line", fill = "steelblue")
+fa("chart-bar", fill = "steelblue")
+fa("chart-area", fill = "steelblue")
+fa("r-project", fill = "steelblue")
