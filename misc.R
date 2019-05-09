@@ -4,4 +4,4 @@ select2Input("select2Input1","This is a multiple select2Input. The items are re-
          )
 
 
-f()<-as.function(paste0(...))
+f()<-as.formula(paste0(...))
