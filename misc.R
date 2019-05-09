@@ -14,3 +14,8 @@ fa("chart-line", fill = "steelblue")
 fa("chart-bar", fill = "steelblue")
 fa("chart-area", fill = "steelblue")
 fa("r-project", fill = "steelblue")
+
+# robust:
+library(MASS)
+rlm_mod <- rlm(stack.loss ~ ., stackloss, psi = psi.bisquare)  # robust reg model
+summary(rlm_mod)
