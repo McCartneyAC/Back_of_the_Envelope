@@ -109,12 +109,7 @@ server <- function(input, output, session) {
     })
     
     output$table = DT::renderDataTable(datasetInput())
-    
-    output$variable_names <- reactive({
-        if (is.null(datasetInput()))
-            return(NULL)
-        names(datasetInput()) 
-        })
+  
     
    desc <- reactive({
         if (is.null(datasetInput()))
@@ -126,31 +121,14 @@ server <- function(input, output, session) {
    #     c("mean", "sd", "min", "max", "range", "se"),2)
    output$description =  DT::renderDataTable(desc())
    
-   
-   
-   # update the list of variables available for dependent variable when user
-   # inputs a data set. this is currently broken. 
-   # 
-   # or is it???
-   observe({
-       x <- names(datasetInput())
-
-       # Can use character(0) to remove all choices
-       if (is.null(x))
-           x <- character(0)
-
-       # Can also set the label and select items
-       updateSelectInput(session, "responsevar",
-                         label = paste("Dependent Varibale:", length(x)),
-                         choices = x,
-                         selected = tail(x, 1)
-       )
-   })
 
    
-   
-   
-   
+# thanks to Simon for this:
+# https://stackoverflow.com/users/7742981/simon-s-a
+     observeEvent(datasetInput(),{
+    updateSelectInput(session, "responsevar", choices = names(datasetInput()))
+  })
+
    
    
 } #server
