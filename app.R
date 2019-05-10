@@ -47,7 +47,7 @@ ui <- fluidPage(
         tags$p("Your DV / Response Variable:"),
         wired_select(inputId = "responsevar",
                      label = "Dependent Varibale:", 
-                     choices = textOutput(outputId = "variable_names")
+                     choices = NULL
                      ),
         # checkbox input
         tags$p("Your IV / Predictor Variable(s):"),
