@@ -4,8 +4,17 @@ select2Input("select2Input1","This is a multiple select2Input. The items are re-
          )
 
 
-f()<-as.formula(paste0(...))
-
+f()<-reactive({
+  as.formula(paste0(input$dependentvar, " ~ ", input$indevar))
+  })
+model<-reactive({
+  if (robust = FALSE){
+  lm(f(), data = dataInput())
+    }
+  else {
+    rlm(f(), data = dataInput())
+    }
+  })
 
 fa("envelope", fill = "steelblue")
 fa("envelope-open", fill = "steelblue")
