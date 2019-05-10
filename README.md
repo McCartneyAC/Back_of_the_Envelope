@@ -21,3 +21,8 @@ With a sufficient amount of effort, this could actually be a pretty good tool fo
 
 ## Better names:
 www.backoftheenvelope.com  ?
+
+## reading material:
+https://stackoverflow.com/questions/38878113/implementing-reactive-values-in-regression-using-shiny?rq=1
+https://stackoverflow.com/questions/56068825/use-selectbox-to-create-regression-formula-from-user-input-dataset/56069365#56069365
+
