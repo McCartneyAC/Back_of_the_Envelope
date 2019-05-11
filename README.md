@@ -15,7 +15,13 @@ Use combinations of `wired.js` and the R `xkcd` package to make the entire thing
 With sufficient on-your-own data preparation, this tool should be sufficient for basic regression analyses for beginner-to-intermediate level social-science use. I have no plans to implement latent-variable / structural equation modeling at this time. 
 
 ## To Do: 
-Output should include `SjPlot`'s tab_model output for APA-style regression tables (if you can change the font back to Times New Roman) and `ggplot2` representations of the model, included added-variable plots for multiple regression models. Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places. 
+* Output should include `SjPlot`'s tab_model output for APA-style regression tables (if you can change the font back to Times New Roman) 
+*  `ggplot2` representations of the model, included added-variable plots for multiple regression models. 
+* Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places. 
+* ~include correlation table from `SjPlot`~
+* ~include data table~
+* ~include `psych::describe`~
+
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, provided I can figure out what exactly the error was with `mice`'s MCMC imputation. 
 
