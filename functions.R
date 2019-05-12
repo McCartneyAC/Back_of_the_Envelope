@@ -1,0 +1,18 @@
+library(shiny)
+library(shinydashboard)
+library(shinythemes)
+library(shinydashboardPlus)
+library(wired)
+library(xkcd)
+# library(extrafont)
+library(DT)
+library(psych)
+library(magrittr)
+library(dplyr)
+library(sjPlot)
+library(MASS)
+# loadfonts()
+
+is_extant <-function(x) any(!is.na(x))
+is_numeric<-function(x) any(is.numeric(x))
+
