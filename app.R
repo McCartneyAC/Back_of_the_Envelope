@@ -38,7 +38,7 @@ ui <- fluidPage(
                        choices = NULL, 
                        selected = NULL, 
                        # CHANGE ME LATER
-                       multiple = FALSE,
+                       multiple = TRUE,
                        options = NULL),
 
         wired_select(
@@ -52,8 +52,7 @@ ui <- fluidPage(
         selectInput(inputId = "clust",
                     label = "Cluster Varibale:", 
                     choices = NULL
-        ),
-        wired_button("regress", label = "Run Regression")
+        )
     ), #sidebar panel
     mainPanel(
         tabsetPanel(
@@ -61,6 +60,7 @@ ui <- fluidPage(
                      tags$p("This is intended to be a toy point-and-click-style regression tool to practice R Shiny application development and to enumerate the complexities available in regression analysis. Like R itself, this tool comes with absolutely no warranty. "),
                      tags$p("Use the tool by uploading your own data set in .csv format (.xlsx functionality coming soon). Browse your data and examine the variables' descriptive statistics, as well as the table of correlations, then create your model to run. "),
                      tags$p("The sketchy nature of the application is intended to deter its use for actual serious purposes and strengthen the feeling of it being a back-of-the-envelope tool for regression analysis."), 
+                     tags$p(tags$b("What this app doesn't do:"), "This app does not allow for any kind of data preparation. Techniques such as interaction terms, exponential terms, or complex extensions such as regression discontinuity need to be done in whatever data-preparation program you choose to use (e.g. excel) before data can be uploaded and used here."),
                      tags$p("Back of the Envelope was built with the following R packages: Shiny, wired, xkcd, DT, psych, SjPlot, MASS, mccrr, and the tidyverse.")
                      ),
             tabPanel("Table",
@@ -144,9 +144,22 @@ server <- function(input, output, session) {
    # Create REgression Formula
   #  lm1 <- reactive({lm(reformulate(input$indevars, input$responsevar), data = datasetInput())})
    # regression formula
-   regFormula <- reactive({
-       as.formula(paste(input$responsevar, '~', input$indevars))
+   
+   feats <- reactive({
+       if(length(input$indevars != 1)) {
+           paste(input$indevars, collapse = " + ")
+       } else {
+           paste(input$indevars)
+       }
    })
+
+   
+   regFormula <- reactive({
+       as.formula(paste(input$responsevar, '~', feats()))
+   })
+   
+   output$feats <- feats
+   output$regFormula <- regFormula
    
    # bivariate model
    model <- reactive({
@@ -157,19 +170,16 @@ server <- function(input, output, session) {
        }
    })
    
-   # model <- reactive({
-   #     lm(regFormula(), data = datasetInput())
-   # })
-   #bivariate model
+
    output$model <- renderPrint({
        summary(model())
    })
 
    #Display Regression Model Summary:
-output$tabmodel <- renderUI({
-    modeltab<- tab_model(model())
-    HTML(modeltab$knitr)
-})
+   output$tabmodel <- renderUI({
+       modeltab <- tab_model(model())
+       HTML(modeltab$knitr)
+   })
 
 
    
