@@ -17,7 +17,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 ## To Do: 
 * Output should include `SjPlot`'s tab_model output for APA-style regression tables (if you can change the font back to Times New Roman) 
 *  `ggplot2` representations of the model, included added-variable plots for multiple regression models. 
-* Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places. 
+* ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
 * ~include `psych::describe`~
