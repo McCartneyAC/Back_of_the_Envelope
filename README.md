@@ -15,13 +15,13 @@ Use combinations of `wired.js` and the R `xkcd` package to make the entire thing
 With sufficient on-your-own data preparation, this tool should be sufficient for basic regression analyses for beginner-to-intermediate level social-science use. I have no plans to implement latent-variable / structural equation modeling at this time. 
 
 ## To Do: 
-* Output should include `SjPlot`'s tab_model output for APA-style regression tables (if you can change the font back to Times New Roman) 
+* ~Output should include `SjPlot`'s tab_model output for APA-style regression tables~
 *  `ggplot2` representations of the model, included added-variable plots for multiple regression models. 
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
 * ~include `psych::describe`~
-* Robust Specification
+* ~Robust Specification~ 
 * Logistic Regression up and running
 * Multivariate Regression Up and running
 * clusters:
