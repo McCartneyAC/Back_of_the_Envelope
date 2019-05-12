@@ -23,7 +23,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~include `psych::describe`~
 * ~Robust Specification~ 
 * Logistic Regression up and running
-* Multivariate Regression Up and running
+* ~Multivariate Regression Up and running~
 * clusters:
 * * Linear Mixed
 * * fixed
