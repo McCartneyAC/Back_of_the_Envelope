@@ -12,11 +12,12 @@ library(dplyr)
 library(sjPlot)
 library(MASS)
 library(fontawesome)
+library(car)
+library(robust)
 # loadfonts()
 
 is_extant <-function(x) any(!is.na(x))
 is_numeric<-function(x) any(is.numeric(x))
-
 
 sjp_corr <- function (data, title = NULL, axis.labels = NULL, sort.corr = TRUE, 
                       decimals = 3, na.deletion = c("listwise", "pairwise"), 

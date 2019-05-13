@@ -24,7 +24,7 @@ ui <- fluidPage(
         wired_radio(
             inputId = "rgrssn", label = "Regression:",
             choices = c("linear" = "linear",
-                        "logistic" = "logistic")
+                        "logistic (coming soon)" = "logistic")
         ),
         wired_toggle(inputId = "rbst", label = "Robust Standard Errors"),
         tags$p(tags$b("Select your variables for analysis:")),
@@ -36,7 +36,6 @@ ui <- fluidPage(
         selectizeInput("indevars", "Your IV / Predictor Variable(s):", 
                        choices = NULL, 
                        selected = NULL, 
-                       # CHANGE ME LATER
                        multiple = TRUE,
                        options = NULL),
 
@@ -50,7 +49,7 @@ ui <- fluidPage(
              selected = "None"
              ),
         selectInput(inputId = "clust",
-                    label = "Cluster Varibale:", 
+                    label = "Cluster Varibale: (coming soon)", 
                     choices = NULL
         )
 
@@ -79,9 +78,19 @@ ui <- fluidPage(
                      ),
             tabPanel("Plot", 
                      tabsetPanel(type = "tabs",
-                                 tabPanel("Bivariate", plotOutput("bivariate")
+                                 tabPanel("Bivariate", 
+                                          plotOutput("bivariate")
+                                          # , plotOutput("bivar-resid")
                                           ),
-                                 tabPanel("Multiple Regression" # , tableOutput("table_mult")
+                                 tabPanel("Multiple Regression", 
+                                          tags$h4("Added Variable Plots"),
+                                          selectInput(inputId = "restricted",
+                                                      label = "Select your Predictor", 
+                                                      choices = NULL
+                                          ), 
+                                          
+                                          tableOutput("plot_mult"), 
+                                          textOutput("feats2")
                                           )
                      )
                      ), 
@@ -152,7 +161,9 @@ server <- function(input, output, session) {
    observeEvent(datasetInput(),{
        updateSelectInput(session, "indevars", choices = names(datasetInput()))
    })
-   
+   observeEvent(datasetInput(),{
+       updateSelectInput(session, "restricted", choices = names(datasetInput()))
+   })
 
    
    
@@ -173,8 +184,8 @@ server <- function(input, output, session) {
        as.formula(paste(input$responsevar, '~', feats()))
    })
    
-   # Linear Model
-   model <- reactive({
+   # Model Building
+   linear <- reactive ({
        if (input$rbst) {
            MASS::rlm(regFormula(), data = datasetInput())
        } else {
@@ -182,6 +193,21 @@ server <- function(input, output, session) {
        }
    })
    
+   logistic <- reactive({
+       if (input$rbst) {
+       robust::glmRob(regFormula(), data = datasetInput(), family = binomial(), method = "cubif") 
+       } else {   
+       glm(regFormula(), data = datasetInput(), family = "binomial")
+       }
+   })
+   
+   model <- reactive({
+       if (input$rgrssn == "logistic") {
+           logistic()
+       } else {
+           linear()
+       }
+   })
 
    output$model <- renderPrint({
        summary(model())
@@ -218,10 +244,30 @@ server <- function(input, output, session) {
            theme_xkcd() +
            xkcdaxis(xrange(), yrange())
 )
-
-
-
+   # output$plot_mult <- renderPlot(
+   #     car::avPlots(model(), data = datasetInput())
+   # )
+   # 
+   # 
+   # restrictor<-reactive({
+   #     input$restricted
+   # })
+   # output$feats2 <- reactive({
+   #     if(length(input$indevars >= 2)) {
+   #         indvariable() %>% 
+   #             select(-restrictor) %>% 
+   #             paste(., collapse = " + ")
+   #     } else {
+   #         print("select more variables")
+   #     }
+   # })
+   # 
+   # 
+   # output$plot_mult2<- renderPlot(
+   # )
 } #server
 
 
 shinyApp(ui = ui, server = server)
+
+    
