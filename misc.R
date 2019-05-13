@@ -27,3 +27,23 @@ model <- reactive({
     linear()
     }
 })
+
+
+# Data import
+use <- function(name) {
+  csv <- ".csv"
+  xlsx <- ".xlsx"
+  dta <- ".dta"
+  sav <- ".sav"
+  if (grepl(csv, name)) {
+    readr::read_csv(name)
+  } else if (grepl(xlsx, name)) {
+    readxl::read_xlsx(name)
+  } else if (grepl(dta, name)) {
+    haven::read_dta(name)
+  } else if (grepl(sav, name)) {
+    haven::read_spss(name)
+  } else {
+    stop("unknown data type.")
+  }
+}
