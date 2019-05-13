@@ -47,3 +47,17 @@ use <- function(name) {
     stop("unknown data type.")
   }
 }
+
+
+   output$bivariate <- renderPlot(
+       datasetInput() %>%
+           ggplot(aes_string(x = indvariable(), y = depvariable())) +
+           geom_jitter() +
+           geom_smooth(method = "lm") +
+           theme_xkcd() +
+           xkcdaxis(xrange(), yrange())
+)
+
+  output$trivariate <- renderPlot(
+    datasetInput() %>%
+        ggplot(aes_string(x = ...
