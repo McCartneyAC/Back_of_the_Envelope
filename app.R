@@ -4,12 +4,7 @@
 # 
 # 
 # # to implement: 
-# 
 # display bivariate regression model with ggplot
-# regression output with sjplot / sjstat
-# select regression types? 
-# 
-# 
 # , 
 source("functions.R")
 
@@ -237,12 +232,21 @@ server <- function(input, output, session) {
        input$responsevar
    })
    output$bivariate <- renderPlot(
+       if (input$rgrssn == "linear") {
        datasetInput() %>%
            ggplot(aes_string(x = indvariable(), y = depvariable())) +
-           geom_jitter() +
+           geom_point() +
            geom_smooth(method = "lm") +
            theme_xkcd() +
            xkcdaxis(xrange(), yrange())
+       } else if (input$rgrssn == "logistic") {
+           datasetInput() %>%
+               ggplot(aes_string(x = indvariable(), y = depvariable())) +
+               geom_point() +
+               geom_smooth(method="glm",method.args = list(family = "binomial")) +
+               theme_xkcd() +
+               xkcdaxis(xrange(), yrange())
+       }
 )
    # output$plot_mult <- renderPlot(
    #     car::avPlots(model(), data = datasetInput())
