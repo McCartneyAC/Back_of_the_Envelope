@@ -1,4 +1,4 @@
-# Back of the Envelope
+# 🖂 📉 Back of the Envelope
 can we build a basic point-and-click regression analysis tool with R shiny? 
 
 
