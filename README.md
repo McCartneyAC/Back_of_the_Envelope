@@ -1,4 +1,4 @@
-# 🖂 📉 Back of the Envelope
+# 🖂  Back of the Envelope 📉 
 can we build a basic point-and-click regression analysis tool with R shiny? 
 
 
@@ -22,7 +22,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~include data table~
 * ~include `psych::describe`~
 * ~Robust Specification~ 
-* Logistic Regression up and running
+* ~Logistic Regression up and running~
 * ~Multivariate Regression Up and running~
 * clusters:
 * * Linear Mixed
