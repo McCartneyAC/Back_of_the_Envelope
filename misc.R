@@ -104,12 +104,43 @@ regress<- function(df, cluster = NA, ...) {
 
 
 
-
-
-
-
-
+ xrange <- reactive({
+       datasetInput() %>% 
+       select_(input$indevars) %>% 
+       range()
+   })
+   yrange <- reactive({
+       datasetInput() %>% 
+       select_(input$responsevar) %>% 
+       range()   
+   })
+   indvariables <- reactive({
+       input$indevars
+   })
+    iv1 <- reactive({
+      indevariables()[1]
+      })
+    iv2 <- reactive({
+      indevariables()[2]
+      })
+   depvariable <- reactive({
+       input$responsevar
+   })
 
   output$trivariate <- renderPlot(
     datasetInput() %>%
-        ggplot(aes_string(x = ...
+        ggplot(aes_string(x = iv1(), y = depvariable(), color = iv2())) + 
+          geom_jitter() +
+          geom_smooth(method = "lm") +
+          theme_xkcd() +
+          xkcdaxis(xrange(), yrange())
+    )
+ plot <- renderPlot({
+   if (length(indevariables() == 1)) {
+     output$bivariate
+     } else if (length(indeariables() == 2)) {
+     output$trivariate 
+     } else {
+     NULL 
+     }
+   })
