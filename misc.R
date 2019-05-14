@@ -88,7 +88,19 @@ lme_model <-lmer(lnwg ~ 1 + (1 |id), data = hours)
 
 
 
-
+regress<- function(df, cluster = NA, ...) {
+  require(miceadds)
+  require(multiwayvcov)
+  if (is.na(cluster)) {
+    summary(
+      lm(data = df, ...)
+    )
+  } else {
+    summary(
+      lm.cluster(data = df, cluster = cluster, ...)
+    )
+  }
+}
 
 
 
