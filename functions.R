@@ -16,6 +16,11 @@ library(car)
 library(robust)
 # loadfonts()
 
+dir.create('~/.fonts')
+file.copy("www/xkcd.ttf", "~/.fonts")
+system('fc-cache -f ~/.fonts')
+
+
 is_extant <-function(x) any(!is.na(x))
 is_numeric<-function(x) any(is.numeric(x))
 
@@ -150,7 +155,7 @@ sjp_corr <- function (data, title = NULL, axis.labels = NULL, sort.corr = TRUE,
                      breaks = seq_len(length(axis.labels))) + 
     scale_fill_gradientn(colours = geom.colors, 
                          limits = c(-1, 1)) + 
-    geom_text(size = 3.5, colour = "black", family = "xkcd") + 
+    geom_text(size = 4, colour = "black", family = "xkcd") + 
     labs(title = title, x = NULL, y = NULL)
   
   if (show.legend) 
@@ -182,3 +187,11 @@ get_p_stars <- function(pval, thresholds = NULL) {
     TRUE ~ ""
   )
 }
+
+
+theme_xkcd <- theme(panel.grid.major = element_blank(), axis.ticks = element_line(colour = "black"),  
+                   panel.background = element_blank(), panel.grid.minor = element_blank(), 
+                   legend.key = element_blank(), strip.background = element_blank(), 
+                   text = element_text(size = 16, family = "xkcd"))
+
+

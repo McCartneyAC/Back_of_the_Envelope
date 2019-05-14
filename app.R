@@ -19,7 +19,7 @@ ui <- fluidPage(
         wired_radio(
             inputId = "rgrssn", label = "Regression:",
             choices = c("linear" = "linear",
-                        "logistic (coming soon)" = "logistic")
+                        "logistic" = "logistic")
         ),
         wired_toggle(inputId = "rbst", label = "Robust Standard Errors"),
         tags$p(tags$b("Select your variables for analysis:")),
@@ -78,7 +78,7 @@ ui <- fluidPage(
                                           # , plotOutput("bivar-resid")
                                           ),
                                  tabPanel("Multiple Regression", 
-                                          tags$h4("Added Variable Plots"),
+                                          tags$h4("Added Variable Plots (forthcoming)"),
                                           selectInput(inputId = "restricted",
                                                       label = "Select your Predictor", 
                                                       choices = NULL
@@ -92,7 +92,8 @@ ui <- fluidPage(
             tabPanel("Output Summary", 
                      tags$p("Be sure to include a null_model if LME is selected and if a cluster is chosen"),
                      htmlOutput("tabmodel")
-                     )
+                     ),
+            tabPanel("Outlier Analysis")
         ) #tabset Panel
     ) #main panel
     ) #sidebarlayout
@@ -127,6 +128,7 @@ server <- function(input, output, session) {
         if (is.null(datasetInput()))
             return(NULL)
         psych::describe(datasetInput(), fast = T) %>% 
+            add_rownames(var = "Variable") %>% 
             mutate(mean = round(mean, 2)) %>% 
             mutate(sd = round(sd, 2)) %>% 
             mutate(se = round(se, 2)) %>% 
@@ -142,7 +144,10 @@ server <- function(input, output, session) {
            select_if(is_extant) %>% 
            select_if(is_numeric) %>% 
            sjp_corr(data = ., sort.corr = T, decimals = 2, na.deletion = "pairwise", show.p = FALSE) + 
-           theme_xkcd() 
+           theme(panel.grid.major = element_blank(), axis.ticks = element_line(colour = "black"),  
+                 panel.background = element_blank(), panel.grid.minor = element_blank(), 
+                 legend.key = element_blank(), strip.background = element_blank(), 
+                 text = element_text(size = 16, family = "xkcd"))
    )
    
    
@@ -237,16 +242,22 @@ server <- function(input, output, session) {
            ggplot(aes_string(x = indvariable(), y = depvariable())) +
            geom_point() +
            geom_smooth(method = "lm") +
-           theme_xkcd() +
+               theme(panel.grid.major = element_blank(), axis.ticks = element_line(colour = "black"),  
+                     panel.background = element_blank(), panel.grid.minor = element_blank(), 
+                     legend.key = element_blank(), strip.background = element_blank(), 
+                     text = element_text(size = 16, family = "xkcd")) + 
            xkcdaxis(xrange(), yrange())
        } else if (input$rgrssn == "logistic") {
            datasetInput() %>%
                ggplot(aes_string(x = indvariable(), y = depvariable())) +
                geom_point() +
                geom_smooth(method="glm",method.args = list(family = "binomial")) +
-               theme_xkcd() +
+               theme(panel.grid.major = element_blank(), axis.ticks = element_line(colour = "black"),  
+                     panel.background = element_blank(), panel.grid.minor = element_blank(), 
+                     legend.key = element_blank(), strip.background = element_blank(), 
+                     text = element_text(size = 16, family = "xkcd")) +
                xkcdaxis(xrange(), yrange())
-       }
+       } else {NULL}
 )
    # output$plot_mult <- renderPlot(
    #     car::avPlots(model(), data = datasetInput())
