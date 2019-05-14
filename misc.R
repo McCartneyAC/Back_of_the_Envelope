@@ -58,6 +58,46 @@ use <- function(name) {
            xkcdaxis(xrange(), yrange())
 )
 
+
+
+
+
+        wired_select(
+             inputId = "clstr",
+             label = "Clusters?",
+             choices = c("None",
+                         "Fixed Effects",
+                         "Cluster Standard Errors",
+                         "Multilevel Model / LME"),
+             selected = "None"
+             ),
+        selectInput(inputId = "clust",
+                    label = "Cluster Varibale: (coming soon)", 
+                    choices = NULL
+        )
+
+
+lme_model <-lmer(lnwg ~ 1 + (1 |id), data = hours)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   output$trivariate <- renderPlot(
     datasetInput() %>%
         ggplot(aes_string(x = ...
