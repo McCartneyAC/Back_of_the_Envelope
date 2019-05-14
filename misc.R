@@ -54,7 +54,10 @@ use <- function(name) {
            ggplot(aes_string(x = indvariable(), y = depvariable())) +
            geom_jitter() +
            geom_smooth(method = "lm") +
-           theme_xkcd() +
+                          theme(panel.grid.major = element_blank(), axis.ticks = element_line(colour = "black"),  
+                     panel.background = element_blank(), panel.grid.minor = element_blank(), 
+                     legend.key = element_blank(), strip.background = element_blank(), 
+                     text = element_text(size = 16, family = "xkcd")) +
            xkcdaxis(xrange(), yrange())
 )
 
@@ -132,7 +135,10 @@ regress<- function(df, cluster = NA, ...) {
         ggplot(aes_string(x = iv1(), y = depvariable(), color = iv2())) + 
           geom_jitter() +
           geom_smooth(method = "lm") +
-          theme_xkcd() +
+                         theme(panel.grid.major = element_blank(), axis.ticks = element_line(colour = "black"),  
+                     panel.background = element_blank(), panel.grid.minor = element_blank(), 
+                     legend.key = element_blank(), strip.background = element_blank(), 
+                     text = element_text(size = 16, family = "xkcd")) +
           xkcdaxis(xrange(), yrange())
     )
  plot <- renderPlot({
