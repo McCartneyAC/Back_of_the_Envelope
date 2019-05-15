@@ -28,6 +28,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * Linear Mixed
 * * fixed
 * * standard errors
+* ~Additional common filetypes supported. (stata, spss, csv, excel)~
 
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, provided I can figure out what exactly the error was with `mice`'s MCMC imputation. 
