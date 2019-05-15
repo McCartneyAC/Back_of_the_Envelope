@@ -111,7 +111,7 @@ server <- function(input, output, session) {
         infile <- input$FileInput
         if (is.null(infile))
             return(NULL)
-        read.csv(infile$datapath, header = TRUE)
+        use(infile$datapath)
     })
     
     # display the data

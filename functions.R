@@ -24,6 +24,28 @@ system('fc-cache -f ~/.fonts')
 is_extant <-function(x) any(!is.na(x))
 is_numeric<-function(x) any(is.numeric(x))
 
+# Data import
+use <- function(name) {
+  csv <- ".csv"
+  xlsx <- ".xlsx"
+  dta <- ".dta"
+  sav <- ".sav"
+  if (grepl(csv, name)) {
+    readr::read_csv(name)
+  } else if (grepl(xlsx, name)) {
+    readxl::read_xlsx(name)
+  } else if (grepl(dta, name)) {
+    haven::read_dta(name)
+  } else if (grepl(sav, name)) {
+    haven::read_spss(name)
+  } else {
+    stop("unknown data type.")
+  }
+}
+
+
+
+
 sjp_corr <- function (data, title = NULL, axis.labels = NULL, sort.corr = TRUE, 
                       decimals = 3, na.deletion = c("listwise", "pairwise"), 
                       corr.method = c("pearson", "spearman", "kendall"), 
