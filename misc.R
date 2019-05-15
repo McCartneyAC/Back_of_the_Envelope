@@ -133,6 +133,7 @@ regress<- function(df, cluster = NA, ...) {
   output$trivariate <- renderPlot(
     datasetInput() %>%
         ggplot(aes_string(x = iv1(), y = depvariable(), color = iv2())) + 
+    # and if fixed effects are selected, make color = factor(iv2())
           geom_jitter() +
           geom_smooth(method = "lm") +
                          theme(panel.grid.major = element_blank(), axis.ticks = element_line(colour = "black"),  
