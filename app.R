@@ -209,9 +209,6 @@ server <- function(input, output, session) {
        }
    })
 
-   output$model <- renderPrint({
-       summary(model())
-   })
 
    #Display Regression Model Summary:
    output$tabmodel <- renderUI({
