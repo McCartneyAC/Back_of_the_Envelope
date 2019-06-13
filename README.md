@@ -39,6 +39,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * Cook's Distance Calculator (onHover over ggplot)
 * * Leverage Calculator?
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
+* Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference. 
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, provided I can figure out what exactly the error was with `mice`'s MCMC imputation. 
 
