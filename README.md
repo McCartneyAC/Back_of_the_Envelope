@@ -20,7 +20,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * ~bivariate~
 * * two independent variables
 * * added variable plots
-* * Plot residuals. (it's just predicted v actual)
+* * Plot residuals. (it's just [predicted v actual] + [residual v fitted])
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
