@@ -151,3 +151,25 @@ regress<- function(df, cluster = NA, ...) {
      NULL 
      }
    })
+
+
+### NEW PLOTS
+# Predicted V. Actual
+m1<-dat3 %>% 
+ lm(scaled_score ~ fsiq, data = .)  
+
+dat3  %>% 
+ filter(!is.na(fsiq))  %>% 
+ mutate(predicted = fitted(m1))  %>% 
+ ggplot(., aes(x = predicted, y = scaled_score)) + 
+ geom_point() + 
+ geom_smooth(method = "lm", linetype = "dotdash", se = FALSE) + 
+ labs(title = "Predicted vs. Actual", x = "fitted points", y = "Actual")
+
+# Plot Residuals 
+dat3 %>% 
+ lm(scaled_score ~ fsiq, data = .)  %>% 
+ ggplot(., aes(x = .fitted, y = .resid)) + 
+ geom_point() + 
+ geom_smooth(method = "lm", linetype = "dotdash", se = FALSE) + 
+ labs(title = "Residuals of Model", x = "fitted points", y = "residuals")
