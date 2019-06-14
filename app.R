@@ -255,7 +255,8 @@ server <- function(input, output, session) {
             panel.grid.minor = element_blank(),
             legend.key = element_blank(),
             strip.background = element_blank(),
-            text = element_text(size = 16, family = "xkcd")
+            text = element_text(size = 16, family = "xkcd") + 
+            geom_vline(xintercept = 0,  linetype='dashed')
          ) 
    )
    
