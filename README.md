@@ -16,11 +16,13 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 
 ## To Do: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
+* * there be dragons with clustered standard errors
 * `ggplot2` representations of the model
 * * ~bivariate~
+* * ~bivariate residual plot~
 * * two independent variables
 * * added variable plots
-* * Plot residuals. (it's just [predicted v actual] + [residual v fitted])
+* * Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
@@ -31,18 +33,19 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * clusters:
 * * Linear Mixed
 * * fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)
-* * standard errors
+* * standard errors (this will make error for SjPlot see his tweet reply on this topic)
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
 * ~fix odd error with spaces in variable names~
-* Instrumental variables / two-stage least squares? 
+* Instrumental variables / two-stage least squares? (Save for 1.2)
 * ~margins plots~
 * Outlier Analysis:
 * * Cook's Distance Calculator (onHover over ggplot)
 * * Leverage Calculator?
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
 * Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference. 
+* Additional Wired elements: Cards (for left panel)
 
-With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, provided I can figure out what exactly the error was with `mice`'s MCMC imputation. 
+With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, ~provided I can figure out what exactly the error was with `mice`'s MCMC imputation.~ imputation is gonna have to wait for v1.2 at the absolute earliest. 
 
 ## Better names:
 www.backoftheenvelope.com  ?
