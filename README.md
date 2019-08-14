@@ -35,6 +35,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)
 * * standard errors (this will make error for SjPlot see his tweet reply on this topic)
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
+* * need to add support for google sheets ????
 * ~fix odd error with spaces in variable names~
 * Instrumental variables / two-stage least squares? (Save for 1.2)
 * ~margins plots~
