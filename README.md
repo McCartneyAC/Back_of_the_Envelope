@@ -45,6 +45,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * Leverage Calculator?
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
 * Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference. 
+* * or 1 for logistic obv. 
 * Additional Wired elements: Cards (for left panel)
 * fancy shiny? https://www.r-bloggers.com/forget-about-excel-use-these-r-shiny-packages-instead/
 
