@@ -46,6 +46,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
 * Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference. 
 * Additional Wired elements: Cards (for left panel)
+* fancy shiny? https://www.r-bloggers.com/forget-about-excel-use-these-r-shiny-packages-instead/
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, ~provided I can figure out what exactly the error was with `mice`'s MCMC imputation.~ imputation is gonna have to wait for v1.2 at the absolute earliest. 
 
