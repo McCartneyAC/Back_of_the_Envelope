@@ -58,6 +58,7 @@ www.backoftheenvelope.com  ?
 * https://stackoverflow.com/questions/38878113/implementing-reactive-values-in-regression-using-shiny?rq=1
 * https://stackoverflow.com/questions/56068825/use-selectbox-to-create-regression-formula-from-user-input-dataset/56069365#56069365
 * https://stackoverflow.com/questions/43102554/build-linear-regression-with-dynamic-inputs-in-r-shiny?rq=1
+* Reformulate: http://novicemetrics.blogspot.com/2011/04/forming-formulas.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+CoffeeAndEconometricsInTheMorning+%28Coffee+and+Econometrics+in+the+Morning%29
 
 ### it's been done:
 but not with user-input data:
