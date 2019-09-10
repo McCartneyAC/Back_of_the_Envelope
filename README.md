@@ -48,6 +48,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * or 1 for logistic obv. 
 * Additional Wired elements: Cards (for left panel)
 * fancy shiny? https://www.r-bloggers.com/forget-about-excel-use-these-r-shiny-packages-instead/
+* Deployable as a package with a single function to run the app in browser
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, ~provided I can figure out what exactly the error was with `mice`'s MCMC imputation.~ imputation is gonna have to wait for v1.2 at the absolute earliest. 
 
