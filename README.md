@@ -46,7 +46,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
 * Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference. 
 * * or 1 for logistic obv. 
-* * plot_model(m1, vline.color = "red") (it's already built in to SjP)
+* * `plot_model(m1, vline.color = "red")` (it's already built in to SjP)
+* * Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`
 * Additional Wired elements: Cards (for left panel)
 * fancy shiny? https://www.r-bloggers.com/forget-about-excel-use-these-r-shiny-packages-instead/
 * Deployable as a package with a single function to run the app in browser
