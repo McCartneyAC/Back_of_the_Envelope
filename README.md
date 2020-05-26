@@ -54,6 +54,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * use `broom` or other tidymodels packages to clean up -> `SjPlot` reporting. 
 * Quantiles? `geom_quantile()`
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
+* `ggvis` overhaul, at least for main two or three plots? 
+
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, ~provided I can figure out what exactly the error was with `mice`'s MCMC imputation.~ imputation is gonna have to wait for v1.2 at the absolute earliest. 
 
