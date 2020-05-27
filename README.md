@@ -21,7 +21,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * `ggplot2` representations of the model
 * * ~bivariate~
 * * ~bivariate residual plot~
-* * two independent variables
+* * two independent variables (close!)
 * * added variable plots
 * * Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
@@ -46,19 +46,16 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * Cook's Distance Calculator (onHover over ggplot)
 * * Leverage Calculator?
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
-* Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference. 
-* * or 1 for logistic obv. 
-* * `plot_model(m1, vline.color = "red")` (it's already built in to SjP)
-* * Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`
-* Additional Wired elements: Cards (for left panel)
-* fancy shiny? https://www.r-bloggers.com/forget-about-excel-use-these-r-shiny-packages-instead/
-* Deployable as a package with a single function to run the app in browser
-* use `broom` or other tidymodels packages to clean up -> `SjPlot` reporting. 
+* ~Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference.~ 
+* * ~or 1 for logistic obv.~ 
+* * ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
+* * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
+* editable data tables: https://github.com/jbryer/DTedit
 * Quantiles? `geom_quantile()`
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
 * `ggvis` overhaul, at least for main two or three plots? 
 * ~rearrange upload / model page (incorporates text of current model)~
-* * drop-down message of current model
+* * drop-down message of current model (nixed due to error logging)
 
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, ~provided I can figure out what exactly the error was with `mice`'s MCMC imputation.~ imputation is gonna have to wait for v1.2 at the absolute earliest. 
