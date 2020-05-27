@@ -16,7 +16,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 
 ## To Do: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
-* * there be dragons with clustered standard errors
+* * ~there be dragons with clustered standard errors~
+* * Dragons Slayed. 
 * `ggplot2` representations of the model
 * * ~bivariate~
 * * ~bivariate residual plot~
@@ -32,9 +33,9 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~Multivariate Regression Up and running~
 * clusters:
 * * Linear Mixed
-* * fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)
+* * ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
 * * * option to eliminate coefficients with `felm()`
-* * standard errors (this will make error for SjPlot see his tweet reply on this topic)
+* * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
 * * need to add support for google sheets ????
 * ~fix odd error with spaces in variable names~
@@ -56,6 +57,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Quantiles? `geom_quantile()`
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
 * `ggvis` overhaul, at least for main two or three plots? 
+* ~rearrange upload / model page (incorporates text of current model)~
+* * drop-down message of current model
 
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, ~provided I can figure out what exactly the error was with `mice`'s MCMC imputation.~ imputation is gonna have to wait for v1.2 at the absolute earliest. 
