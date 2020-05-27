@@ -56,6 +56,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * `ggvis` overhaul, at least for main two or three plots? 
 * ~rearrange upload / model page (incorporates text of current model)~
 * * drop-down message of current model (nixed due to error logging)
+* ~sassy message when they ask for logistic regression residuals.~ 
 
 ## User Feedback:
 * For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors
