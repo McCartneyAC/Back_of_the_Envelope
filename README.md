@@ -41,6 +41,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Instrumental variables / two-stage least squares? (Save for 1.2)
 * ~margins plots~
 * Outlier Analysis:
+* * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
 * * Cook's Distance Calculator (onHover over ggplot)
 * * Leverage Calculator?
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
