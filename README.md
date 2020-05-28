@@ -6,12 +6,6 @@ can we build a basic point-and-click regression analysis tool with R shiny?
 
 Build a general purpose regression tool, incorporating extensions to regression such as heteroskedasticity-robust standard errors, clustered standard errors, multilevel modeling, and logistic regression. 
 
-## Subgoal: 
-
-Use combinations of `wired.js` and the R `xkcd` package to make the entire thing look goofy and hand drawn so that no one takes it seriously. 
-
-
-
 With sufficient on-your-own data preparation, this tool should be sufficient for basic regression analyses for beginner-to-intermediate level social-science use. I have no plans to implement latent-variable / structural equation modeling at this time. 
 
 ## To Do: 
@@ -21,9 +15,9 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * `ggplot2` representations of the model
 * * ~bivariate~
 * * ~bivariate residual plot~
-* * two independent variables (close!)
+* * ~two independent variables (close! close? finished!)~
 * * added variable plots
-* * Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
+* * ~Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)~
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
@@ -57,6 +51,11 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~rearrange upload / model page (incorporates text of current model)~
 * * drop-down message of current model (nixed due to error logging)
 * ~sassy message when they ask for logistic regression residuals.~ 
+* ~Model Diagnostics~
+* * ~QQ plot~
+* * ~resid v fitted~
+* * ~histogram of residuals~
+
 
 ## User Feedback:
 * For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors
