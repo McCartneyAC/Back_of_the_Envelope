@@ -5,8 +5,8 @@ library(shinydashboardPlus)
 library(shinyWidgets)
 library(DT)
 library(psych)
-library(magrittr)
 library(dplyr)
+library(tidyr)
 library(sjPlot)
 library(MASS)
 library(fontawesome)
@@ -17,7 +17,7 @@ library(multiwayvcov)
 library(miceadds)
 library(estimatr)
 library(ggplot2)
-
+library(lindia)
 
 
 
@@ -30,6 +30,7 @@ use <- function(name) {
    xlsx <- ".xlsx"
    dta <- ".dta"
    sav <- ".sav"
+   rda <- ".rda"
    if (grepl(csv, name)) {
       readr::read_csv(name)
    } else if (grepl(xlsx, name)) {
@@ -38,6 +39,8 @@ use <- function(name) {
       haven::read_dta(name)
    } else if (grepl(sav, name)) {
       haven::read_spss(name)
+   } else if (grep1(rda, name)) {
+      load(name)
    } else {
       stop("unknown data type.")
    }
@@ -55,8 +58,12 @@ gg_added_var <- function(partial, extended, se = TRUE) {
    avPlot <- ggplot(
       data = data.frame(x = partial_residuals, y = full_residuals),
       aes(x = partial_residuals, y = full_residuals)
-   ) +
-      geom_point()
+   ) + 
+     labs(title = "Added Variable Plot", 
+          x = "Residuals Regressing chosen X (on all other predictors)", 
+          y = "Residuals Regressing Y (without chosen X)") + 
+      geom_point() + 
+        theme_light()
    if (se) {
       avPlot <- avPlot +
          stat_smooth(method = "lm")
@@ -68,12 +75,6 @@ gg_added_var <- function(partial, extended, se = TRUE) {
 }
 
 
-
-
-
-
-
-
 ui <- dashboardPage(skin = "black",
                     dashboardHeader(title = "Back of the Envelope"
                                     #dropdownMenuOutput("formula_message")
@@ -81,20 +82,26 @@ ui <- dashboardPage(skin = "black",
                     dashboardSidebar(
                        sidebarMenu(id = "sidebar",
                                    tags$br(),
+                                   tags$h3("Information:"),
                                    menuItem("About", tabName = "grand_about", icon = icon("book")),
-                                   tags$h3("Regression:"),
-                                   menuItem("Upload & Model", tabName = "reg_about", icon = icon("upload")),
-                                   menuItem("Data Set", tabName = "reg_data", icon = icon("superscript")),
+                                   menuItem("FAQ", tabName = "FAQ_tab", icon = icon("info")),
+                                   tags$h3("Your Data:"),
+                                   # split upload from model
+                                   menuItem("Upload", tabName = "reg_upload", icon = icon("upload")),
+                                    #upload with data
+                                   menuItem("Variables", tabName = "reg_variables", icon = icon("superscript"), 
+                                            badgeLabel = "broken", badgeColor = "red"),
                                    menuItem("Describe", tabName = "reg_desc", icon = icon("list-ol")),
                                    menuItem("Correlation Table", tabName = "reg_cor", icon = icon("th")),
-                                   menuItem("Plots", tabName = "reg_plot", icon = icon("line-chart"),
-                                            badgeLabel = "partial", badgeColor = "orange"),
-                                   menuItem("Summary", tabName = "reg_sum", icon = icon("list")),
-                                   menuItem("Diagnostics", tabName = "reg_ddx", icon = icon("x-ray"),
-                                            badgeLabel = "pending", badgeColor = "red"),
+                                   tags$h3("Regression:"),
+                                   menuItem("Model", tabName = "reg_model", icon = icon("cogs")),
+                                    #model adjustments and model view. 
+                                   menuItem("Summary", tabName = "reg_sum", icon = icon("list-alt")),
+                                   menuItem("Plots", tabName = "reg_plot", icon = icon("line-chart")),
+                                   menuItem("Diagnostics", tabName = "reg_ddx", icon = icon("x-ray")),
                                    menuItem("Outliers", tabName = "reg_outlier", icon = icon("sliders"),
-                                            badgeLabel = "pending", badgeColor = "red"),
-                                   menuItem("FAQ", tabName = "FAQ_tab", icon = icon("info"))
+                                            badgeLabel = "partial", badgeColor = "orange")
+
                                    
                                    
                                    
@@ -112,137 +119,204 @@ ui <- dashboardPage(skin = "black",
                           
                           #masthead
                           tabItem(tabName = "grand_about", 
-                                  box(title = "About",width = 7,
+                                  box(title = "About",width = 7,solidHeader = TRUE,
                                       tags$p("This is intended to be a toy point-and-click-style regression tool to practice R Shiny application development and to enumerate the complexities available in regression analysis. Like R itself, this tool comes with absolutely no warranty. Use the features to quickly explore options for regression and their effect on your analysis, but resist the urge to p-hack.")
-                                      ),
-                                  box(title = "Use", width = 7,
+                                      ) , #box
+                                  box(title = "Use", width = 7,solidHeader = TRUE,
                                       tags$p("Use the tool by uploading your own data set in one of the listed formats. Browse your data and examine the variables' descriptive statistics, as well as the table of correlations, then create your model to run. Check the model diagnostics, distribution of error terms, and your outliers to determine if there are better options for dealing with your data. More sophisticated modeling techniques are being added on an ongoing basis."), tags$p("What this app doesn't do: This app does not allow for any kind of data preparation. Techniques such as interaction terms, exponential terms, or complex extensions such as regression discontinuity need to be done in whatever data-preparation program you choose to use (e.g. excel) before data can be uploaded and used here. For example, to include polynomials, create a new variable in your dataset that is x", 
-tags$sup("2"), "and re-upload the dataset to run a new regression.  Fixed effects are supported, but if you wish to choose your reference category, you will need to create dummy variables in your dataset and re-upload.")),# use 
-                                  box(title= "Credit", width =7,
-                                      tags$p("Back of the Envelope was built with myriad R packages, among them: Shiny & shinydashboard, DT for the tables, psych, SjPlot for model summaries, estimatr and MASS for robust estimations, mccrr, and the tidyverse."), 
-                                      tags$p(tags$b("last updated: 5/27/2020")),
+tags$sup("2"), "and re-upload the dataset to run a new regression.  Fixed effects are supported, but if you wish to choose your reference category, you will need to create dummy variables in your dataset and re-upload.")), # use 
+                                  box(title= "Credit", width =7,solidHeader = TRUE, #for all the good it does. 
+                                      tags$p("Back of the Envelope was built with myriad R packages, among them: Shiny & shinydashboard for the UI, DT for the tables, psych for its ubiquitous describe function, SjPlot for model summaries, correlations, and margins plots, estimatr and MASS for robust estimations, lindia for the diagnostic models, mccrr, and the tidyverse."), 
+                                      tags$p(tags$b("last updated: 5/31/2020")),
                                       socialButton(url = "https://github.com/McCartneyAC/average_of_polls/", type = "github")
                                   ) #box
                           ) , #tabItem
                           
-                          # Regression
-                          # # About
-                          tabItem(tabName = "reg_about",
-                                  fluidRow(
-                                     column( width = 6,
-                                             box( title = "Upload and Model",width = NULL,
+                          # DATA SUBSECTION
+                          # 
+                          tabItem(tabName = "reg_upload",
+                                             box( title = "Upload and Model",width = 7,
                                                   fileInput("FileInput", "Input Your Data Set"),
-                                                  helpText("Dataset must be one of: .csv, .sav, .dta, or .xlsx")
+                                                  helpText("Dataset must be one of: .csv, .sav, .dta, .xlsx, or .rda")
                                              ), #upload box
-                                             box(title = "Your Model:",width = NULL,
-                                                 textOutput("regformula")
-                                             ), # model box
-                                     ),
-                                     column(width = 6,
-                                            box(title = "Build Your Model:",width = NULL,
-                                                radioButtons(
-                                                   inputId = "rgrssn", label = "Regression:",
-                                                   choices = c("linear" = "linear",
-                                                               "logistic" = "logistic")
-                                                ),
-                                                #shinywidget
-                                                materialSwitch(inputId = "rbst", label = "Robust Standard Errors"),
-                                                #wired_toggle(inputId = "rbst", label = "Robust Standard Errors"),
-                                                tags$p(tags$b("Select your variables for analysis:")),
-                                                selectInput(inputId = "responsevar",
-                                                            label = "Your DV / Response Variable:", 
-                                                            choices = NULL
-                                                ),
-                                                
-                                                selectizeInput("indevars", "Your IV / Predictor Variable(s):", 
-                                                               choices = NULL, 
-                                                               selected = NULL, 
-                                                               multiple = TRUE,
-                                                               options = NULL),
-                                                
-                                                selectInput(
-                                                   inputId = "clstr",
-                                                   label = "Clustering Type:",
-                                                   choices = c("No Clustering",
-                                                               "Fixed Effects",
-                                                               "Cluster Standard Errors",
-                                                               "Multilevel / LME / HLM (coming soon)"),
-                                                   selected = NA
-                                                ), 
-                                                selectInput(inputId = "clust",
-                                                            label = "Cluster Variable:", 
-                                                            choices = NULL
-                                                )#select input
-                                            ) #upload box
-                                     ) #column
-                                  ) #fluidrow
-                          ), #tabItem
-                          # # Data Set
-                          tabItem(tabName = "reg_data",
-                                  title = "Dataset",
-                                  DT::dataTableOutput("reg_data_table")
-                          ),
+                              #      box(title = "Your Data", width = 11, 
+                                        DT::dataTableOutput("reg_data_table")
+                                 #       ) # box (Dataset output)
+
+                          ), #tabItem (reg upload)
+                          # # Variables
+                          tabItem(tabName = "reg_variables", title = "Variables", 
+                                  box(
+                                    selectInput("reg_variables_choice","Choose a Variable:", 
+                                                choices = NULL, 
+                                                selected = NULL), 
+                                    plotOutput("var_matrix")                              
+                                  )
+
+                                  ),
                           # # Describe
                           tabItem(tabName = "reg_desc", title = "Describe", 
                                   DT::dataTableOutput("description")),
                           # # Correlation
                           tabItem(tabName = "reg_cor", title = "Correlations",
-                                  plotOutput("cors")),
+                                  box(title = "Correlation Matrix", width = 11,
+                                      plotOutput("cors")
+                                      )# box
+                                  ), #tabItem
+
+
+
+
+                          # MODEL SUBSECTION
+
+
+                          tabItem(tabName = "reg_model", title = "Build your Model",
+                                  box(title = "Your Model:",width = 7,
+                                      textOutput("regformula")
+                                  ), # model output box
+                                  
+                                  
+                                  
+                                  box(title = "Build Your Model:",width = 7,
+                                      radioButtons(
+                                        inputId = "rgrssn", label = "Regression:",
+                                        choices = c("linear" = "linear",
+                                                    "logistic" = "logistic")
+                                      ),
+                                      #shinywidget
+                                      materialSwitch(inputId = "rbst", label = "Robust Standard Errors"),
+                                      #wired_toggle(inputId = "rbst", label = "Robust Standard Errors"),
+                                      tags$p(tags$b("Select your variables for analysis:")),
+                                      selectInput(inputId = "responsevar",
+                                                  label = "Your DV / Response Variable:", 
+                                                  choices = NULL
+                                      ),
+                                      
+                                      selectizeInput("indevars", "Your IV / Predictor Variable(s):", 
+                                                     choices = NULL, 
+                                                     selected = NULL, 
+                                                     multiple = TRUE,
+                                                     options = NULL),
+                                      selectInput("instrument","Instrumental Variable (forthcoming)", 
+                                                  choices = NULL, 
+                                                  selected = NULL),
+                                      selectInput(
+                                        inputId = "clstr",
+                                        label = "Clustering Type:",
+                                        choices = c("No Clustering",
+                                                    "Fixed Effects",
+                                                    "Cluster Standard Errors",
+                                                    "Multilevel / LME / HLM (coming soon)"),
+                                        selected = NA
+                                      ), 
+                                      selectInput(inputId = "clust",
+                                                  label = "Cluster Variable:", 
+                                                  choices = NULL
+                                      ) #, #select input
+                                      # tags$p("Subset by Variable"), 
+                                      # selectInput(inputId = "subset_var",
+                                      #             label = "Subset Variable:", 
+                                      #             choices = NULL
+                                      # ), 
+                                      # selectInput(inputId = "subset_val",
+                                      #             label = "Subset Value:", 
+                                      #             choices = NULL
+                                      # )
+                                  ) #model building box
+
+                                  ), #tabitem model building
                           # # Plot
                           tabItem(tabName = "reg_plot", title = "Plot", 
                                   tabsetPanel(type = "tabs",
                                               tabPanel("Marginal Effects",
                                                        plotOutput("marginal")),
                                               tabPanel("One IV", 
+                                                       tags$p("This plot accepts only the first Independent Variable chosen."), tags$br(), 
+                                                       tags$p("If your model has more than 1 predictor, it will be ignored.  
+                                                              To change which variable is shown, simply return to the model page and re-order the variables. "),
                                                        plotOutput("bivariate"), 
                                                        tags$p("residuals:"), 
                                                        plotOutput("bivar_resid")
                                               ),
                                               tabPanel("Two IVs",
-                                                       plotOutput("trivariate")),
+                                                       tags$p("This plot accepts only the first two Independent Variables chosen."), tags$br(), 
+                                                       tags$p("If your model has more than 2 predictors, those are ignored. 
+                                                              To change which variable is represented by color, simply return to the model page and re-order the variables. "),
+                                                       plotOutput("trivariate"), 
+                                                       ),
                                               tabPanel("Added Variable Plots", 
-                                                       tags$h4("Added Variable Plots (forthcoming)"),
+                                                       tags$h4("Added Variable Plots"),
+                                                      # textOutput("restricted_reg_formula"), 
                                                        selectInput(inputId = "restricted",
                                                                    label = "Select your Predictor", 
                                                                    choices = NULL
-                                                       ), 
+                                                       ),
+                                                       helpText("AV Plots require at least two continuous predictor variables. Otherwise you will receive an error."),
                                                        plotOutput("avplot")
-                                              )
-                                  ) #tabset panel
-                          ), #tabitem 
+                                              ) #tab panel (added variable)
+                                  ) #tabset panel (plotting tabs)
+                          ), #tabitem (plots page)
                           # # Summary
                           tabItem(tabName = "reg_sum", title = "Output Summary", 
                                   box(
-                                     tags$p("Be sure to include a null_model if LME is selected and if a cluster is chosen"),
-                                     tags$br(), 
+                                    #  TODO: Be sure to include a null_model if LME is selected and if a cluster is chosen
+                                    # tags$br(), 
                                      htmlOutput("tabmodel")
                                   ) #box
                           ),
+                           # # Diagnostic Plots
+                        tabItem(tabName = "reg_ddx", title = "Diagnostic Plots", 
+                                tabsetPanel(type = "tabs",
+                                   tabPanel("Residuals", 
+                                            box(plotOutput("hist_resid"))
+                                            ),
+                                   tabPanel("QQ Plot", 
+                                            box(plotOutput("normal_qq"))
+                                            ),
+                                   tabPanel("Residual vs Fitted", 
+                                            box(plotOutput("resid_v_fitted"))
+                                            )# tab panel
+                                   ) #tabset panel
+                                ), #reg_ddx tab
                           # # Outliers
                           tabItem(tabName = "reg_outlier", title = "Outlier Analysis",
                                   tabsetPanel(type = "tabs",
                                               tabPanel("Cook's Distance", 
-                                                       tags$p("Select one independent variable:")
+                                                       box(plotOutput("cooks_d"))
                                               ), # Cook's Distance
-                                              tabPanel("Leverage"),
-                                              tabPanel("Influence Index" 
-                                                       # car::influenceIndexPlot(model())
-                                              )
+                                              tabPanel("Leverage", 
+                                                       box(
+                                                         tags$p("Coming soon, I promise"),
+                                                         tags$p("Here: interactive graph to allow for point-and-click deletion of outlying points."),
+                                                       )),
+                                              tabPanel("Influence Index", 
+                                                       box(
+                                                         tags$p("Leverage: extremity on X"),
+                                                         tags$p("Discrepancy: extremity on Y"),
+                                                         tags$p("Coming soon, I promise"),
+                                                         tags$p("First - Studentized Residuals"),
+                                                         tags$p("Second - hat values"),
+                                                          # car::influenceIndexPlot(model())
+                                                       )#box
+                                              )#tabPanel
                                   ) #tabset panel
                           ),# tab item.
                           tabItem(tabName = "FAQ_tab",
-                                  box(
+                                  box(title = "Frequently Asked",
                                      tags$p(tags$b("How did it get started? "), 
-                                               "Back of the Envelope is the culmination of two and maybe more?) project ideas that I have worked on in the year 2019. When I first learned to use Shiny R, I couldn't get the idea out of my head that someone should build a point-and-click style regression tool that utilized all and only those presets that I found helpful and that gave its output in ways that I tended to use when doing homework or preparing presentations and publications. Several extant R packages were outputting results in APA format our otherwise had defaults that were best-in-the-industry for a grad student. After leaving grad school, I put this idea into practice. The original version used wired.js and R's xkcd package to make all regression plots and fonts look hand-drawn. In this iteration, I have restored defaults so you can use it directly in publications. You're welcome...but I do miss the sketchiness.
+                                               "Back of the Envelope is the culmination of two (and maybe more?) project ideas that I have worked on in the year 2019. When I first learned to use Shiny R, I couldn't get the idea out of my head that someone should build a point-and-click style regression tool that utilized all and only those presets that I found helpful and that gave its output in ways that I tended to use when doing homework or preparing presentations and publications. Several extant R packages were outputting results in APA format our otherwise had defaults that were best-in-the-industry for a grad student. After leaving grad school, I put this idea into practice. The original version used wired.js and R's xkcd package to make all regression plots and fonts look hand-drawn. In this iteration, I have restored defaults so you can use it directly in publications. You're welcome...but I do miss the sketchiness.
 
 The idea is a dangerous amount of statistical sophistication: enough to give it a strong semblance of accuracy, but leaving out the super technical details that might be important for research publication. Back of the Envelope regression is good enough for stat homework and basic publications." 
 ),
-                                       tags$p(tags$b("How can I support the project?"), "By clicking on the paypal link on the left, you can contribute to the project and keep it up and running."),
-                                       tags$p(tags$b("I got an error I don't understand!"), "In general, getting an error means you tried to do something that is either unsupported by the app at this time or impossible under the constraints or definitions of contemporary statistics. For example, supplying a continuous variable for logistic regression will get an error. (Supplying a binary variable to linear regression will get you a linear probability model.)"),    
-                                       tags$p(tags$b("I can't run the model I want!"), "As noted above, some things just aren't possible. For example, residuals are not normally distributed around a logistic regression model, so trying to check the residuals graph for logistic models will throw an error. If you're trying to do something that you think should be possible, please contact me (the @ symbol on the left). Binary models with mixed effects are currently unsupported, but it's in the works."),
-                                       tags$p(tags$b("Any mathematical notes?"),"Yes. Things like sums of squares vary from package to package, and significantly, between R and Stata. The sums of squares and standard errors found herein may or may not match those of other software. In general, it's best to cite your estimation package. Most of the available regression models herein are from the packages: MASS, CAR, estimatr, or lme4."),
-                                     tags$p("Include a diagram of available options (errors, etc)")
-                                  ) #box
+                                       tags$p(tags$b("How can I support the project?"), 
+                                              "By clicking on the paypal link on the left, you can contribute to the project and keep it up and running."),
+                                       tags$p(tags$b("I got an error I don't understand!"), "In general, getting an error means you tried to do something that is either unsupported by the app at this time or impossible under the constraints or definitions of contemporary statistics. For example, supplying a continuous variable for logistic regression will get an error. (Supplying a binary variable to linear regression will get you a linear probability model.). Otherwise, leaving things blank will produce errors--did you forget to upload data or define a model? That's the usual culprit."),    
+                                       tags$p(tags$b("I can't run the model I want!"), 
+                                              "As noted above, some things just aren't possible. For example, residuals are not normally distributed around a logistic regression model, so trying to check the residuals graph for logistic models will throw an error. If you're trying to do something that you think should be possible, please contact me (the @ symbol on the left). Binary models with mixed effects are currently unsupported, but it's in the works."),
+                                       tags$p(tags$b("Any mathematical notes?"),
+                                              "Yes. Things like sums of squares vary from package to package, and significantly, between R and Stata. The sums of squares and standard errors found herein may or may not match those of other software. In general, it's best to cite your estimation package. Most of the available regression models herein are from the packages: MASS, CAR, estimatr, or lme4.")
+                                 ), #box
+                                 box(tags$p("Include a diagram of available options (errors, etc)")) #box
                           ) # tab item. (LAST ONE)
 
                        ) #tabitems
@@ -275,18 +349,16 @@ server <- function(input, output, session) {
    observeEvent(datasetInput(), {
       updateSelectInput(session, "indevars", choices = names(datasetInput()))
    })
-   observeEvent(datasetInput(), {
-      updateSelectInput(session, "restricted", choices = names(datasetInput()))
+   observeEvent(indvariable(), {
+      updateSelectInput(session, "restricted", choices = indvariable())
    })
-   
-   # Variable Names (for use by everything)
-   output$variable_names <- reactive({
-      if (is.null(datasetInput()))
-         return(NULL)
-      gsub(" ", "_", names(datasetInput()), fixed = TRUE)
-   }) 
-   
-   
+   observeEvent(datasetInput(), {
+     updateSelectInput(session, "instrument", choices = names(datasetInput()))
+   })
+   observeEvent(datasetInput(), {
+     updateSelectInput(session, "reg_variables_choice", choices = names(datasetInput()))
+   })
+
    # Data Table --------------------------------------------------------------
    output$reg_data_table = DT::renderDataTable(datasetInput())
    
@@ -348,26 +420,28 @@ server <- function(input, output, session) {
    
    # Make the Formula Visual
    output$regformula<-reactive({
+     if (is.null(indvariable()) | is.null(depvariable()))
+       return(NULL)
       paste(deparse(regFormula(), width.cutoff = 500), collapse="")
    })
    
+   output$restricted_reg_formula <- reactive({
+     if (is.null(indvariable()) | is.null(depvariable()))
+       return(NULL)
+     paste(deparse(fullformula(), width.cutoff = 500), collapse="")
+   })
    
-   #### NIX THIS IT DOESN"T WORK ANYWAY
-   # output$formula_message <- renderMenu({
-   #   badgestat<-reactive({
-   #     if("try-error" %in% class(try(
-   #       paste(deparse(regFormula(), width.cutoff = 500), collapse="")
-   #     ))) {
-   #       NULL
-   #     } else {
-   #       "primary"
-   #     }
-   #     
-   #   })
-   #   dropdownMenu(type = "tasks",  badgeStatus = badgestat(),
-   #                messageItem(from= "Your Model Is:", icon = icon("chart-bar"),
-   #                            message = paste(deparse(regFormula(), width.cutoff = 500), collapse="")))
-   #   })
+   # creates the actual model summary object. 
+   output$model <- renderPrint({
+     if (is.null(indvariable()) | is.null(depvariable()))
+       return(NULL)
+      summary(model())
+   })
+   # passes model summary object into the Sjplot model summary HTML thing. 
+   output$tabmodel <- renderUI({
+      modeltab <- tab_model(model())
+      HTML(modeltab$knitr)
+   })  
    
    # Clustering Issues  
    
@@ -388,9 +462,6 @@ server <- function(input, output, session) {
       }
    })
    
-   
-   
-   
    logistic <- reactive({
       if (input$rbst) {
          robust::glmRob(
@@ -404,13 +475,7 @@ server <- function(input, output, session) {
       }
    })
    
-   
-   
-   
-   
-   
-   
-   
+
    model <- reactive({
       if (input$rgrssn == "logistic") {
          logistic()
@@ -422,27 +487,36 @@ server <- function(input, output, session) {
    
    # Plots (all of them) -----------------------------------------------------
    
-   
-   # Marginal Effects Plot:
-   output$marginal <- renderPlot(
-      plot_model(model())+
-         theme_light()
+   # Variables Plots
+   output$var_matrix <-renderPlot(
+     datasetInput() %>% 
+       select_if(is_extant) %>%
+       select_if(is_numeric) %>%
+       gather(key = "var", value = "value", reg_variables_choice()) %>% 
+       ggplot(aes(x = value)) +
+       geom_point(aes_string(y = reg_variables_choice())) +
+       facet_wrap(~ var, scales = "free") +
+       theme_light()
    )
    
+   # Marginal Effects Plot:
+   # 
+   #   if(is.null(datasetInput())){
+   #     return(NULL)
+   #   }
+   # else{
+     output$marginal <- renderPlot(
+       plot_model(model(), vline.color = "grey", show.values = TRUE, value.offset = .3)+
+         theme_light()
+     )
+     
+   #}
+
    
    
    
    # can this be exported to a sourced .R file to clean up the code? 
-   xrange <- reactive({
-      datasetInput() %>%
-         select_(input$indevars) %>%
-         range()
-   })
-   yrange <- reactive({
-      datasetInput() %>%
-         select_(input$responsevar) %>%
-         range()
-   })
+
    indvariable <- reactive({
       input$indevars
    })
@@ -461,22 +535,26 @@ server <- function(input, output, session) {
    model_residuals <-  reactive({
       residuals(model()) # Save the residual values
    })
-   y_range_residual <- reactive({
-      model_residuals() %>% 
-         range()
+
+   reg_variables_choice <- reactive({
+     input$reg_variables_choice
    })
+   # restricted_choice <- reactive({
+   #   input$restricted
+   # })
    
    
    #refactor this you fool. 
    output$bivariate <- renderPlot(if (input$rgrssn == "linear") {
+      #why won't this let me refactor it ????
       datasetInput() %>%
-         ggplot(aes_string(x = indvariable(), y = depvariable())) +
+         ggplot(aes_string(x = indvariable1(), y = depvariable())) +
          geom_point() +
          geom_smooth(method = "lm") +
          theme_light()
    } else if (input$rgrssn == "logistic") {
       datasetInput() %>%
-         ggplot(aes_string(x = indvariable(), y = depvariable())) +
+         ggplot(aes_string(x = indvariable1(), y = depvariable())) +
          geom_point() +
          geom_smooth(method = "glm",
                      method.args = list(family = "binomial")) +
@@ -487,12 +565,16 @@ server <- function(input, output, session) {
    
    output$bivar_resid <-  renderPlot(if (input$rgrssn == "linear") {
       datasetInput() %>%
-         ggplot(aes_string(x = indvariable(), y = model_residuals())) +
+         ggplot(aes_string(x = indvariable1(), y = model_residuals())) +
          geom_point() +
          geom_smooth(method = "lm") +
          theme_light()
    } else if (input$rgrssn == "logistic") {
-      print("Error is not normally distributed in logistic regression.")
+      datasetInput() %>%
+      ggplot(aes_string(x = indvariable1(), y = depvariable())) +
+      geom_point() +
+      annotate("text", x = mean(xrange()), y = mean(yrange()), label = "Error is not normally distributed in logistic regression.") +
+      theme_light()
    } else {
       print(NULL)
    })
@@ -503,8 +585,7 @@ server <- function(input, output, session) {
             x = indvariable1(),
             y = depvariable()
          )) +
-         # TODO: this is currently broken. 
-         geom_point(alpha = 0.6, aes(color = indvariable2())) +
+         geom_point(alpha = 0.6, aes_string(color = indvariable2())) +
          theme_light() + 
          geom_smooth(method = "lm")
    } else if (input$rgrssn == "logistic") {
@@ -513,7 +594,7 @@ server <- function(input, output, session) {
             x = indvariable1(),
             y = depvariable()
          )) +
-         geom_point(alpha = 0.6, aes(color = indvariable2())) +
+         geom_point(alpha = 0.6, aes_string(color = indvariable2())) +
          geom_smooth(method = "glm",
                      method.args = list(family = "binomial")) +
          theme_light()
@@ -521,88 +602,114 @@ server <- function(input, output, session) {
       print(NULL)
    })
    
+   # DIagnostic Plots! library(Lindia)
    
+   output$hist_resid <-renderPlot(
+      gg_reshist(model())+
+         theme_light()
+   )
+   
+   output$resid_v_fitted<-renderPlot(
+      gg_resfitted(model())+
+         theme_light()
+   )
+   
+   output$normal_qq<-renderPlot(
+      gg_qqplot(model())+
+         theme_light()
+   )
+
+   
+   output$cooks_d <- renderPlot(
+      gg_cooksd(model()) + 
+         theme_light()
+   )
+
    # AV PLOT CONSTRUCTION
-   rstrctd<-reactive({
-      names(input$indevars)[names(input$indevars) != input$restricted]
+   # Hey COOL : ( mod_vars = all.vars( formula(fit1) )[-1] ) grabs all the X variables. 
+   
+   restricted_choice <- reactive({
+     input$restricted
+   })
+   
+   rstrctd_list<-reactive({
+      indvariable()[indvariable() != restricted_choice()]
    })
    rstrctdfeats<- reactive({
-      paste(rstrctd(), collapse = " + ")
+      paste(rstrctd_list(), collapse = " + ")
    })
-   rstrctdformula <-  reactive({
-      as.formula(paste(input$responsevar, ' ~ ', rstrctdfeats()))
+   fullformula <-  reactive({
+      as.formula(paste(depvariable(), ' ~ ', rstrctdfeats()))
    })
    
-   # Model Building 
-   # TODO: Fix these models
-   rstrctdlinear <- reactive ({
-      if (input$rbst) {
-         MASS::rlm(rstrctdformula(), data = datasetInput())
-      } else {
-         lm(rstrctdformula(), data = datasetInput())
-      }
+   partialformula <-reactive({
+      as.formula(paste(restricted_choice(), ' ~ ', rstrctdfeats()))
    })
-   rstrctdlogistic <- reactive({
+   
+   # Model for Y ~ all but chosen X val
+   partiallinear <- reactive ({
+     if (input$rbst & (input$clstr == "Cluster Standard Errors")) {
+       lm_robust(partialformula(), clusters = cluster_var(), data = datasetInput())
+     } else {
+       lm(partialformula(), data = datasetInput())
+     }
+   })
+   partiallogistic <- reactive({
       if (input$rbst) {
          robust::glmRob(
-            rstrctdformula(),
+           partialformula(),
             data = datasetInput(),
             family = binomial(),
             method = "cubif"
          )
       } else {
-         glm(rstrctdformula(), data = datasetInput(), family = "binomial")
+         glm(partialformula(), data = datasetInput(), family = "binomial")
       }
    })
-   rstrctdmodel <- reactive({
+   partialdmodel <- reactive({
       if (input$rgrssn == "logistic") {
-         rstrctdlogistic()
+        partiallogistic()
       } else {
-         rstrctdlinear()
+        partiallinear()
       }
    })
    
-   
-   output$avplot <- renderPlot(
-      gg_added_var(partial = rstrctdmodel(), extended = model()) 
-      
-   )
-   
-   
-   
-   # Model Summary -----------------------------------------------------------
-   # creates the actual model summary object. 
-   output$model <- renderPrint({
-      summary(model())
+   # model for x_chosen ~ all other x values
+   fulllinear <- reactive ({
+     if (input$rbst & (input$clstr == "Cluster Standard Errors")) {
+       lm_robust(fullformula(), clusters = cluster_var(), data = datasetInput())
+     } else {
+       lm(fullformula(), data = datasetInput())
+     }
    })
-   # passes model summary object into the Sjplot model summary HTML thing. 
-   output$tabmodel <- renderUI({
-      modeltab <- tab_model(model())
-      HTML(modeltab$knitr)
-   })  
+   
+   fulllogistic <- reactive({
+     if (input$rbst) {
+       robust::glmRob(
+         fullformula(),
+         data = datasetInput(),
+         family = binomial(),
+         method = "cubif"
+       )
+     } else {
+       glm(fullformula(), data = datasetInput(), family = "binomial")
+     }
+   })
    
    
+   fullmodel <- reactive({
+     if (input$rgrssn == "logistic") {
+       fulllogistic()
+     } else {
+       fulllinear()
+     }
+   })
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+   # final choice
+   output$avplot <- renderPlot(
+      gg_added_var(extended = fullmodel(),  partial= partialdmodel()) 
+   )
 }
 
 shinyApp(ui, server)
