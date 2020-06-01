@@ -68,7 +68,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * ~so maybe separate the Upload and Model pieces entirely. Then restructure the left-hand nav to be something like Upload > View Data Set > Descriptive Statistics > Correlation Table > Model > Summary > Plots > Diagnostics~
 * * ~some suggestions in there to make the nav header more descriptive, and put summary before plots just so we get the immediate output of the model.~ with this, might even be worthwhile to put the model + summary on the same page actually
 * my last thought would be that it might be cool to allow for dplyr-style filtering of the uploaded dataset - I think it would be relatively straightforward, but also legit if you don't want to include that functionality as it could also be an enormous pain in the ass to try and catch edge-cases
-* * (in re dplyr style filtering: editable data tables are now possible, but that's a feature I have planned to work on after I squash all the inital bugs. it's gonna go: squash bugs, added variable plots, finish outliers, HLM, instrumental variables, THEN data processing)
+* * (in re dplyr style filtering: editable data tables are now possible, but that's a feature I have planned to work on after I squash all the inital bugs. it's gonna go: squash bugs, ~added variable plots~, finish outliers, HLM, instrumental variables, THEN data processing)
 * ooh, before I forget: I might also have a disclaimer or something re: what you do with the uploaded datasets. could spook some people when you actually have people using it for not just testing purposes
 
 
