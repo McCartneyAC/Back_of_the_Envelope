@@ -44,7 +44,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
 * * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
 * editable data tables: https://github.com/jbryer/DTedit
-* Quantiles? `geom_quantile()`
+* Quantiles? `geom_quantile()` 
+* * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
 * * surprisingly difficult. return to this later. 
 * `ggvis` overhaul, at least for main two or three plots? 
