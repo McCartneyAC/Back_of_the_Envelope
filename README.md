@@ -11,12 +11,12 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 ## To Do: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
 * * ~there be dragons with clustered standard errors~
-* * Dragons Slayed. 
-* `ggplot2` representations of the model
+* * Dragons Slain. 
+* ~`ggplot2` representations of the model~
 * * ~bivariate~
 * * ~bivariate residual plot~
 * * ~two independent variables (close! close? finished!)~
-* * added variable plots
+* * ~added variable plots~ Take that, math! 
 * * ~Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)~
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
@@ -37,7 +37,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~margins plots~
 * Outlier Analysis:
 * * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
-* * Cook's Distance Calculator (onHover over ggplot)
+* * ~Cook's Distance~
 * * Leverage Calculator?
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
 * ~Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference.~ 
@@ -47,6 +47,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * editable data tables: https://github.com/jbryer/DTedit
 * Quantiles? `geom_quantile()`
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
+* * surprisingly difficult. return to this later. 
 * `ggvis` overhaul, at least for main two or three plots? 
 * ~rearrange upload / model page (incorporates text of current model)~
 * * drop-down message of current model (nixed due to error logging)
@@ -55,15 +56,18 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * ~QQ plot~
 * * ~resid v fitted~
 * * ~histogram of residuals~
+* fix issue with missing points whenever there are residuals? what's that about. 
+* set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
+* rotate `SJP.corr()` table variables :/ 
 
 
 ## User Feedback:
 * For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors
 * Is there a way that you can override or modify the error messages?  Instead of "contact the app author", maybe provide a URL to a message board or email?
 * my big suggestion is just to clarify and restructure the flow of the user interface. I think my user preference is that I'd want to upload a dataset, look around in it, and then decide on a model
-*so maybe separate the Upload and Model pieces entirely. Then restructure the left-hand nav to be something like Upload > View Data Set > Descriptive Statistics > Correlation Table > Model > Summary > Plots > Diagnostics
-*some suggestions in there to make the nav header more descriptive, and put summary before plots just so we get the immediate output of the model. with this, might even be worthwhile to put the model + summary on the same page actually
-*my last thought would be that it might be cool to allow for dplyr-style filtering of the uploaded dataset - I think it would be relatively straightforward, but also legit if you don't want to include that functionality as it could also be an enormous pain in the ass to try and catch edge-cases
+* so maybe separate the Upload and Model pieces entirely. Then restructure the left-hand nav to be something like Upload > View Data Set > Descriptive Statistics > Correlation Table > Model > Summary > Plots > Diagnostics
+* some suggestions in there to make the nav header more descriptive, and put summary before plots just so we get the immediate output of the model. with this, might even be worthwhile to put the model + summary on the same page actually
+* my last thought would be that it might be cool to allow for dplyr-style filtering of the uploaded dataset - I think it would be relatively straightforward, but also legit if you don't want to include that functionality as it could also be an enormous pain in the ass to try and catch edge-cases
 * * (in re dplyr style filtering: editable data tables are now possible, but that's a feature I have planned to work on after I squash all the inital bugs. it's gonna go: squash bugs, added variable plots, finish outliers, HLM, instrumental variables, THEN data processing)
 *ooh, before I forget: I might also have a disclaimer or something re: what you do with the uploaded datasets. could spook some people when you actually have people using it for not just testing purposes
 
