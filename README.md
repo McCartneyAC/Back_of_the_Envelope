@@ -56,10 +56,10 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * ~QQ plot~
 * * ~resid v fitted~
 * * ~histogram of residuals~
-* fix issue with missing points whenever there are residuals? what's that about. 
+* fix issue with missing points whenever there are residuals? what's that about?? 
 * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
-* rotate `SJP.corr()` table variables :/ 
-
+* ~rotate `SJP.corr()` table variables~ :/ 
+* * fix left-right scroll on dataTableOutput. 
 
 ## User Feedback:
 * For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors
