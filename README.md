@@ -60,6 +60,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
 * ~rotate `SJP.corr()` table variables~ :/ 
 * * fix left-right scroll on dataTableOutput. 
+* nix the variables page and add a dossier page instead :) 
 
 ## User Feedback:
 * For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors
