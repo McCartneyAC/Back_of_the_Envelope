@@ -30,12 +30,13 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * * option to eliminate coefficients with `felm()`
 * * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
-* * need to add support for google sheets ????
+* * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
 * ~fix odd error with spaces in variable names~
 * Instrumental variables / two-stage least squares? (Save for 1.2)
 * ~margins plots~
 * Outlier Analysis:
 * * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
+* * * why doesn't this work? 
 * * ~Cook's Distance~
 * * Leverage Calculator?
 * * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
@@ -51,6 +52,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
 * * surprisingly difficult. return to this later. 
 * `ggvis` overhaul, at least for main two or three plots? 
+* * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
 * ~rearrange upload / model page (incorporates text of current model)~
 * * drop-down message of current model (nixed due to error logging)
 * ~sassy message when they ask for logistic regression residuals.~ 
@@ -59,10 +61,12 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * ~resid v fitted~
 * * ~histogram of residuals~
 * fix issue with missing points whenever there are residuals? what's that about?? 
+* * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
 * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
 * ~rotate `SJP.corr()` table variables~ :/ 
 * * fix left-right scroll on dataTableOutput. 
 * nix the variables page and add a dossier page instead :) 
+* * `dossier()` numeric return error. 
 
 ## User Feedback:
 * For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors
