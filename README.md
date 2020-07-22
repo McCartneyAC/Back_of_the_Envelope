@@ -12,11 +12,11 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
   * ~there be dragons with clustered standard errors~  Dragons Slain. 
 * ~`ggplot2` representations of the model~
-* * ~bivariate~
-* * ~bivariate residual plot~
-* * ~two independent variables (close! close? finished!)~
-* * ~added variable plots~ Take that, math! 
-* * ~Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)~
+  * ~bivariate~
+  * ~bivariate residual plot~
+  * ~two independent variables (close! close? finished!)~
+  * ~added variable plots~ Take that, math! 
+  * ~Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)~
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
@@ -25,64 +25,63 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~Logistic Regression up and running~
 * ~Multivariate Regression Up and running~
 * clusters:
-* * Linear Mixed
-* * ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
-* * * option to eliminate coefficients with `felm()`
-* * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
+  * Linear Mixed
+  * ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
+    * option to eliminate coefficients with `felm()`
+  * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
-* * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
+  * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
 * ~fix odd error with spaces in variable names~
 * Instrumental variables / two-stage least squares? (Save for 1.2)
 * ~margins plots~
 * Outlier Analysis:
-* * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
-* * * why doesn't this work? 
-* * ~Cook's Distance~
-* * Leverage Calculator?
-* * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
+  * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
+    * why doesn't this work? 
+  * ~Cook's Distance~
+  * Leverage Calculator?
+  * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
 * ~Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference.~ 
-* * ~or 1 for logistic obv.~ 
-* * ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
-* * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
+  * ~or 1 for logistic obv.~ 
+  * ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
+  * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
 * editable data tables: 
-* * idea one: https://github.com/jbryer/DTedit
-* * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
+  * idea one: https://github.com/jbryer/DTedit
+  * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
 * Quantiles? `geom_quantile()` 
-* * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
+  * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
-* * surprisingly difficult. return to this later. 
+  * surprisingly difficult. return to this later. 
 * `ggvis` overhaul, at least for main two or three plots? 
-* * surprisingly difficult. return to this later. 
-* * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
+  * surprisingly difficult. return to this later. 
+  * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
 * ~rearrange upload / model page (incorporates text of current model)~
-* * drop-down message of current model (nixed due to error logging)
+  * drop-down message of current model (nixed due to error logging)
 * ~sassy message when they ask for logistic regression residuals.~ 
 * ~Model Diagnostics~
-* * ~QQ plot~
-* * ~resid v fitted~
-* * ~histogram of residuals~
+  * ~QQ plot~
+  * ~resid v fitted~
+  * ~histogram of residuals~
 * fix issue with missing points whenever there are residuals? what's that about?? 
-* * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
-
+  * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
 * ~rotate `SJP.corr()` table variables~ :/ 
-* * fix left-right scroll on dataTableOutput. 
+  * fix left-right scroll on dataTableOutput. 
 * ~nix the variables page and add a dossier page instead :)~ 
-* * ~`dossier()` numeric return error.~ 
+  * ~`dossier()` numeric return error.~ 
 * overhaul the plot outputs so it's just:
-* * original plot (follows programmatically based on variables) with second tab for residuals
-* * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
-* * marginal effects plot
-* * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
+  * original plot (follows programmatically based on variables) with second tab for residuals
+  * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
+  * marginal effects plot
+  * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 * Allow `describe_by()` groupings with a material switch and a dropdown menu. 
 
 ## User Feedback:
 * ~For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors~
 * Is there a way that you can override or modify the error messages?  Instead of "contact the app author", maybe provide a URL to a message board or email?
 * ~my big suggestion is just to clarify and restructure the flow of the user interface. I think my user preference is that I'd want to upload a dataset, look around in it, and then decide on a model~
-* * ~so maybe separate the Upload and Model pieces entirely. Then restructure the left-hand nav to be something like Upload > View Data Set > Descriptive Statistics > Correlation Table > Model > Summary > Plots > Diagnostics~
-* * ~some suggestions in there to make the nav header more descriptive, and put summary before plots just so we get the immediate output of the model.~ with this, might even be worthwhile to put the model + summary on the same page actually
+  * ~so maybe separate the Upload and Model pieces entirely. Then restructure the left-hand nav to be something like Upload > View Data Set > Descriptive Statistics > Correlation Table > Model > Summary > Plots > Diagnostics~
+  * ~some suggestions in there to make the nav header more descriptive, and put summary before plots just so we get the immediate output of the model.~ with this, might even be worthwhile to put the model + summary on the same page actually
 * my last thought would be that it might be cool to allow for dplyr-style filtering of the uploaded dataset - I think it would be relatively straightforward, but also legit if you don't want to include that functionality as it could also be an enormous pain in the ass to try and catch edge-cases
-* * (in re dplyr style filtering: editable data tables are now possible, but that's a feature I have planned to work on after I squash all the inital bugs. it's gonna go: squash bugs, ~added variable plots~, finish outliers, HLM, instrumental variables, THEN data processing)
+  * (in re dplyr style filtering: editable data tables are now possible, but that's a feature I have planned to work on after I squash all the inital bugs. it's gonna go: squash bugs, ~added variable plots~, finish outliers, HLM, instrumental variables, THEN data processing)
 * ~ooh, before I forget: I might also have a disclaimer or something re: what you do with the uploaded datasets. could spook some people when you actually have people using it for not just testing purposes~
 
 
