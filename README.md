@@ -58,6 +58,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
   * marginal effects plot
   * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
+* triple-check that cluster standard errors and robust standard errors are properly specified. 
 
 ## 1.1 To Do List
 * Linear Mixed Effects
