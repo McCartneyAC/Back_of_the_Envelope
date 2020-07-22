@@ -59,6 +59,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * marginal effects plot
   * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 * triple-check that cluster standard errors and robust standard errors are properly specified. 
+* Available Models Matrix
 
 ## 1.1 To Do List
 * Linear Mixed Effects
@@ -81,6 +82,11 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
 * Allow `describe_by()` groupings with a material switch and a dropdown menu. 
 * `dplyr::filter()` regression on data subgroups. 
+
+## The Deep Future To Do List
+* Binary Outcome Mixed Effects
+  
+  
   
 ## User Feedback:
 * ~For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors~
