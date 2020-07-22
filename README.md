@@ -10,7 +10,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 
 ## To Do: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
-* * ~there be dragons with clustered standard errors~  Dragons Slain. 
+  * ~there be dragons with clustered standard errors~  Dragons Slain. 
 * ~`ggplot2` representations of the model~
 * * ~bivariate~
 * * ~bivariate residual plot~
