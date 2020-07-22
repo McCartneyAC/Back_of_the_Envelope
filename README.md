@@ -63,13 +63,14 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * ~histogram of residuals~
 * fix issue with missing points whenever there are residuals? what's that about?? 
 * * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
-* set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
+
 * ~rotate `SJP.corr()` table variables~ :/ 
 * * fix left-right scroll on dataTableOutput. 
 * ~nix the variables page and add a dossier page instead :)~ 
 * * ~`dossier()` numeric return error.~ 
 * overhaul the plot outputs so it's just:
 * * original plot (follows programmatically based on variables) with second tab for residuals
+* * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
 * * marginal effects plot
 * * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 
