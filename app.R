@@ -1,3 +1,6 @@
+
+# Libraries ---------------------------------------------------------------
+
 library(shiny)
 library(shinydashboard)
 library(shinythemes)
@@ -18,14 +21,30 @@ library(miceadds)
 library(estimatr)
 library(ggplot2)
 library(lindia)
+library(tibble)
+
+
+
+# HEY DUMMY LOOK HERE:
+url <- "https://github.com/rstudio/shiny/issues/998"
+
+
+# functions ---------------------------------------------------------------
 
 
 
 is_extant <-function(x) any(!is.na(x))
 is_numeric<-function(x) any(is.numeric(x))
 
+dossier<-function(df, id, value, ...){
+   id <- substitute(id)
+   t(filter(df, !!id  == value))
+}
+
+
 # Data import
 use <- function(name) {
+   # consider future support for .json? 
    csv <- ".csv"
    xlsx <- ".xlsx"
    dta <- ".dta"
@@ -75,6 +94,11 @@ gg_added_var <- function(partial, extended, se = TRUE) {
 }
 
 
+
+
+# UI components -----------------------------------------------------------
+
+
 ui <- dashboardPage(skin = "black",
                     dashboardHeader(title = "Back of the Envelope"
                                     #dropdownMenuOutput("formula_message")
@@ -89,8 +113,8 @@ ui <- dashboardPage(skin = "black",
                                    # split upload from model
                                    menuItem("Upload", tabName = "reg_upload", icon = icon("upload")),
                                     #upload with data
-                                   menuItem("Variables", tabName = "reg_variables", icon = icon("superscript"), 
-                                            badgeLabel = "broken", badgeColor = "red"),
+                                 #  this one probably isn't ever going to be a thing: 
+                                   menuItem("Dossier", tabName = "reg_dossier", icon = icon("id-card")),
                                    menuItem("Describe", tabName = "reg_desc", icon = icon("list-ol")),
                                    menuItem("Correlation Table", tabName = "reg_cor", icon = icon("th")),
                                    tags$h3("Regression:"),
@@ -99,7 +123,7 @@ ui <- dashboardPage(skin = "black",
                                    menuItem("Summary", tabName = "reg_sum", icon = icon("list-alt")),
                                    menuItem("Plots", tabName = "reg_plot", icon = icon("line-chart")),
                                    menuItem("Diagnostics", tabName = "reg_ddx", icon = icon("x-ray")),
-                                   menuItem("Outliers", tabName = "reg_outlier", icon = icon("sliders"),
+                                   menuItem("Outliers", tabName = "reg_outlier", icon = icon("wrench"),
                                             badgeLabel = "partial", badgeColor = "orange")
 
                                    
@@ -123,12 +147,12 @@ ui <- dashboardPage(skin = "black",
                                       tags$p("This is intended to be a toy point-and-click-style regression tool to practice R Shiny application development and to enumerate the complexities available in regression analysis. Like R itself, this tool comes with absolutely no warranty. Use the features to quickly explore options for regression and their effect on your analysis, but resist the urge to p-hack.")
                                       ) , #box
                                   box(title = "Use", width = 7,solidHeader = TRUE,
-                                      tags$p("Use the tool by uploading your own data set in one of the listed formats. Browse your data and examine the variables' descriptive statistics, as well as the table of correlations, then create your model to run. Check the model diagnostics, distribution of error terms, and your outliers to determine if there are better options for dealing with your data. More sophisticated modeling techniques are being added on an ongoing basis."), tags$p("What this app doesn't do: This app does not allow for any kind of data preparation. Techniques such as interaction terms, exponential terms, or complex extensions such as regression discontinuity need to be done in whatever data-preparation program you choose to use (e.g. excel) before data can be uploaded and used here. For example, to include polynomials, create a new variable in your dataset that is x", 
+                                      tags$p("Use the tool by uploading your own data set in one of the listed formats. Browse your data and examine the variables' descriptive statistics, as well as the table of correlations, then create your model to run. Check the model diagnostics, distribution of error terms, and your outliers to determine if there are better options for dealing with your data. More sophisticated modeling techniques are being added on an ongoing basis."), tags$p("What this app doesn't do: This app does not allow for any kind of data preparation (yet). Techniques such as interaction terms, exponential terms, or complex extensions such as regression discontinuity need to be done in whatever data-preparation program you choose to use (e.g. excel) before data can be uploaded and used here. For example, to include polynomials, create a new variable in your dataset that is x", 
 tags$sup("2"), "and re-upload the dataset to run a new regression.  Fixed effects are supported, but if you wish to choose your reference category, you will need to create dummy variables in your dataset and re-upload.")), # use 
                                   box(title= "Credit", width =7,solidHeader = TRUE, #for all the good it does. 
-                                      tags$p("Back of the Envelope was built with myriad R packages, among them: Shiny & shinydashboard for the UI, DT for the tables, psych for its ubiquitous describe function, SjPlot for model summaries, correlations, and margins plots, estimatr and MASS for robust estimations, lindia for the diagnostic models, mccrr, and the tidyverse."), 
-                                      tags$p(tags$b("last updated: 5/31/2020")),
-                                      socialButton(url = "https://github.com/McCartneyAC/average_of_polls/", type = "github")
+                                      tags$p("Back of the Envelope was built with myriad R packages, among them: Shiny & shinydashboard for the UI, DT for the tables, psych for its ubiquitous describe function, SjPlot for model summaries, correlations, and margins plots, estimatr and MASS for robust estimations, lindia for the diagnostic models, my own package mccrr, and the tidyverse."), 
+                                      tags$p(tags$b("last updated: 6/22/2020")),
+                                      socialButton(url = "https://github.com/McCartneyAC/Back_of_the_Envelope", type = "github")
                                   ) #box
                           ) , #tabItem
                           
@@ -139,27 +163,37 @@ tags$sup("2"), "and re-upload the dataset to run a new regression.  Fixed effect
                                                   fileInput("FileInput", "Input Your Data Set"),
                                                   helpText("Dataset must be one of: .csv, .sav, .dta, .xlsx, or .rda")
                                              ), #upload box
-                              #      box(title = "Your Data", width = 11, 
+                                   box(title = "Your Data", width = 11, 
                                         DT::dataTableOutput("reg_data_table")
-                                 #       ) # box (Dataset output)
+                                        ) # box (Dataset output)
 
                           ), #tabItem (reg upload)
                           # # Variables
-                          tabItem(tabName = "reg_variables", title = "Variables", 
+                          tabItem(tabName = "reg_dossier", title = "Dossier", 
                                   box(
-                                    selectInput("reg_variables_choice","Choose a Variable:", 
+                                    tags$p("The Dossier function allows you to select an individual observation among your data and observe all of its variables. This can be useful for detecting data problems, examining particular outliers, or seeing your variables at a glance."), 
+                                    selectInput("reg_dossier_ID","Choose an ID Variable:", 
                                                 choices = NULL, 
                                                 selected = NULL), 
-                                    plotOutput("var_matrix")                              
-                                  )
-
-                                  ),
+                                    selectInput("reg_dossier_choice", "Choose an Observation:",
+                                                choices = NULL, 
+                                                selected = NULL)
+                                  ), #box
+                                  box(
+                                     textOutput("doss_call"),
+                                     tags$br(), 
+                                     DT::dataTableOutput("dossier") 
+                                  ) #box
+                                  ),# tabItem Dossier
                           # # Describe
-                          tabItem(tabName = "reg_desc", title = "Describe", 
-                                  DT::dataTableOutput("description")),
+                          tabItem(tabName = "reg_desc", title = "Describe",  
+                                  box(title = "Data Description", width  = 10,
+                                    DT::dataTableOutput("description"))
+                                  ),
+
                           # # Correlation
                           tabItem(tabName = "reg_cor", title = "Correlations",
-                                  box(title = "Correlation Matrix", width = 11,
+                                  box(title = "Correlation Matrix", width = 12, height = 700, 
                                       plotOutput("cors")
                                       )# box
                                   ), #tabItem
@@ -229,30 +263,35 @@ tags$sup("2"), "and re-upload the dataset to run a new regression.  Fixed effect
                           tabItem(tabName = "reg_plot", title = "Plot", 
                                   tabsetPanel(type = "tabs",
                                               tabPanel("Marginal Effects",
-                                                       plotOutput("marginal")),
+                                                       box(title = "Marginal Effects", width = 9, 
+                                                       plotOutput("marginal")) #box
+                                                       ),
                                               tabPanel("One IV", 
+                                                       box(title = "Univariate Plot", width = 9,
                                                        tags$p("This plot accepts only the first Independent Variable chosen."), tags$br(), 
                                                        tags$p("If your model has more than 1 predictor, it will be ignored.  
                                                               To change which variable is shown, simply return to the model page and re-order the variables. "),
                                                        plotOutput("bivariate"), 
                                                        tags$p("residuals:"), 
-                                                       plotOutput("bivar_resid")
+                                                       plotOutput("bivar_resid"))
                                               ),
                                               tabPanel("Two IVs",
+                                                       box(title = "Multivariate Plot", width = 9, 
                                                        tags$p("This plot accepts only the first two Independent Variables chosen."), tags$br(), 
                                                        tags$p("If your model has more than 2 predictors, those are ignored. 
                                                               To change which variable is represented by color, simply return to the model page and re-order the variables. "),
-                                                       plotOutput("trivariate"), 
+                                                       plotOutput("trivariate"))#box 
                                                        ),
                                               tabPanel("Added Variable Plots", 
-                                                       tags$h4("Added Variable Plots"),
-                                                      # textOutput("restricted_reg_formula"), 
-                                                       selectInput(inputId = "restricted",
-                                                                   label = "Select your Predictor", 
-                                                                   choices = NULL
-                                                       ),
-                                                       helpText("AV Plots require at least two continuous predictor variables. Otherwise you will receive an error."),
-                                                       plotOutput("avplot")
+                                                       box(title = "Added Variable Plots", width = 9, 
+                                                           selectInput(inputId = "restricted",
+                                                                       label = "Select your Predictor", 
+                                                                       choices = NULL
+                                                           ),
+                                                           helpText("AV Plots require at least two continuous predictor variables. Otherwise you will receive an error."),
+                                                           plotOutput("avplot")
+                                                           
+                                                           ) #box
                                               ) #tab panel (added variable)
                                   ) #tabset panel (plotting tabs)
                           ), #tabitem (plots page)
@@ -288,6 +327,13 @@ tags$sup("2"), "and re-upload the dataset to run a new regression.  Fixed effect
                                                        box(
                                                          tags$p("Coming soon, I promise"),
                                                          tags$p("Here: interactive graph to allow for point-and-click deletion of outlying points."),
+                                                         plotOutput("brush_plot", height = 350,
+                                                                    click = "plot1_click",
+                                                                    brush = brushOpts(
+                                                                      id = "plot1_brush"
+                                                                    )),
+                                                         actionButton("exclude_toggle", "Toggle points"),
+                                                         actionButton("exclude_reset", "Reset")
                                                        )),
                                               tabPanel("Influence Index", 
                                                        box(
@@ -313,6 +359,8 @@ The idea is a dangerous amount of statistical sophistication: enough to give it 
                                        tags$p(tags$b("I got an error I don't understand!"), "In general, getting an error means you tried to do something that is either unsupported by the app at this time or impossible under the constraints or definitions of contemporary statistics. For example, supplying a continuous variable for logistic regression will get an error. (Supplying a binary variable to linear regression will get you a linear probability model.). Otherwise, leaving things blank will produce errors--did you forget to upload data or define a model? That's the usual culprit."),    
                                        tags$p(tags$b("I can't run the model I want!"), 
                                               "As noted above, some things just aren't possible. For example, residuals are not normally distributed around a logistic regression model, so trying to check the residuals graph for logistic models will throw an error. If you're trying to do something that you think should be possible, please contact me (the @ symbol on the left). Binary models with mixed effects are currently unsupported, but it's in the works."),
+                                       tags$p(tags$b("I want to run an ANOVA or a t-test. Why is that so hard?"),
+                                              "It's not! T-tests and ANOVAs (and ANCOVA, etc) are all special cases of linear regression. If your dependent variable is continuous, use your grouping variable as the only independent variable and that is equivalent to a t-test. Do the same with more than 2 groups for ANOVA and add covariates for ANCOVA. The only problem is this: your data must be in long format. Repeated-measures ANOVA won't be available until HLM is implemented, which is coming soon."),
                                        tags$p(tags$b("Any mathematical notes?"),
                                               "Yes. Things like sums of squares vary from package to package, and significantly, between R and Stata. The sums of squares and standard errors found herein may or may not match those of other software. In general, it's best to cite your estimation package. Most of the available regression models herein are from the packages: MASS, CAR, estimatr, or lme4.")
                                  ), #box
@@ -322,6 +370,11 @@ The idea is a dangerous amount of statistical sophistication: enough to give it 
                        ) #tabitems
                     ) #Dashboard Body
 ) #Dashboard Page
+
+
+# Server Components -------------------------------------------------------
+
+
 
 server <- function(input, output, session) { 
    
@@ -355,10 +408,8 @@ server <- function(input, output, session) {
    observeEvent(datasetInput(), {
      updateSelectInput(session, "instrument", choices = names(datasetInput()))
    })
-   observeEvent(datasetInput(), {
-     updateSelectInput(session, "reg_variables_choice", choices = names(datasetInput()))
-   })
 
+   
    # Data Table --------------------------------------------------------------
    output$reg_data_table = DT::renderDataTable(datasetInput())
    
@@ -375,7 +426,8 @@ server <- function(input, output, session) {
          mutate(se = round(se, 2)) %>%
          mutate(min = round(min, 2)) %>%
          mutate(max = round(max, 2)) %>%
-         mutate(range = round(range, 2))
+         mutate(range = round(range, 2)) %>% 
+         as_tibble()
    })
    
    # description table (psych::describe)
@@ -383,10 +435,10 @@ server <- function(input, output, session) {
    
    
    # Correlation Table -------------------------------------------------------
-   output$cors <- renderPlot(
+   output$cors <- renderPlot({
       datasetInput() %>%
-         select_if(is_extant) %>%
-         select_if(is_numeric) %>%
+        select_if(is_extant) %>%
+        select_if(is_numeric) %>%
          sjp.corr(
             data = .,
             sort.corr = T,
@@ -394,7 +446,9 @@ server <- function(input, output, session) {
             na.deletion = "pairwise",
             show.p = FALSE
          ) +
-         theme_light()
+         theme_light() + 
+        theme(axis.text.x = element_text(angle = 50, hjust = 1))
+   }, height = 600
    )
    
    
@@ -485,7 +539,8 @@ server <- function(input, output, session) {
    })
    
    
-   # Plots (all of them) -----------------------------------------------------
+# Plots (all of them) -----------------------------------------------------
+
    
    # Variables Plots
    output$var_matrix <-renderPlot(
@@ -500,23 +555,27 @@ server <- function(input, output, session) {
    )
    
    # Marginal Effects Plot:
-   # 
-   #   if(is.null(datasetInput())){
-   #     return(NULL)
-   #   }
-   # else{
+
      output$marginal <- renderPlot(
-       plot_model(model(), vline.color = "grey", show.values = TRUE, value.offset = .3)+
+       plot_model(model(), vline.color = "grey", show.values = TRUE, value.offset = .3) +
          theme_light()
      )
-     
-   #}
+
 
    
    
    
    # can this be exported to a sourced .R file to clean up the code? 
-
+     xrange <- reactive({
+       datasetInput() %>%
+         select_(input$indevars) %>%
+         range()
+     })
+     yrange <- reactive({
+       datasetInput() %>%
+         select_(input$responsevar) %>%
+         range()
+     })
    indvariable <- reactive({
       input$indevars
    })
@@ -535,15 +594,13 @@ server <- function(input, output, session) {
    model_residuals <-  reactive({
       residuals(model()) # Save the residual values
    })
-
    reg_variables_choice <- reactive({
      input$reg_variables_choice
    })
-   # restricted_choice <- reactive({
-   #   input$restricted
-   # })
    
    
+   
+
    #refactor this you fool. 
    output$bivariate <- renderPlot(if (input$rgrssn == "linear") {
       #why won't this let me refactor it ????
@@ -709,6 +766,79 @@ server <- function(input, output, session) {
    # final choice
    output$avplot <- renderPlot(
       gg_added_var(extended = fullmodel(),  partial= partialdmodel()) 
+   )
+   
+   
+
+# details for brushing leverage -------------------------------------------
+
+   vals <- reactive({
+     keeprows = rep(TRUE, nrow(datasetInput()))
+   })
+   
+   
+   output$brush_plot <- renderPlot({
+     # Plot the kept and excluded points as two separate data sets
+     keep    <- bind_cols(datasetInput(), vals$keeprows)
+     exclude <- bind_cols(datasetInput(), vals$keeprows)
+     
+     ggplot(keep, aes(y = depvariable(), x = indvariable1())) + geom_point() +
+       geom_smooth(method = "lm", fullrange = TRUE, color = "black") +
+       geom_point(data = exclude, shape = 21, fill = NA, color = "black", alpha = 0.25) +
+       coord_cartesian(xlim = xrange() , ylim = yrange())
+   })
+   
+   
+   
+   # Toggle points that are clicked
+   observeEvent(input$plot1_click, {
+     res <- nearPoints(datasetInput(), input$plot1_click, allRows = TRUE)
+     
+     vals$keeprows <- xor(vals$keeprows, res$selected_)
+   })
+   
+   # Toggle points that are brushed, when button is clicked
+   observeEvent(input$exclude_toggle, {
+     res <- brushedPoints(datasetInput(), input$plot1_brush, allRows = TRUE)
+     
+     vals$keeprows <- xor(vals$keeprows, res$selected_)
+   })
+   
+   # Reset all points
+   observeEvent(input$exclude_reset, {
+     vals$keeprows <- rep(TRUE, nrow(datasetInput()))
+   })
+   
+
+# Dossier Code ------------------------------------------------------------
+   reg_dossier_id <- reactive({
+      input$reg_dossier_ID
+   })
+   reg_dossier_choice <- reactive({
+      input$reg_dossier_choice
+   })
+   id_var <- reactive({
+      if (is.null(datasetInput())) {
+         return(NULL)
+      } else {
+         datasetInput() %>% 
+            dplyr::select(reg_dossier_id())
+         }
+   })
+   observeEvent(datasetInput(), {
+      updateSelectInput(session, "reg_dossier_ID", choices = names(datasetInput()))
+   })
+   observeEvent(reg_dossier_id(), {
+      updateSelectInput(session, "reg_dossier_choice", choices = id_var())
+   })
+   
+   output$dossier <-  DT::renderDataTable(
+      datasetInput() %>% 
+         dplyr::filter(.data[[reg_dossier_id()]] == !!(reg_dossier_choice())) %>% 
+         t() %>% 
+         as.data.frame() %>% 
+         tibble::rownames_to_column(var = "variable") %>% 
+         rename("Value" = "V1")
    )
 }
 
