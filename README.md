@@ -102,11 +102,19 @@ With a sufficient amount of effort, this could actually be a pretty good tool fo
 ## Better names:
 www.backoftheenvelope.com  ?
 
-## reading material:
+## material:
+### Reading Material
 * https://stackoverflow.com/questions/38878113/implementing-reactive-values-in-regression-using-shiny?rq=1
 * https://stackoverflow.com/questions/56068825/use-selectbox-to-create-regression-formula-from-user-input-dataset/56069365#56069365
 * https://stackoverflow.com/questions/43102554/build-linear-regression-with-dynamic-inputs-in-r-shiny?rq=1
 * Reformulate: http://novicemetrics.blogspot.com/2011/04/forming-formulas.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+CoffeeAndEconometricsInTheMorning+%28Coffee+and+Econometrics+in+the+Morning%29
+
+### Watching Material
+https://rstudio.com/resources/webinars/testing-shiny-applications-with-shinytest-shiny-developers-now-have-tools-for-automated-testing-of-complete-applications/
+https://rstudio.com/resources/webinars/introducing-shiny-gadgets-interactive-tools/
+https://rstudio.com/resources/webinars/interactive-graphics-with-shiny/
+https://rstudio.com/resources/webinars/help-me-help-you-creating-reproducible-examples/
+https://rstudio.com/resources/webinars/scaling-shiny-apps-with-asynchronous-programming/
 
 ### it's been done:
 but not with user-input data:
