@@ -8,7 +8,7 @@ Build a general purpose regression tool, incorporating extensions to regression 
 
 With sufficient on-your-own data preparation, this tool should be sufficient for basic regression analyses for beginner-to-intermediate level social-science use. I have no plans to implement latent-variable / structural equation modeling at this time. 
 
-## To Do: 
+## 1.0 To Do List: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
   * ~there be dragons with clustered standard errors~  Dragons Slain. 
 * ~`ggplot2` representations of the model~
@@ -25,14 +25,11 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~Logistic Regression up and running~
 * ~Multivariate Regression Up and running~
 * clusters:
-  * Linear Mixed
   * ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
     * option to eliminate coefficients with `felm()`
   * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
-  * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
 * ~fix odd error with spaces in variable names~
-* Instrumental variables / two-stage least squares? (Save for 1.2)
 * ~margins plots~
 * Outlier Analysis:
   * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
@@ -44,16 +41,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~or 1 for logistic obv.~ 
   * ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
   * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
-* editable data tables: 
-  * idea one: https://github.com/jbryer/DTedit
-  * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
-* Quantiles? `geom_quantile()` 
-  * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
-* Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
-  * surprisingly difficult. return to this later. 
-* `ggvis` overhaul, at least for main two or three plots? 
-  * surprisingly difficult. return to this later. 
-  * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
 * ~rearrange upload / model page (incorporates text of current model)~
   * drop-down message of current model (nixed due to error logging)
 * ~sassy message when they ask for logistic regression residuals.~ 
@@ -64,7 +51,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * fix issue with missing points whenever there are residuals? what's that about?? 
   * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
 * ~rotate `SJP.corr()` table variables~ :/ 
-  * fix left-right scroll on dataTableOutput. 
 * ~nix the variables page and add a dossier page instead :)~ 
   * ~`dossier()` numeric return error.~ 
 * overhaul the plot outputs so it's just:
@@ -72,8 +58,29 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
   * marginal effects plot
   * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
-* Allow `describe_by()` groupings with a material switch and a dropdown menu. 
 
+## 1.1 To Do List
+* Linear Mixed Effects
+* Two-Stage Estimation
+  * Instrumental Variables
+* need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
+* fix left-right scroll on dataTableOutput. 
+
+
+## 1.2 To Do List
+* editable data tables: 
+  * idea one: https://github.com/jbryer/DTedit
+  * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
+* Quantiles? `geom_quantile()` 
+  * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
+* Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
+  * surprisingly difficult. return to this later. 
+* `ggvis` overhaul, at least for main two or three plots? 
+  * surprisingly difficult. return to this later. 
+  * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
+* Allow `describe_by()` groupings with a material switch and a dropdown menu. 
+* `dplyr::filter()` regression on data subgroups. 
+  
 ## User Feedback:
 * ~For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors~
 * Is there a way that you can override or modify the error messages?  Instead of "contact the app author", maybe provide a URL to a message board or email?
