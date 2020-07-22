@@ -50,6 +50,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~histogram of residuals~
 * fix issue with missing points whenever there are residuals? what's that about?? 
   * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
+  * https://tidyr.tidyverse.org/reference/drop_na.html
   * https://stat.ethz.ch/R-manual/R-patched/library/stats/html/complete.cases.html
 * ~rotate `SJP.corr()` table variables~ :/ 
 * ~nix the variables page and add a dossier page instead :)~ 
