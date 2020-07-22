@@ -66,8 +66,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
 * ~rotate `SJP.corr()` table variables~ :/ 
 * * fix left-right scroll on dataTableOutput. 
-* nix the variables page and add a dossier page instead :) 
-* * `dossier()` numeric return error. 
+* ~nix the variables page and add a dossier page instead :)~ 
+* * ~`dossier()` numeric return error.~ 
 * overhaul the plot outputs so it's just:
 * * original plot (follows programmatically based on variables) with second tab for residuals
 * * marginal effects plot
