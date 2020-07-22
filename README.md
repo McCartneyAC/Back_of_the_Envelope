@@ -73,6 +73,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`
 * * marginal effects plot
 * * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
+* Allow `describe_by()` groupings with a material switch and a dropdown menu. 
 
 ## User Feedback:
 * ~For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors~
