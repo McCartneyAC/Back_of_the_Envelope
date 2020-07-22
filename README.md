@@ -52,6 +52,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
 * * surprisingly difficult. return to this later. 
 * `ggvis` overhaul, at least for main two or three plots? 
+* * surprisingly difficult. return to this later. 
 * * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
 * ~rearrange upload / model page (incorporates text of current model)~
 * * drop-down message of current model (nixed due to error logging)
@@ -67,6 +68,10 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * * fix left-right scroll on dataTableOutput. 
 * nix the variables page and add a dossier page instead :) 
 * * `dossier()` numeric return error. 
+* overhaul the plot outputs so it's just:
+* * original plot (follows programmatically based on variables) with second tab for residuals
+* * marginal effects plot
+* * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 
 ## User Feedback:
 * For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors
