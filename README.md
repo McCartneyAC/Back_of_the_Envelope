@@ -51,7 +51,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * fix issue with missing points whenever there are residuals? what's that about?? 
   * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
   * https://tidyr.tidyverse.org/reference/drop_na.html
-  * ~Partially fixed~ (fixed for bi-& tri-variate plots but not for added variable plots for some reason. 
+  * This is dropping too much data--needs to only drop the chosen variables
 * ~rotate `SJP.corr()` table variables~ :/ 
 * ~nix the variables page and add a dossier page instead :)~ 
   * ~`dossier()` numeric return error.~ 
