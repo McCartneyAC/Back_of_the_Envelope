@@ -84,6 +84,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
 * Allow `describe_by()` groupings with a material switch and a dropdown menu. 
 * `dplyr::filter()` regression on data subgroups. 
+* JSON support.
 
 ## The Deep Future To Do List
 * Binary Outcome Mixed Effects
