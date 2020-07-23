@@ -67,6 +67,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Linear Mixed Effects
 * Two-Stage Estimation
   * Instrumental Variables
+  * https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
 * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
 * fix left-right scroll on dataTableOutput. 
 
