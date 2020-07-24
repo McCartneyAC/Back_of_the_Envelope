@@ -75,6 +75,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * fix left-right scroll on dataTableOutput. 
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
+* `Fast = TRUE` toggle for `psych::describe()` so people can see skew/kurtosis. 
+
 
 ## 1.2 To Do List
 * editable data tables: 
