@@ -64,6 +64,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~marginal effects plot~
   * ~Added Variable Plots.~ Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 * triple-check that cluster standard errors and robust standard errors are properly specified. 
+* ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
 * Available Models Matrix
 * solidify color theme
 * purchase logo design
@@ -78,7 +79,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * fix left-right scroll on dataTableOutput. 
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
-* `Fast = TRUE` toggle for `psych::describe()` so people can see skew/kurtosis. 
 
 
 
