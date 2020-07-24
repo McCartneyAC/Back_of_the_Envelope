@@ -78,6 +78,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * `Fast = TRUE` toggle for `psych::describe()` so people can see skew/kurtosis. 
 
 
+
 ## 1.2 To Do List
 * editable data tables: 
   * idea one: https://github.com/jbryer/DTedit
@@ -90,6 +91,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * surprisingly difficult. return to this later. 
   * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
 * Allow `describe_by()` groupings with a material switch and a dropdown menu. 
+  *   verbatimTextOutput("info")
 * `dplyr::filter()` regression on data subgroups. 
 * JSON support.
 
