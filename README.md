@@ -1,12 +1,15 @@
 # 🖂  Back of the Envelope 📉 
-can we build a basic point-and-click regression analysis tool with R shiny? 
+
+https://acm9q.shinyapps.io/Back_of_the_Envelope/
+
+Can we build a ~basic point-and-click regression analysis tool~ replacement to general purpose statistical analysis tools with R shiny? 
 
 
 ## The goal:
 
 Build a general purpose regression tool, incorporating extensions to regression such as heteroskedasticity-robust standard errors, clustered standard errors, multilevel modeling, and logistic regression. 
 
-With sufficient on-your-own data preparation, this tool should be sufficient for basic regression analyses for beginner-to-intermediate level social-science use. I have no plans to implement latent-variable / structural equation modeling at this time. 
+With sufficient on-your-own data preparation, this tool should be sufficient for basic regression analyses for beginner-to-intermediate level social-science use. I have no plans to implement latent-variable / structural equation modeling at this time, but path analysis could be in the distant future. 
 
 ## 1.0 To Do List: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
@@ -97,7 +100,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 
 ## The Deep Future To Do List
 * Binary Outcome Mixed Effects
-  
+* path analysis
   
   
 ## User Feedback:
