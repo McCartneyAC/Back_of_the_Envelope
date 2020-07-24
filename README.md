@@ -62,6 +62,9 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~Added Variable Plots.~ Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 * triple-check that cluster standard errors and robust standard errors are properly specified. 
 * Available Models Matrix
+* solidify color theme
+* purchase logo design
+* Publish
 
 ## 1.1 To Do List
 * Linear Mixed Effects
@@ -70,7 +73,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
 * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
 * fix left-right scroll on dataTableOutput. 
-
+* bookmark current state
+  * https://shiny.rstudio.com/articles/bookmarking-state.html
 
 ## 1.2 To Do List
 * editable data tables: 
