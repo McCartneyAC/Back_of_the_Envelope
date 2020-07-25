@@ -97,6 +97,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   *   verbatimTextOutput("info")
 * `dplyr::filter()` regression on data subgroups. 
 * JSON support.
+* multiple simultaneous models
 
 ## The Deep Future To Do List
 * Binary Outcome Mixed Effects
