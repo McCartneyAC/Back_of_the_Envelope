@@ -77,6 +77,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * Instrumental Variables
   * https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
 * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
+  * oh my god what an absolute nightmare
+  * https://stackoverflow.com/questions/44980757/remote-server-authentication-to-read-googlesheets-from-r-script-not-using-servic/59910070#59910070
 * fix left-right scroll on dataTableOutput. 
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
