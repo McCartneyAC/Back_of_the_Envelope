@@ -104,6 +104,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Binary Outcome Mixed Effects
 * path analysis
   * https://advstats.psychstat.org/book/path/index.php
+  * https://data.library.virginia.edu/introduction-to-mediation-analysis/
 * Multiple Imputation with Chained Equations
   
   
