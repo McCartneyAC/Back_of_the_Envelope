@@ -102,6 +102,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 ## The Deep Future To Do List
 * Binary Outcome Mixed Effects
 * path analysis
+* Multiple Imputation with Chained Equations
   
   
 ## User Feedback:
