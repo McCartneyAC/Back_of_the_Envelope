@@ -67,6 +67,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
 * ~missing data error messages~ lol get rekt. 
 * Available Models Matrix
+  * https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
 * solidify color theme
 * purchase logo design
 * Publish
