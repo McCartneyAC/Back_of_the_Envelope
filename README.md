@@ -65,6 +65,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~Added Variable Plots.~ Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 * triple-check that cluster standard errors and robust standard errors are properly specified. 
 * ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
+* ~missing data error messages~ lol get rekt. 
 * Available Models Matrix
 * solidify color theme
 * purchase logo design
@@ -108,7 +109,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 ## User Feedback:
 * ~For the Correlation table, you may want to rotate your x-axis labels 45 or 90 degrees.  Getting a lot of overlap for files with > 20 factors~
 * Is there a way that you can override or modify the error messages?  Instead of "contact the app author", maybe provide a URL to a message board or email?
-  * https://shiny.rstudio.com/articles/req.html
   * MAKE ERRORS GREAT AGAIN
 * ~my big suggestion is just to clarify and restructure the flow of the user interface. I think my user preference is that I'd want to upload a dataset, look around in it, and then decide on a model~
   * ~so maybe separate the Upload and Model pieces entirely. Then restructure the left-hand nav to be something like Upload > View Data Set > Descriptive Statistics > Correlation Table > Model > Summary > Plots > Diagnostics~
