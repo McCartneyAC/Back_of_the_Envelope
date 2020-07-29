@@ -87,6 +87,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * editable data tables: 
   * idea one: https://github.com/jbryer/DTedit
   * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
+  * idea three: https://cran.r-project.org/web/packages/rhandsontable/vignettes/intro_rhandsontable.html
 * Quantiles? `geom_quantile()` 
   * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
