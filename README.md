@@ -68,6 +68,10 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~missing data error messages~ lol get rekt. 
 * Available Models Matrix
   * https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
+* Allow `describe_by()` groupings with a material switch and a dropdown menu. 
+  *   ~verbatimTextOutput("info")~ NO
+  * use gt() output instead. 
+    * https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup
 * solidify color theme
 * purchase logo design
 * Publish
@@ -98,8 +102,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * `ggvis` overhaul, at least for main two or three plots? 
   * surprisingly difficult. return to this later. 
   * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
-* Allow `describe_by()` groupings with a material switch and a dropdown menu. 
-  *   verbatimTextOutput("info")
+
 * `dplyr::filter()` regression on data subgroups. 
 * JSON support.
 * multiple simultaneous models
