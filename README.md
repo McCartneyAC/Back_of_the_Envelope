@@ -5,12 +5,13 @@ https://acm9q.shinyapps.io/Back_of_the_Envelope/
 Can we build a ~basic point-and-click regression analysis tool~ replacement to general purpose statistical analysis tools with R shiny? 
 
 
-## The goal:
+# The goal:
 
 Build a general purpose regression tool, incorporating extensions to regression such as heteroskedasticity-robust standard errors, clustered standard errors, multilevel modeling, and logistic regression. 
 
 With sufficient on-your-own data preparation, this tool should be sufficient for basic regression analyses for beginner-to-intermediate level social-science use. I have no plans to implement latent-variable / structural equation modeling at this time, but path analysis could be in the distant future. 
 
+# To Do Items
 ## 1.0 To Do List: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
   * ~there be dragons with clustered standard errors~  Dragons Slain. 
@@ -133,24 +134,29 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 
 With a sufficient amount of effort, this could actually be a pretty good tool for multilevel linear modeling, ~provided I can figure out what exactly the error was with `mice`'s MCMC imputation.~ imputation is gonna have to wait for v1.2 at the absolute earliest. 
 
-## Better names:
-www.backoftheenvelope.com  ?
 
-## material:
-### Reading Material
+# Domain issues
+## Better names:
+www.backoftheenvelope.com  (is currently taken)
+
+
+
+
+# material:
+## Reading Material
 * https://stackoverflow.com/questions/38878113/implementing-reactive-values-in-regression-using-shiny?rq=1
 * https://stackoverflow.com/questions/56068825/use-selectbox-to-create-regression-formula-from-user-input-dataset/56069365#56069365
 * https://stackoverflow.com/questions/43102554/build-linear-regression-with-dynamic-inputs-in-r-shiny?rq=1
 * Reformulate: http://novicemetrics.blogspot.com/2011/04/forming-formulas.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+CoffeeAndEconometricsInTheMorning+%28Coffee+and+Econometrics+in+the+Morning%29
 
-### Watching Material
+## Watching Material
 https://rstudio.com/resources/webinars/testing-shiny-applications-with-shinytest-shiny-developers-now-have-tools-for-automated-testing-of-complete-applications/
 https://rstudio.com/resources/webinars/introducing-shiny-gadgets-interactive-tools/
 https://rstudio.com/resources/webinars/interactive-graphics-with-shiny/
 https://rstudio.com/resources/webinars/help-me-help-you-creating-reproducible-examples/
 https://rstudio.com/resources/webinars/scaling-shiny-apps-with-asynchronous-programming/
 
-### it's been done:
+## it's been done:
 but not with user-input data:
 https://rich.shinyapps.io/regression/
 (use this for model work)
