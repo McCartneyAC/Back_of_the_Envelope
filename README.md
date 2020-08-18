@@ -104,7 +104,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * `ggvis` overhaul, at least for main two or three plots? 
   * surprisingly difficult. return to this later. 
   * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
-
+* Mutate variables for common issues: (1) generate dummy variables of factors, (2) center, (3) standardize.
 * `dplyr::filter()` regression on data subgroups. 
 * JSON support.
 * multiple simultaneous models
