@@ -89,7 +89,35 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * fix left-right scroll on dataTableOutput. 
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
+* get download report code to work: 
 
+```
+#ui
+
+radioButtons('format', h5('Document format'), c('PDF', 'HTML', 'Word'), inline = TRUE),
+downloadButton('downloadReport'),
+
+#server
+   output$downloadReport <- downloadHandler(
+      filename = function() {
+         paste('my-report', sep = '.', switch(
+            input$format, PDF = 'pdf', HTML = 'html', Word = 'docx'
+         ))
+      },
+      content = function(file) {
+         src <- normalizePath('report.Rmd')
+         owd <- setwd(tempdir())
+         on.exit(setwd(owd))
+         file.copy(src, 'report.Rmd')
+         
+         library(rmarkdown)
+         out <- render('report.Rmd', switch(
+            input$format,
+            PDF = pdf_document(), HTML = html_document(), Word = word_document()
+         ))
+         file.rename(out, file)
+      })
+```
 
 
 ## 1.2 To Do List
