@@ -131,7 +131,9 @@ downloadButton('downloadReport'),
     * center
     * standardize
     * drop
-    * .... ? 
+    * square
+    * interact 
+    * ... ? 
 * Quantiles? `geom_quantile()` 
   * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
