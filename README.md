@@ -130,6 +130,7 @@ downloadButton('downloadReport'),
     * gen dummies
     * center
     * standardize
+    * drop
     * .... ? 
 * Quantiles? `geom_quantile()` 
   * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
