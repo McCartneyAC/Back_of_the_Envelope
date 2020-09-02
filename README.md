@@ -126,6 +126,11 @@ downloadButton('downloadReport'),
   * idea one: https://github.com/jbryer/DTedit
   * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
   * idea three: https://cran.r-project.org/web/packages/rhandsontable/vignettes/intro_rhandsontable.html
+  * idea four: Common generic variable adjustments as options:
+    * gen dummies
+    * center
+    * standardize
+    * .... ? 
 * Quantiles? `geom_quantile()` 
   * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
