@@ -90,6 +90,9 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   *   ~verbatimTextOutput("info")~ NO
   * use gt() output instead. 
     * https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup
+  * consider switch to gt_summary() for regression tables:
+   * https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
+   * especially if `theme_APA` ever becomes a thing. 
 * get download report code to work: 
 
 ```
