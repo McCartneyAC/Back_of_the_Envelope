@@ -132,6 +132,8 @@ downloadButton('downloadReport'),
   * idea four: Common generic variable adjustments as options:
     * gen dummies
     * center
+      * median
+      * mean
     * standardize
       * z-transform? 
       * other's from library(SuppDists) 
