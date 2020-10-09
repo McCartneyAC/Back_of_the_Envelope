@@ -133,6 +133,8 @@ downloadButton('downloadReport'),
     * gen dummies
     * center
     * standardize
+      * z-transform? 
+      * other's from library(SuppDists) 
     * drop
     * square
     * interact 
