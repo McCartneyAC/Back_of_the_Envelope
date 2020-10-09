@@ -135,6 +135,7 @@ downloadButton('downloadReport'),
     * standardize
       * z-transform? 
       * other's from library(SuppDists) 
+        * http://finzi.psych.upenn.edu/library/SuppDists/html/00Index.html
     * drop
     * square
     * interact 
