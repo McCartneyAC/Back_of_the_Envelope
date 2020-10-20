@@ -66,9 +66,13 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
     * ~set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`~
   * ~marginal effects plot~
   * ~Added Variable Plots.~ Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
-* `estimatr` redo of all models, including a fixed-effects absorption. 
-  * triple-check that cluster standard errors and robust standard errors are properly specified. 
+* ~`estimatr` redo of all models, including a fixed-effects absorption.~ 
+  * ~triple-check that cluster standard errors and robust standard errors are properly specified.~
+  * ~nope you idiot. you did & instead of |~
+  * HUGE DOWNSTREAM EFFECTS ON MODEL DIAGNOSTICS AND AVPLOTS
 * ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
+  * Allow `describe_by()` groupings with a material switch and a dropdown menu. 
+  * this may now be possible with `varSelectInput()` try this again. 
 * ~missing data error messages~ lol get rekt. 
 * Available Models Matrix
   * https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
