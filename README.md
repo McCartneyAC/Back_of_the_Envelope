@@ -32,6 +32,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
     * option to eliminate coefficients with `felm()`
     * idk that seems like a real pain given the four part formula: https://www.rdocumentation.org/packages/lfe/versions/2.8-5.1/topics/felm
+    * doesn't need to be four parts: `summary(felm(y ~ x + x2 + Q + W | id + firm))`
   * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
 * ~fix odd error with spaces in variable names~
