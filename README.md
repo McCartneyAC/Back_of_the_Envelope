@@ -49,7 +49,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
 * ~rearrange upload / model page (incorporates text of current model)~
 * ~sassy message when they ask for logistic regression residuals.~ 
-* Model Diagnostics (back on the table due to `lm_robust()` being a jerk. 
+* Model Diagnostics 
+  * `lindia` is being a jerk. maybe try `ggfortify` or `gglm`
   * QQ plot
   * resid v fitted
   * histogram of residuals
