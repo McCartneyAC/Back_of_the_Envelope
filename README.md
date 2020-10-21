@@ -81,6 +81,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * av plots
   * residuals
   * model diagnostics 
+  * don't forget to adjust `geom_smooth(method = "lm_robust")` in the function call if `input$rbst == TRUE`
 * solidify color theme
 * purchase logo design
 * Publish
