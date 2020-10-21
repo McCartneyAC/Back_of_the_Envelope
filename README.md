@@ -140,6 +140,7 @@ downloadButton('downloadReport'),
 
 
 ## 1.2 To Do List
+* User choice standard errors with `estimatr`
 * editable data tables: 
   * idea one: https://github.com/jbryer/DTedit
   * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
