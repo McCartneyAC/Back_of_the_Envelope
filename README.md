@@ -14,13 +14,13 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 # To Do Items
 ## 1.0 To Do List: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
-  * ~there be dragons with clustered standard errors~  Dragons Slain. 
+  * there be dragons with clustered standard errors  
 * ~`ggplot2` representations of the model~
   * ~bivariate~
   * ~bivariate residual plot~
   * ~two independent variables (close! close? finished!)~
-  * ~added variable plots~ Take that, math! 
-  * ~Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)~
+  * added variable plots Take that, math! 
+  * Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
@@ -30,9 +30,9 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~Multivariate Regression Up and running~
 * clusters:
   * ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
-    * option to eliminate coefficients with `felm()`
-    * idk that seems like a real pain given the four part formula: https://www.rdocumentation.org/packages/lfe/versions/2.8-5.1/topics/felm
-    * doesn't need to be four parts: `summary(felm(y ~ x + x2 + Q + W | id + firm))`
+    * ~option to eliminate coefficients with `felm()`~
+    * ~idk that seems like a real pain given the four part formula: https://www.rdocumentation.org/packages/lfe/versions/2.8-5.1/topics/felm~
+    * ~doesn't need to be four parts: `summary(felm(y ~ x + x2 + Q + W | id + firm))`~
   * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
 * ~Additional common filetypes supported. (stata, spss, csv, excel)~
 * ~fix odd error with spaces in variable names~
@@ -48,12 +48,11 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
   * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
 * ~rearrange upload / model page (incorporates text of current model)~
-  * drop-down message of current model (nixed due to error logging)
 * ~sassy message when they ask for logistic regression residuals.~ 
-* ~Model Diagnostics~
-  * ~QQ plot~
-  * ~resid v fitted~
-  * ~histogram of residuals~
+* Model Diagnostics (back on the table due to `lm_robust()` being a jerk. 
+  * QQ plot
+  * resid v fitted
+  * histogram of residuals
 * fix issue with missing points whenever there are residuals? what's that about?? 
   * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
   * https://tidyr.tidyverse.org/reference/drop_na.html
@@ -61,22 +60,26 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~rotate `SJP.corr()` table variables~ :/ 
 * ~nix the variables page and add a dossier page instead :)~ 
   * ~`dossier()` numeric return error.~ 
+  * MAKE VARIABLES GREAT AGAIN
 * ~overhaul the plot outputs so it's just:~
   * ~original plot (follows programmatically based on variables) with second tab for residuals~
     * ~set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`~
   * ~marginal effects plot~
-  * ~Added Variable Plots.~ Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
+  * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 * ~`estimatr` redo of all models, including a fixed-effects absorption.~ 
   * ~triple-check that cluster standard errors and robust standard errors are properly specified.~
   * ~nope you idiot. you did & instead of |~
   * HUGE DOWNSTREAM EFFECTS ON MODEL DIAGNOSTICS AND AVPLOTS
 * ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
-  * Allow `describe_by()` groupings with a material switch and a dropdown menu. 
-  * this may now be possible with `varSelectInput()` try this again. 
+  * ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ one taught me pain. 
+  * ~this may now be possible with `varSelectInput()` try this again.~ lol nope u just don't know R syntax you goof. 
 * ~missing data error messages~ lol get rekt. 
 * Available Models Matrix
   * https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
-
+* fix downstream issues from `lm_robust()` 
+  * av plots
+  * residuals
+  * model diagnostics 
 * solidify color theme
 * purchase logo design
 * Publish
@@ -86,19 +89,23 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Two-Stage Estimation
   * Instrumental Variables
   * https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
+  * this should...actually be easy now given `varselectinput()` ??
 * need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
-  * oh my god what an absolute nightmare
+  * oh my god what an absolute nightmare. not trivial at all. 
   * https://stackoverflow.com/questions/44980757/remote-server-authentication-to-read-googlesheets-from-r-script-not-using-servic/59910070#59910070
 * fix left-right scroll on dataTableOutput. 
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
-* Allow `describe_by()` groupings with a material switch and a dropdown menu. 
+* ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ 
   *   ~verbatimTextOutput("info")~ NO
-  * use gt() output instead. 
-    * https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup
+  * ~use gt() output instead.~
+    * ~https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup~
   * consider switch to gt_summary() for regression tables:
    * https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
    * especially if `theme_APA` ever becomes a thing. 
+* path analysis 
+  * https://advstats.psychstat.org/book/path/index.php
+  * https://data.library.virginia.edu/introduction-to-mediation-analysis/
 * get download report code to work: 
 
 ```
@@ -145,8 +152,9 @@ downloadButton('downloadReport'),
       * other's from library(SuppDists) 
         * http://finzi.psych.upenn.edu/library/SuppDists/html/00Index.html
     * drop
-    * square
+    * square (or root? what about a generic power function?) 
     * interact 
+    * Brian's subsetting maybe? 
     * ... ? 
 * Quantiles? `geom_quantile()` 
   * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
@@ -155,16 +163,12 @@ downloadButton('downloadReport'),
 * `ggvis` overhaul, at least for main two or three plots? 
   * surprisingly difficult. return to this later. 
   * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
-* Mutate variables for common issues: (1) generate dummy variables of factors, (2) center, (3) standardize.
-* `dplyr::filter()` regression on data subgroups. 
+* `dplyr::filter()` regression on data subgroups. Brian wanted this but tbh is it worth it? 
 * JSON support.
 * multiple simultaneous models
 
 ## The Deep Future To Do List
 * Binary Outcome Mixed Effects
-* path analysis
-  * https://advstats.psychstat.org/book/path/index.php
-  * https://data.library.virginia.edu/introduction-to-mediation-analysis/
 * Multiple Imputation with Chained Equations
   
   
@@ -190,8 +194,8 @@ With a sufficient amount of effort, this could actually be a pretty good tool fo
 # Domain issues
 ## Better names:
 www.backoftheenvelope.com  (is currently taken)
-
-
+www.envelope.fyi
+www.envelo.pe
 
 
 # material:
@@ -211,4 +215,5 @@ https://rstudio.com/resources/webinars/scaling-shiny-apps-with-asynchronous-prog
 ## it's been done:
 but not with user-input data:
 https://rich.shinyapps.io/regression/
-(use this for model work)
+(~use this for model work~) bruh use this for *downloadable reports work*
+
