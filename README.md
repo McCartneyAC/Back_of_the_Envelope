@@ -96,6 +96,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * oh my god what an absolute nightmare. not trivial at all. 
   * https://stackoverflow.com/questions/44980757/remote-server-authentication-to-read-googlesheets-from-r-script-not-using-servic/59910070#59910070
 * fix left-right scroll on dataTableOutput. 
+  * https://stackoverflow.com/questions/30765338/how-to-make-the-horizontal-scrollbar-visible-in-dtdatatable/30765558
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
 * ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ 
