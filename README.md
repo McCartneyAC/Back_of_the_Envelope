@@ -87,6 +87,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Publish
 
 ## 1.1 To Do List
+* An easy feature: https://twitter.com/Dom_Makowski/status/1321825702040100864 
+  * https://github.com/easystats/report
 * Linear Mixed Effects
 * Two-Stage Estimation
   * Instrumental Variables
