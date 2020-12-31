@@ -108,6 +108,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * consider switch to gt_summary() for regression tables:
  * https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
  * especially if `theme_APA` ever becomes a thing. 
+ * No. Use package {apaTables} instead! 
 * path analysis 
   * https://advstats.psychstat.org/book/path/index.php
   * https://data.library.virginia.edu/introduction-to-mediation-analysis/
