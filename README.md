@@ -102,13 +102,13 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
 * ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ 
-  *   ~verbatimTextOutput("info")~ NO
-  * ~use gt() output instead.~
-    * ~https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup~
+   *   ~verbatimTextOutput("info")~ NO
+   * ~use gt() output instead.~
+     * ~https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup~
 * consider switch to gt_summary() for regression tables:
- * https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
- * especially if `theme_APA` ever becomes a thing. 
- * No. Use package {apaTables} instead! 
+  * https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
+  * especially if `theme_APA` ever becomes a thing. 
+  * No. Use package {apaTables} instead! 
 * path analysis 
   * https://advstats.psychstat.org/book/path/index.php
   * https://data.library.virginia.edu/introduction-to-mediation-analysis/
