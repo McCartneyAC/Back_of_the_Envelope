@@ -93,6 +93,7 @@ The key may to take all the model output objects that are generated and to stand
 ## 1.1 To Do List
 * use {report} package to report models on summary page
   * outputs of {estimatr} class `lm_robust` aren't supported by report. 
+  * include `broom::glance()` with this please. 
 * https://datalorax.github.io/equatiomatic/articles/intro-equatiomatic.html for same
 * An easy feature: https://twitter.com/Dom_Makowski/status/1321825702040100864 
   * https://github.com/easystats/report
