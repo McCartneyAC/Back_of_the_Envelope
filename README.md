@@ -113,10 +113,16 @@ The key may to take all the model output objects that are generated and to stand
   * cook's distance (https://stackoverflow.com/questions/62107571/how-to-manually-calculate-cooks-distance) 
 * {report}
 
+### The Plan:
+* generate a standardized `augmented` table for every model based on `if_then()` for regular `lm` or `lm_robust` 
+* call the standardized augmented table for every function that requires it; personalize all the {lindia} functions for this workflow
+* re-write my own AV plots and Residuals for this
+* dig into whether can coerce `lm_robust` class into a class {report} can read. 
+
 ## 1.1 To Do List
 * use {report} package to report models on summary page
   * outputs of {estimatr} class `lm_robust` aren't supported by report. 
-  * include `broom::glance()` with this please. 
+  * include `broom::glance() %>% gt()` with this please. 
 * https://datalorax.github.io/equatiomatic/articles/intro-equatiomatic.html for same
 * An easy feature: https://twitter.com/Dom_Makowski/status/1321825702040100864 
   * https://github.com/easystats/report
