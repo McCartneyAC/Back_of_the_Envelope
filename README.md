@@ -87,6 +87,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Publish
 
 ## 1.1 To Do List
+* use {report} package to report models on summary page
+* https://datalorax.github.io/equatiomatic/articles/intro-equatiomatic.html for same
 * An easy feature: https://twitter.com/Dom_Makowski/status/1321825702040100864 
   * https://github.com/easystats/report
 * Linear Mixed Effects
@@ -102,7 +104,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * bookmark current state
   * https://shiny.rstudio.com/articles/bookmarking-state.html
 * ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ 
-   *   ~verbatimTextOutput("info")~ 
+   * ~verbatimTextOutput("info")~ 
    * ~use gt() output instead.~
      * ~https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup~
 * consider switch to gt_summary() for regression tables:
