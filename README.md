@@ -21,6 +21,16 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * ~two independent variables (close! close? finished!)~
   * added variable plots Take that, math! 
   * Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
+    * when using {estimatr}, can do this:
+```r
+model.frame(m0) %>% 
+  as_tibble() %>% 
+  mutate(fitted = m0$fitted.values)
+# this gets x, y, and predicted. 
+# then can plot predicted ~ y at least. 
+# can we also do AV plots with this? 
+```
+
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
