@@ -86,6 +86,10 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * purchase logo design
 * Publish
 
+### Honestly
+The key may to take all the model output objects that are generated and to standardize their output into my own bespoke formatting, and then render that into everything else... But it sure does sound like a pain. 
+
+
 ## 1.1 To Do List
 * use {report} package to report models on summary page
 * https://datalorax.github.io/equatiomatic/articles/intro-equatiomatic.html for same
