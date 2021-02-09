@@ -193,6 +193,7 @@ downloadButton('downloadReport'),
     * ... ? 
 * Quantiles? `geom_quantile()` 
   * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
+* instead of "linear v logistic" do "lm" versus "glm" and allow selection of linking function (e.g. to allow poisson, etc)
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
   * surprisingly difficult. return to this later. 
 * `ggvis` overhaul, at least for main two or three plots? 
