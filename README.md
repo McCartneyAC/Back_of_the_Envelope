@@ -104,13 +104,13 @@ model.frame(m0) %>%
 The key may to take all the model output objects that are generated and to standardize their output into my own bespoke formatting, and then render that into everything else... But it sure does sound like a pain. 
 
 ### Status of what doesn't work: 
-* Added Variable Plots (needs `broom::augment()` for lm_robust)
-* Plot Residuals (needs `broom::augment()` for lm_robust)
+* Added Variable Plots (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
+* Plot Residuals (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
 * model diagnostics: (needs `broom::augment()` for lm_robust)
-  * QQ plot
-  * resid v fitted
-  * histogram of residuals
-  * cook's distance
+  * QQ plot 
+  * resid v fitted https://github.com/DeclareDesign/estimatr/issues/377
+  * histogram of residuals https://github.com/DeclareDesign/estimatr/issues/377
+  * cook's distance (https://stackoverflow.com/questions/62107571/how-to-manually-calculate-cooks-distance) 
 * {report}
 
 ## 1.1 To Do List
