@@ -14,7 +14,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 # To Do Items
 ## 1.0 To Do List: 
 * ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
-  * there be dragons with clustered standard errors  
+  * ~there be dragons with clustered standard errors~  
 * ~`ggplot2` representations of the model~
   * ~bivariate~
   * ~bivariate residual plot~
@@ -40,7 +40,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * Outlier Analysis:
   * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
     * why doesn't this work? 
-  * ~Cook's Distance~
+  * Cook's Distance
   * Leverage Calculator?
   * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
 * ~Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference.~ 
@@ -51,6 +51,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * ~sassy message when they ask for logistic regression residuals.~ 
 * Model Diagnostics 
   * `lindia` is being a jerk. maybe try `ggfortify` or `gglm`
+    * {ggfortify} can't handle these either. 
+    * {gglm} only handles classes 'lm' and 'glm' wow even fewer. 
   * QQ plot
   * resid v fitted
   * histogram of residuals
@@ -86,9 +88,20 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 * purchase logo design
 * Publish
 
+## Current Problem:
+
 ### Honestly
 The key may to take all the model output objects that are generated and to standardize their output into my own bespoke formatting, and then render that into everything else... But it sure does sound like a pain. 
 
+### Status of what doesn't work: 
+* Added Variable Plots (needs `broom::augment()` for lm_robust)
+* Plot Residuals (needs `broom::augment()` for lm_robust)
+* model diagnostics: (needs `broom::augment()` for lm_robust)
+  * QQ plot
+  * resid v fitted
+  * histogram of residuals
+  * cook's distance
+* {report}
 
 ## 1.1 To Do List
 * use {report} package to report models on summary page
