@@ -206,6 +206,7 @@ downloadButton('downloadReport'),
 ## The Deep Future To Do List
 * Binary Outcome Mixed Effects
 * Multiple Imputation with Chained Equations
+* specify which variable is the ID variable; then allow users to plot Id variables instead of points. 
   
   
 ## User Feedback:
