@@ -109,6 +109,7 @@ The key may to take all the model output objects that are generated and to stand
 * call the standardized augmented table for every function that requires it; personalize all the {lindia} functions for this workflow
 * re-write my own AV plots and Residuals for this
 * dig into whether can coerce `lm_robust` class into a class {report} can read. 
+* https://easystats.github.io/insight/reference/index.html Use this to extract predicted & residuals and get as close as possible? 
 
 ## 1.1 To Do List
 * use {report} package to report models on summary page
