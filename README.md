@@ -118,6 +118,7 @@ The key may to take all the model output objects that are generated and to stand
 * An easy feature: https://twitter.com/Dom_Makowski/status/1321825702040100864 
   * https://github.com/easystats/report
 * Linear Mixed Effects
+* Incremental F test so Vivian will finally love me. 
 * Two-Stage Estimation
   * Instrumental Variables
   * https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
