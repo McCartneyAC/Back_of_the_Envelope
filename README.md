@@ -199,6 +199,13 @@ downloadButton('downloadReport'),
 * instead of "linear v logistic" do "lm" versus "glm" and allow selection of linking function (e.g. to allow poisson, etc)
 * Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
   * surprisingly difficult. return to this later. 
+  * it's just: 
+```r
+datasetInput() %>% 
+  select_if(is_numeric) %>% 
+  GGally::ggpairs()
+```
+   You idiot. 
 * `ggvis` overhaul, at least for main two or three plots? 
   * surprisingly difficult. return to this later. 
   * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
