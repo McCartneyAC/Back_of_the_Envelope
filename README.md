@@ -22,35 +22,35 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [x] added variable plots Take that, math! 
   - [x] Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
     - [ ] when using {estimatr}, can do this:
-* ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
-* ~include correlation table from `SjPlot`~
-* ~include data table~
-* ~include `psych::describe()`~
-* ~Robust Specification~ 
-* ~Logistic Regression up and running~
-* ~Multivariate Regression Up and running~
-* clusters:
-  * ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
-    * ~option to eliminate coefficients with `felm()`~
-    * ~idk that seems like a real pain given the four part formula: https://www.rdocumentation.org/packages/lfe/versions/2.8-5.1/topics/felm~
-    * ~doesn't need to be four parts: `summary(felm(y ~ x + x2 + Q + W | id + firm))`~
-  * ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
-* ~Additional common filetypes supported. (stata, spss, csv, excel)~
-* ~fix odd error with spaces in variable names~
-* ~margins plots~
-* Outlier Analysis:
-  * follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
-    * why doesn't this work? 
-  * Cook's Distance
-  * Leverage Calculator?
-  * Influence index plot (from `car`, can it be remade in `ggplot2` though?)
-* ~Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference.~ 
-  * ~or 1 for logistic obv.~ 
-  * ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
-  * ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
-* ~rearrange upload / model page (incorporates text of current model)~
-* ~sassy message when they ask for logistic regression residuals.~ 
-* Model Diagnostics 
+- [x] ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
+- [x] ~include correlation table from `SjPlot`~
+- [x] ~include data table~
+- [x] ~include `psych::describe()`~
+- [x] ~Robust Specification~ 
+- [x] ~Logistic Regression up and running~
+- [x] ~Multivariate Regression Up and running~
+- [ ] clusters:
+  - [x] ~fixed effects (just make it add `factor()` of whatever variable to the data, then update the model to include this)~
+    - [x] ~option to eliminate coefficients with `felm()`~
+    - [x] ~idk that seems like a real pain given the four part formula: https://www.rdocumentation.org/packages/lfe/versions/2.8-5.1/topics/felm~
+    - [x] ~doesn't need to be four parts: `summary(felm(y ~ x + x2 + Q + W | id + firm))`~
+  - [x] ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
+- [x] ~Additional common filetypes supported. (stata, spss, csv, excel)~
+- [x] ~fix odd error with spaces in variable names~
+- [x] ~margins plots~
+- [ ] Outlier Analysis:
+  - [ ] follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
+    - [ ] why doesn't this work? 
+  - [ ] Cook's Distance
+  - [ ] Leverage Calculator?
+  - [ ] Influence index plot (from `car`, can it be remade in `ggplot2` though?)
+- [x] ~Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference.~ 
+  - [x] ~or 1 for logistic obv.~ 
+  - [x] ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
+  - [x] ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
+- [x] ~rearrange upload / model page (incorporates text of current model)~
+- [x] ~sassy message when they ask for logistic regression residuals.~ 
+- [ ] Model Diagnostics 
   * `lindia` is being a jerk. maybe try `ggfortify` or `gglm`
     * {ggfortify} can't handle these either. 
     * {gglm} only handles classes 'lm' and 'glm' wow even fewer. 
@@ -61,34 +61,35 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
   * https://tidyr.tidyverse.org/reference/drop_na.html
   * This is dropping too much data--needs to only drop the chosen variables
-* ~rotate `SJP.corr()` table variables~ :/ 
-* ~nix the variables page and add a dossier page instead :)~ 
-  * ~`dossier()` numeric return error.~ 
-  * MAKE VARIABLES GREAT AGAIN
-* ~overhaul the plot outputs so it's just:~
-  * ~original plot (follows programmatically based on variables) with second tab for residuals~
+- [x] ~rotate `SJP.corr()` table variables~ :/ 
+- [x] ~nix the variables page and add a dossier page instead :)~ 
+  - [x] ~`dossier()` numeric return error.~ 
+  - [ ] MAKE VARIABLES GREAT AGAIN
+- [x] ~overhaul the plot outputs so it's just:~
+  - [x] ~original plot (follows programmatically based on variables) with second tab for residuals~
     * ~set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`~
-  * ~marginal effects plot~
-  * Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
-* ~`estimatr` redo of all models, including a fixed-effects absorption.~ 
-  * ~triple-check that cluster standard errors and robust standard errors are properly specified.~
-  * ~nope you idiot. you did & instead of |~
-  * HUGE DOWNSTREAM EFFECTS ON MODEL DIAGNOSTICS AND AVPLOTS
-* ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
-  * ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ one taught me pain. 
-  * ~this may now be possible with `varSelectInput()` try this again.~ lol nope u just don't know R syntax you goof. 
-* ~missing data error messages~ lol get rekt. 
-* Available Models Matrix
-  * https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
-* fix downstream issues from `lm_robust()` 
-  * av plots
-  * residuals
-  * model diagnostics 
-  * don't forget to adjust `geom_smooth(method = "lm_robust")` in the function call if `input$rbst == TRUE`
-[] model summary extra tab for results as ANOVA
-* solidify color theme
-* purchase logo design
-* Publish
+  - [x] ~marginal effects plot~
+  - [ ] Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
+- [ ] ~`estimatr` redo of all models, including a fixed-effects absorption.~ 
+  - [x] ~triple-check that cluster standard errors and robust standard errors are properly specified.~
+  - [x] ~nope you idiot. you did & instead of |~
+  - [ ] HUGE DOWNSTREAM EFFECTS ON MODEL DIAGNOSTICS AND AVPLOTS
+- [x] ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
+  - [x] ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ one taught me pain. 
+  - [x] ~this may now be possible with `varSelectInput()` try this again.~ lol nope u just don't know R syntax you goof. 
+- [x] ~missing data error messages~ lol get rekt. 
+- [ ] Available Models Matrix
+  - [ ] https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
+- [ ] fix downstream issues from `lm_robust()` 
+  - [ ] av plots
+  - [ ] residuals
+  - [ ] model diagnostics 
+  - [ ] don't forget to adjust `geom_smooth(method = "lm_robust")` in the function call if `input$rbst == TRUE`
+- [ ] model summary extra tab for results as ANOVA
+- [ ] all variables plot (worked out with [shinyABA](https://github.com/McCartneyAC/ShinyABA)
+- [ ] solidify color theme
+- [ ] purchase logo design
+- [ ] Publish
 
 ## Current Problem:
 
@@ -96,55 +97,56 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 The key may to take all the model output objects that are generated and to standardize their output into my own bespoke formatting, and then render that into everything else... But it sure does sound like a pain. 
 
 ### Status of what doesn't work: 
-* Added Variable Plots (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
-* Plot Residuals (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
-* model diagnostics: (needs `broom::augment()` for lm_robust)
-  * QQ plot 
-  * resid v fitted https://github.com/DeclareDesign/estimatr/issues/377
-  * histogram of residuals https://github.com/DeclareDesign/estimatr/issues/377
-  * cook's distance (https://stackoverflow.com/questions/62107571/how-to-manually-calculate-cooks-distance) 
-* {report}
+- [ ] Added Variable Plots (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
+- [ ] Plot Residuals (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
+- [ ] model diagnostics: (needs `broom::augment()` for lm_robust)
+  - [ ] QQ plot 
+  - [ ] resid v fitted https://github.com/DeclareDesign/estimatr/issues/377
+  - [ ] histogram of residuals https://github.com/DeclareDesign/estimatr/issues/377
+  - [ ] cook's distance (https://stackoverflow.com/questions/62107571/how-to-manually-calculate-cooks-distance) 
+- [ ] {report}
 
 ### The Plan:
-* generate a standardized `augmented` table for every model based on `if_then()` for regular `lm` or `lm_robust` 
-* call the standardized augmented table for every function that requires it; personalize all the {lindia} functions for this workflow
-* re-write my own AV plots and Residuals for this
-* dig into whether can coerce `lm_robust` class into a class {report} can read. 
-* https://easystats.github.io/insight/reference/index.html Use this to extract predicted & residuals and get as close as possible? 
-* Diagnostics from here might be helpful? https://github.com/easystats/performance
+- [ ] generate a standardized `augmented` table for every model based on `if_then()` for regular `lm` or `lm_robust` 
+- [ ] call the standardized augmented table for every function that requires it; personalize all the {lindia} functions for this workflow
+- [ ] re-write my own AV plots and Residuals for this
+- [ ] dig into whether can coerce `lm_robust` class into a class {report} can read. 
+- [ ] https://easystats.github.io/insight/reference/index.html Use this to extract predicted & residuals and get as close as possible? 
+- [ ] Diagnostics from here might be helpful? https://github.com/easystats/performance
 
 ## 1.1 To Do List
-* use {report} package to report models on summary page
-  * outputs of {estimatr} class `lm_robust` aren't supported by report. 
-  * include `broom::glance() %>% gt()` with this please. 
-* https://datalorax.github.io/equatiomatic/articles/intro-equatiomatic.html for same
-* An easy feature: https://twitter.com/Dom_Makowski/status/1321825702040100864 
-  * https://github.com/easystats/report
-* Linear Mixed Effects
-* Incremental F test so Vivian will finally love me. 
-* Two-Stage Estimation
-  * Instrumental Variables
-  * https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
-  * this should...actually be easy now given `varselectinput()` ??
-* need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
-  * oh my god what an absolute nightmare. not trivial at all. 
-  * https://stackoverflow.com/questions/44980757/remote-server-authentication-to-read-googlesheets-from-r-script-not-using-servic/59910070#59910070
-* fix left-right scroll on dataTableOutput. 
-  * https://stackoverflow.com/questions/30765338/how-to-make-the-horizontal-scrollbar-visible-in-dtdatatable/30765558
-* bookmark current state
-  * https://shiny.rstudio.com/articles/bookmarking-state.html
-* ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ 
-   * ~verbatimTextOutput("info")~ 
-   * ~use gt() output instead.~
-     * ~https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup~
-* consider switch to gt_summary() for regression tables:
-  * https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
-  * especially if `theme_APA` ever becomes a thing. 
-  * No. Use package {apaTables} instead! WAIT NO, this only prints to msWord, it doesn't print to HTML.
-* path analysis 
-  * https://advstats.psychstat.org/book/path/index.php
-  * https://data.library.virginia.edu/introduction-to-mediation-analysis/
-* get download report code to work: 
+- [ ] use {report} package to report models on summary page
+  - [ ] outputs of {estimatr} class `lm_robust` aren't supported by report. 
+  - [ ] include `broom::glance() %>% gt()` with this please. 
+- [ ] https://datalorax.github.io/equatiomatic/articles/intro-equatiomatic.html for same
+- [ ] An easy feature: https://twitter.com/Dom_Makowski/status/1321825702040100864 
+  - [ ] https://github.com/easystats/report
+- [ ] Linear Mixed Effects
+- [ ] Incremental F test so Vivian will finally love me. .
+- [ ] use {equatiomatic} to produce an equation on the page (this will probably bounce with LaTeX somewhere)
+- [ ] Two-Stage Estimation
+  - [ ] Instrumental Variables
+  - [ ] https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
+  - [ ] this should...actually be easy now given `varselectinput()` ??
+- [ ] need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
+  - [ ] oh my god what an absolute nightmare. not trivial at all. 
+  - [ ] https://stackoverflow.com/questions/44980757/remote-server-authentication-to-read-googlesheets-from-r-script-not-using-servic/59910070#59910070
+- [ ] fix left-right scroll on dataTableOutput. 
+  - [ ] https://stackoverflow.com/questions/30765338/how-to-make-the-horizontal-scrollbar-visible-in-dtdatatable/30765558
+- [ ] bookmark current state
+  - [ ] https://shiny.rstudio.com/articles/bookmarking-state.html
+- [x] ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ 
+   - [x] ~verbatimTextOutput("info")~ 
+   - [x] ~use gt() output instead.~
+     - [x] ~https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup~
+- [ ] consider switch to gt_summary() for regression tables:
+  - [ ] https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
+  - [ ] especially if `theme_APA` ever becomes a thing. 
+  - [ ] No. Use package {apaTables} instead! WAIT NO, this only prints to msWord, it doesn't print to HTML.
+- [ ] path analysis 
+  - [ ] https://advstats.psychstat.org/book/path/index.php
+  - [ ] https://data.library.virginia.edu/introduction-to-mediation-analysis/
+- [ ] get download report code to work: 
 
 ```
 #ui
@@ -176,48 +178,48 @@ downloadButton('downloadReport'),
 
 
 ## 1.2 To Do List
-* User choice standard errors with `estimatr`
-* editable data tables: 
-  * idea one: https://github.com/jbryer/DTedit
-  * idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
-  * idea three: https://cran.r-project.org/web/packages/rhandsontable/vignettes/intro_rhandsontable.html
-  * idea four: Common generic variable adjustments as options:
-    * gen dummies
-    * center
-      * median
-      * mean
-    * standardize
-      * z-transform? 
-      * other's from library(SuppDists) 
-        * http://finzi.psych.upenn.edu/library/SuppDists/html/00Index.html
-    * drop
-    * square (or root? what about a generic power function?) 
-    * interact 
-    * Brian's subsetting maybe? 
-    * ... ? 
-* Quantiles? `geom_quantile()` 
-  * https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
-* instead of "linear v logistic" do "lm" versus "glm" and allow selection of linking function (e.g. to allow poisson, etc)
-* Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
-  * surprisingly difficult. return to this later. 
-  * it's just: 
+- [ ] User choice standard errors with `estimatr`
+- [ ] editable data tables: 
+  - [ ] idea one: https://github.com/jbryer/DTedit
+  - [ ] idea two: https://www.r-bloggers.com/shinymatrix-matrix-input-for-shiny-apps/
+  - [ ] idea three: https://cran.r-project.org/web/packages/rhandsontable/vignettes/intro_rhandsontable.html
+  - [ ] idea four: Common generic variable adjustments as options: (use new {datawizard} to do this?)
+    - [ ] gen dummies
+    - [ ] center
+      - [ ] median
+      - [ ] mean
+    - [ ] standardize
+      - [ ] z-transform? 
+      - [ ] other's from library(SuppDists) 
+        - [ ] http://finzi.psych.upenn.edu/library/SuppDists/html/00Index.html
+    - [ ] drop
+    - [ ] square (or root? what about a generic power function?) 
+    - [ ] interact 
+    - [ ] Brian's subsetting maybe? 
+    - [ ] ... ? 
+- [ ] Quantiles? `geom_quantile()` 
+  - [ ] https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
+- [ ] instead of "linear v logistic" do "lm" versus "glm" and allow selection of linking function (e.g. to allow poisson, etc)
+- [ ] Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
+  - [ ] surprisingly difficult. return to this later. 
+  - [ ] it's just: 
 ```r
 datasetInput() %>% 
   select_if(is_numeric) %>% 
   GGally::ggpairs()
 ```
    You idiot. 
-* `ggvis` overhaul, at least for main two or three plots? 
-  * surprisingly difficult. return to this later. 
-  * problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
-* `dplyr::filter()` regression on data subgroups. Brian wanted this but tbh is it worth it? 
-* JSON support.
-* multiple simultaneous models
+- [ ] `ggvis` overhaul, at least for main two or three plots? 
+  - [ ] surprisingly difficult. return to this later. 
+  - [ ] problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
+- [ ] `dplyr::filter()` regression on data subgroups. Brian wanted this but tbh is it worth it? 
+- [ ] JSON support.
+- [ ] multiple simultaneous models
 
 ## The Deep Future To Do List
-* Binary Outcome Mixed Effects
-* Multiple Imputation with Chained Equations
-* specify which variable is the ID variable; then allow users to plot Id variables instead of points. 
+- [ ] Binary Outcome Mixed Effects
+- [ ] Multiple Imputation with Chained Equations
+- [ ] specify which variable is the ID variable; then allow users to plot Id variables instead of points. 
   
   
 ## User Feedback:
