@@ -108,6 +108,7 @@ The key may to take all the model output objects that are generated and to stand
 
 ### The Plan:
 - [ ] generate a standardized `augmented` table for every model based on `if_then()` for regular `lm` or `lm_robust` 
+   - [ ] how do you even do this with robust standard errors, though? 
 - [ ] call the standardized augmented table for every function that requires it; personalize all the {lindia} functions for this workflow
 - [ ] re-write my own AV plots and Residuals for this
 - [ ] dig into whether can coerce `lm_robust` class into a class {report} can read. 
