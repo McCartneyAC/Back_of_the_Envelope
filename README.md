@@ -64,7 +64,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 - [x] ~rotate `SJP.corr()` table variables~ :/ 
 - [x] ~nix the variables page and add a dossier page instead :)~ 
   - [x] ~`dossier()` numeric return error.~ 
-  - [ ] MAKE VARIABLES GREAT AGAIN
+  - [x] MAKE VARIABLES GREAT AGAIN
 - [x] ~overhaul the plot outputs so it's just:~
   - [x] ~original plot (follows programmatically based on variables) with second tab for residuals~
     * ~set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`~
@@ -85,8 +85,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [ ] residuals
   - [ ] model diagnostics 
   - [ ] don't forget to adjust `geom_smooth(method = "lm_robust")` in the function call if `input$rbst == TRUE`
-- [ ] model summary extra tab for results as ANOVA
-- [ ] all variables plot (worked out with [shinyABA](https://github.com/McCartneyAC/ShinyABA)
+- [ ] model summary extra tab for results as ANOVA (no package has good output of ANOVA table to HTML for a REASON)
+- [x] all variables plot (worked out with [shinyABA](https://github.com/McCartneyAC/ShinyABA)
 - [ ] solidify color theme
 - [ ] purchase logo design
 - [ ] Publish
@@ -200,15 +200,7 @@ downloadButton('downloadReport'),
 - [ ] Quantiles? `geom_quantile()` 
   - [ ] https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
 - [ ] instead of "linear v logistic" do "lm" versus "glm" and allow selection of linking function (e.g. to allow poisson, etc)
-- [ ] Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
-  - [ ] surprisingly difficult. return to this later. 
-  - [ ] it's just: 
-```r
-datasetInput() %>% 
-  select_if(is_numeric) %>% 
-  GGally::ggpairs()
-```
-   You idiot. 
+- [x] Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
 - [ ] `ggvis` overhaul, at least for main two or three plots? 
   - [ ] surprisingly difficult. return to this later. 
   - [ ] problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
