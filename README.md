@@ -13,7 +13,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 
 # To Do Items
 ## 1.0 To Do List: 
-* ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
+[x] ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
   * ~there be dragons with clustered standard errors~  
 * ~`ggplot2` representations of the model~
   * ~bivariate~
@@ -85,6 +85,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * residuals
   * model diagnostics 
   * don't forget to adjust `geom_smooth(method = "lm_robust")` in the function call if `input$rbst == TRUE`
+[] model summary extra tab for results as ANOVA
 * solidify color theme
 * purchase logo design
 * Publish
