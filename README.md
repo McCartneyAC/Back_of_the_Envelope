@@ -115,6 +115,9 @@ The key may to take all the model output objects that are generated and to stand
 - [ ] dig into whether can coerce `lm_robust` class into a class {report} can read. 
 - [ ] https://easystats.github.io/insight/reference/index.html Use this to extract predicted & residuals and get as close as possible? 
 - [ ] Diagnostics from here might be helpful? https://github.com/easystats/performance
+- [ ] anything that requires prediction intervals with type "lm_robust" is going to be bogus anyway: 
+  - [ ]  https://stats.stackexchange.com/questions/175127/prediction-intervals-with-heteroscedasticity
+  - [ ]  https://stats.stackexchange.com/questions/186953/calculating-prediction-intervals-from-heteroscedastic-data?noredirect=1&lq=1
 
 ## 1.1 To Do List
 - [ ] use {report} package to report models on summary page
