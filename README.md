@@ -13,15 +13,15 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 
 # To Do Items
 ## 1.0 To Do List: 
-[x] ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
-  * ~there be dragons with clustered standard errors~  
-* ~`ggplot2` representations of the model~
-  * ~bivariate~
-  * ~bivariate residual plot~
-  * ~two independent variables (close! close? finished!)~
-  * added variable plots Take that, math! 
-  * Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
-    * when using {estimatr}, can do this:
+- [x] ~Output should include `SjPlot`'s `tab_model()` output for APA-style regression tables~
+  - [x] ~there be dragons with clustered standard errors~  
+- [x] ~`ggplot2` representations of the model~
+  - [x] ~bivariate~
+  - [x] ~bivariate residual plot~
+  - [x] ~two independent variables (close! close? finished!)~
+  - [x] added variable plots Take that, math! 
+  - [x] Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
+    - [ ] when using {estimatr}, can do this:
 * ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
 * ~include correlation table from `SjPlot`~
 * ~include data table~
