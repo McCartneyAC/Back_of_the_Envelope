@@ -128,6 +128,7 @@ The key may to take all the model output objects that are generated and to stand
 - [ ] use {equatiomatic} to produce an equation on the page (this will probably bounce with LaTeX somewhere)
 - [ ] Two-Stage Estimation
   - [ ] Instrumental Variables
+  - [ ] https://john-d-fox.github.io/ivreg/articles/ivreg.html
   - [ ] https://declaredesign.org/r/estimatr/articles/getting-started.html#iv_robust
   - [ ] this should...actually be easy now given `varselectinput()` ??
 - [ ] need to add support for google sheets via {googlesheets4} this should be fairly trivial now: including a textinput for the link and a 'go' button, probably, then a check that blocks having two data sources at once. 
