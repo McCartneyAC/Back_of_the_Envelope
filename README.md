@@ -87,6 +87,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [ ] don't forget to adjust `geom_smooth(method = "lm_robust")` in the function call if `input$rbst == TRUE`
 - [ ] model summary extra tab for results as ANOVA (no package has good output of ANOVA table to HTML for a REASON)
 - [x] all variables plot (worked out with [shinyABA](https://github.com/McCartneyAC/ShinyABA)
+- [ ] MODULAR OVERHAUL (https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/)
 - [ ] solidify color theme
 - [ ] purchase logo design
 - [ ] Publish
