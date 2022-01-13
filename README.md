@@ -88,6 +88,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 - [ ] model summary extra tab for results as ANOVA (no package has good output of ANOVA table to HTML for a REASON)
 - [x] all variables plot (worked out with [shinyABA](https://github.com/McCartneyAC/ShinyABA)
 - [ ] MODULAR OVERHAUL (https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/)
+  - [ ] This should make every individual tab its own module for simplicity's sake on the main page, which is like 800 lines now jeez.
 - [ ] solidify color theme
 - [ ] purchase logo design
 - [ ] Publish
