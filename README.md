@@ -78,7 +78,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [x] ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ one taught me pain. 
   - [x] ~this may now be possible with `varSelectInput()` try this again.~ lol nope u just don't know R syntax you goof. 
 - [x] ~missing data error messages~ lol get rekt. 
-- [ ] Available Models Matrix
+- [ ] Available Models Matrix **THIS IS NOW PRIORITY #1 AS IT WILL TRACK PROGRESS ON EVERYTHING ELSE** 
   - [ ] https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
 - [ ] fix downstream issues from `lm_robust()` 
   - [ ] av plots
