@@ -182,7 +182,23 @@ downloadButton('downloadReport'),
          file.rename(out, file)
       })
 ```
-
+### Downloadable plots: 
+Example: 
+```
+plot_server <- function(id, df, vbl, threshhold = NULL) {
+  
+  moduleServer(id, function(input, output, session) {
+    
+    plot <- reactive({viz_monthly(df(), vbl, threshhold)})
+    output$plot <- renderPlot({plot()})
+    output$dnld <- downloadHandler(
+      filename = function() {paste0(vbl, '.png')},
+      content = function(file) {ggsave(file, plot())}
+    )
+    
+  })
+}
+```
 
 ## 1.2 To Do List
 - [ ] User choice standard errors with `estimatr`
