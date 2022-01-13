@@ -100,6 +100,7 @@ The key may to take all the model output objects that are generated and to stand
 
 ### Status of what doesn't work: 
 - [ ] Added Variable Plots (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
+- [ ] see this response; https://github.com/DeclareDesign/estimatr/issues/377#issuecomment-923105361
 - [ ] Plot Residuals (needs `broom::augment()` for lm_robust) https://github.com/DeclareDesign/estimatr/issues/377
 - [ ] model diagnostics: (needs `broom::augment()` for lm_robust)
   - [ ] QQ plot 
