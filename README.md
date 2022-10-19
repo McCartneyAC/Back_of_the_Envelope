@@ -40,6 +40,7 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
 - [x] ~margins plots~
 - [ ] Outlier Analysis:
   - [ ] follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
+  - [ ] that was the wrong outlier removal link. follow this code instead: https://gallery.shinyapps.io/106-plot-interaction-exclude/
     - [ ] why doesn't this work? 
   - [ ] Cook's Distance
   - [ ] Leverage Calculator?
