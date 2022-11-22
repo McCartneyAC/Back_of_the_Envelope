@@ -111,6 +111,9 @@ The key may to take all the model output objects that are generated and to stand
 - [ ] {report}
 
 ### The Plan:
+- [ ] Just switch to using {robustbase} and drop {estimatr} altogether, since it doesn't play nice with anyone? 
+  - [ ] would be a shame to lose their ability to do two-stage least squares, but let's see where this takes us without using {estimatr} :( 
+  - [ ] https://cran.r-project.org/web/packages/robustbase/robustbase.pdf
 - [ ] generate a standardized `augmented` table for every model based on `if_then()` for regular `lm` or `lm_robust` 
    - [ ] how do you even do this with robust standard errors, though? 
    - [ ] `broom` has methods for `augment` for types `lmrob` and `lmRob` but not `lm_robust` and they are passing this problem on to the maintainers of the `estimatr` package
