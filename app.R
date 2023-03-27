@@ -713,6 +713,47 @@ server <- function(input, output, session) {
    
    # Model Building
    linear <- reactive ({
+      # WHY IS THIS AND AND NOT OR. 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      # PLEASE INVESTIGATE HERE
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      # WHY WAS THIS DECISION MADE
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      # TODO: FIX THIS
       if (input$rbst & (input$clstr == "Cluster Standard Errors")) {
          lm_robust(regFormula(), clusters = cluster_var(), data = datasetInput())
       } else {
