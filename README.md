@@ -22,10 +22,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [x] added variable plots Take that, math! 
   - [x] Plot residuals. (it's just [predicted v actual] + ~[residual v fitted]~)
     - [ ] when using {estimatr}, can do this:
-- [x] ~Additionally, need to figure out how to modify the DT with `%>%` to round `psych::describe()` to two decimal places.~
-- [x] ~include correlation table from `SjPlot`~
-- [x] ~include data table~
-- [x] ~include `psych::describe()`~
 - [x] ~Robust Specification~ 
 - [x] ~Logistic Regression up and running~
 - [x] ~Multivariate Regression Up and running~
@@ -35,8 +31,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
     - [x] ~idk that seems like a real pain given the four part formula: https://www.rdocumentation.org/packages/lfe/versions/2.8-5.1/topics/felm~
     - [x] ~doesn't need to be four parts: `summary(felm(y ~ x + x2 + Q + W | id + firm))`~
   - [x] ~standard errors (this will make error for SjPlot see his tweet reply on this topic)~
-- [x] ~Additional common filetypes supported. (stata, spss, csv, excel)~
-- [x] ~fix odd error with spaces in variable names~
 - [x] ~margins plots~
 - [ ] Outlier Analysis:
   - [ ] follow this for outlier removal: https://www.shinyapps.org/apps/p-hacker/
@@ -45,11 +39,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [ ] Cook's Distance
   - [ ] Leverage Calculator?
   - [ ] Influence index plot (from `car`, can it be remade in `ggplot2` though?)
-- [x] ~Adjust `SjPlot`'s marginsplot to include a dotted line at 0 for reference.~ 
-  - [x] ~or 1 for logistic obv.~ 
-  - [x] ~`plot_model(m1, vline.color = "red")` (it's already built in to SjP)~
-  - [x] ~Also: `plot_model(m1, show.values = TRUE, value.offset = .3)`~
 - [x] ~rearrange upload / model page (incorporates text of current model)~
+  - [ ]  but can we prettify this? 
 - [x] ~sassy message when they ask for logistic regression residuals.~ 
 - [ ] Model Diagnostics 
   * `lindia` is being a jerk. maybe try `ggfortify` or `gglm`
@@ -62,10 +53,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   * something like, for each variable selected, select_if(is_extant)? this should already be working in the back end. Annoying. 
   * https://tidyr.tidyverse.org/reference/drop_na.html
   * This is dropping too much data--needs to only drop the chosen variables
-- [x] ~rotate `SJP.corr()` table variables~ :/ 
-- [x] ~nix the variables page and add a dossier page instead :)~ 
-  - [x] ~`dossier()` numeric return error.~ 
-  - [x] MAKE VARIABLES GREAT AGAIN
 - [x] ~overhaul the plot outputs so it's just:~
   - [x] ~original plot (follows programmatically based on variables) with second tab for residuals~
     * ~set "1 IV" and "2 IV" plots to be a logical when `length(indevars) == 1{} else if length(indevars == 2{} else NULL`~
@@ -73,12 +60,8 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [ ] Added Variable Plots. Make sure to deal with issue of missing data with AV plots (and residuals above for that matter)
 - [ ] ~`estimatr` redo of all models, including a fixed-effects absorption.~ 
   - [x] ~triple-check that cluster standard errors and robust standard errors are properly specified.~
-  - [x] ~nope you idiot. you did & instead of |~
+  - [] nope you idiot. you did & instead of |
   - [ ] HUGE DOWNSTREAM EFFECTS ON MODEL DIAGNOSTICS AND AVPLOTS
-- [x] ~`Fast = TRUE` toggle for `psych::describe()` so nerds can see skew/kurtosis.~
-  - [x] ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ one taught me pain. 
-  - [x] ~this may now be possible with `varSelectInput()` try this again.~ lol nope u just don't know R syntax you goof. 
-- [x] ~missing data error messages~ lol get rekt. 
 - [ ] Available Models Matrix **THIS IS NOW PRIORITY #1 AS IT WILL TRACK PROGRESS ON EVERYTHING ELSE** 
   - [ ] https://gt.rstudio.com/ use this one to make it due to the double-headers :) 
 - [ ] fix downstream issues from `lm_robust()` 
@@ -87,7 +70,6 @@ With sufficient on-your-own data preparation, this tool should be sufficient for
   - [ ] model diagnostics 
   - [ ] don't forget to adjust `geom_smooth(method = "lm_robust")` in the function call if `input$rbst == TRUE`
 - [ ] model summary extra tab for results as ANOVA (no package has good output of ANOVA table to HTML for a REASON)
-- [x] all variables plot (worked out with [shinyABA](https://github.com/McCartneyAC/ShinyABA)
 - [ ] MODULAR OVERHAUL (https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/)
   - [ ] This should make every individual tab its own module for simplicity's sake on the main page, which is like 800 lines now jeez.
 - [ ] solidify color theme
@@ -148,10 +130,6 @@ The key may to take all the model output objects that are generated and to stand
   - [ ] https://stackoverflow.com/questions/30765338/how-to-make-the-horizontal-scrollbar-visible-in-dtdatatable/30765558
 - [ ] bookmark current state
   - [ ] https://shiny.rstudio.com/articles/bookmarking-state.html
-- [x] ~Allow `describe_by()` groupings with a material switch and a dropdown menu.~ 
-   - [x] ~verbatimTextOutput("info")~ 
-   - [x] ~use gt() output instead.~
-     - [x] ~https://stackoverflow.com/questions/63177033/tidyeval-in-a-non-quasiquotation-context-psychdescribebygroup~
 - [ ] consider switch to gt_summary() for regression tables:
   - [ ] https://www.danieldsjoberg.com/gtsummary/reference/theme_gtsummary.html
   - [ ] especially if `theme_APA` ever becomes a thing. 
@@ -229,7 +207,6 @@ plot_server <- function(id, df, vbl, threshhold = NULL) {
 - [ ] Quantiles? `geom_quantile()` 
   - [ ] https://cran.r-project.org/web/packages/quantreg/vignettes/rq.pdf
 - [ ] instead of "linear v logistic" do "lm" versus "glm" and allow selection of linking function (e.g. to allow poisson, etc)
-- [x] Pure description + plot all variables against each other a la https://drsimonj.svbtle.com/plot-some-variables-against-many-others
 - [ ] `ggvis` overhaul, at least for main two or three plots? 
   - [ ] surprisingly difficult. return to this later. 
   - [ ] problem with `prop("x", as.name(indvariable()))` ? What's up with that. 
