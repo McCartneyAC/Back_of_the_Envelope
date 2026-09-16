@@ -18,27 +18,27 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 - [x] ~~Fix `& → |` bug in `linear()` model building block~~
       — one character change, massive downstream consequences
       — this is the original sin; everything else depends on it
-- [ ] Update `estimatr` to 2.0.0 (`remotes::install_github("DeclareDesign/estimatr")` 
+- [x] Update `estimatr` to 2.0.0 (`remotes::install_github("DeclareDesign/estimatr")` 
       until CRAN accepts it)
-- [ ] Replace `augment(fit)` calls with new 2.0 syntax (no `newdata=` required anymore)
+- [x] Replace `augment(fit)` calls with new 2.0 syntax (no `newdata=` required anymore)
 
 ---
 
 ## 🟠 Core Functionality (v1.0 blockers)
 
 ### Model Diagnostics
-- [ ] Rewrite diagnostic plots using `augment(model())` now that 
+- [x] Rewrite diagnostic plots using `augment(model())` now that 
       `lm_robust` is supported — replaces all the `lindia` workarounds
-  - [ ] Histogram of residuals
-  - [ ] QQ plot  
-  - [ ] Residuals vs. fitted
-  - [ ] Cook's distance (now extractable cleanly via augment)
-- [ ] Fix missing data issue in residual plots — `drop_na()` is 
+  - [x] Histogram of residuals
+  - [x] QQ plot  
+  - [x] Residuals vs. fitted
+  - [x] Cook's distance (now extractable cleanly via augment)
+- [x] Fix missing data issue in residual plots — `drop_na()` is 
       dropping too aggressively; should only drop on modeled variables
 
 ### Added Variable Plots
-- [ ] Rewrite `gg_added_var()` using `augment()` — now unblocked
-- [ ] Handle missing data correctly in AV plot construction
+- [x] Rewrite `gg_added_var()` using `augment()` — now unblocked
+- [x] Handle missing data correctly in AV plot construction
 
 ### Outlier Analysis
 - [ ] Fix `reactiveValues()` bug in brushing/leverage tab
@@ -49,9 +49,9 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 - [ ] Decide: ship Cook's D only for v1.0, defer leverage interactivity?
 
 ### Standard Errors
-- [ ] Verify robust SE and cluster SE are correctly specified after `& → |` fix
-- [ ] Test all model type combinations after estimatr 2.0 update
-- [ ] Update `geom_smooth()` calls to use `method = "lm_robust"` 
+- [x] Verify robust SE and cluster SE are correctly specified after `& → |` fix
+- [x] Test all model type combinations after estimatr 2.0 update
+- [x] Update `geom_smooth()` calls to use `method = "lm_robust"` 
       when `input$rbst == TRUE`
 
 ---
@@ -59,16 +59,16 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 ## 🟡 UI / Architecture (v1.0 quality-of-life)
 
 ### Framework Migration
-- [ ] Migrate from `shinydashboard` + `shinydashboardPlus` to `bs4Dash`
+- [x] Migrate from `shinydashboard` + `shinydashboardPlus` to `bs4Dash`
   - [ ] Swap library calls and fix renamed functions
-  - [ ] Replace `socialButton()` with `tags$a()` + fontawesome equivalents
-  - [ ] Replace `dashboardLabel()` with styled `span` equivalents
-  - [ ] `dropdownBlock()` is already custom — verify it survives migration
+  - [x] Replace `socialButton()` with `tags$a()` + fontawesome equivalents
+  - [x] Replace `dashboardLabel()` with styled `span` equivalents
+  - [x] `dropdownBlock()` is already custom — verify it survives migration
 
 ### Code Modernization  
-- [ ] Replace deprecated `aes_string()` with `.data[[]]` or `aes()`
-- [ ] Replace deprecated `select_()` with `pick()` or `.data[[]]`
-- [ ] Replace `add_rownames()` with `tibble::rownames_to_column()`
+- [x] Replace deprecated `aes_string()` with `.data[[]]` or `aes()`
+- [x] Replace deprecated `select_()` with `pick()` or `.data[[]]`
+- [x] Replace `add_rownames()` with `tibble::rownames_to_column()`
 
 ### Modular Overhaul
 - [ ] Refactor server into Shiny modules — one per tab
@@ -109,7 +109,7 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 
 ## 🔵 v1.1 (post-ship, not blocking)
 - [ ] Model results stored somewhere so that a second model can be created and compared (incremental F, e.g.) This is important for several future features.
-- [ ] `{report}` package integration for model summary narrative
+- [x] `{report}` package integration for model summary narrative
       — now potentially unblocked by estimatr 2.0, needs testing
 - [ ] `broom::glance() %>% gt()` summary statistics panel
 - [ ] `{equatiomatic}` equation display
@@ -141,7 +141,7 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 - [ ] Binary outcome mixed effects
 - [ ] Multiple imputation (MICE)
 - [ ] Path analysis / mediation
-- [ ] Downloadable report (PDF/HTML/Word) — deprioritized; 
+- [x] Downloadable report (PDF/HTML/Word) — deprioritized; 
       high pain, low user value
 - [ ] Plot ID variables instead of anonymous points
 
