@@ -15,7 +15,7 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 
 ## 🔴 Critical Bugs (do these first)
 
-- [ ] Fix `& → |` bug in `linear()` model building block
+- [x] ~~Fix `& → |` bug in `linear()` model building block~~
       — one character change, massive downstream consequences
       — this is the original sin; everything else depends on it
 - [ ] Update `estimatr` to 2.0.0 (`remotes::install_github("DeclareDesign/estimatr")` 
