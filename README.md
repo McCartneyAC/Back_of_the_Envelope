@@ -158,7 +158,80 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 7. Ship v1.0
 
 
+# Back of the Envelope — Available Models Matrix (post & → | fix)
 
+Key: ✅ works | ⚠️ partial / untested | ❌ broken | 🚧 not yet implemented
+
+---
+
+## Linear Outcome (`lm` / `lm_robust`)
+
+| Configuration | Robust SEs | Model Function | SE Type | augment() | Diagnostics | AV Plots | Notes |
+|---|---|---|---|---|---|---|---|
+| No clustering, no robust | OFF | `lm()` | OLS | ✅ | ✅ | ✅ | Baseline case; fully working |
+| No clustering, robust | ON | `lm_robust(clusters = NULL)` | HC2 | ⚠️ | ❌ | ❌ | Now correctly reaches `lm_robust()`. `clusters = NULL` should give HC2 but needs verification with estimatr 2.0. Diagnostics/AV plots still break on `lm_robust` class until lindia is replaced |
+| Cluster SEs, no robust | OFF | `lm_robust(clusters = cluster_var())` | CR2 | ⚠️ | ❌ | ❌ | Now correctly reaches `lm_robust()`. Previously silently used plain OLS — this is a meaningful fix. SE type needs verification |
+| Cluster SEs + robust | ON | `lm_robust(clusters = cluster_var())` | CR2 | ⚠️ | ❌ | ❌ | Was the only case that worked before; behavior unchanged. Both conditions true, `\|` still routes here correctly |
+| Fixed Effects | OFF | `lm()` | OLS | ✅ | ✅ | ✅ | FE via `factor()` in formula, plain `lm()`. Works but no SE adjustment for FE |
+| Fixed Effects + robust | ON | `lm_robust(clusters = NULL)` | HC2 | ⚠️ | ❌ | ❌ | Now reaches `lm_robust()` correctly. estimatr 2.0 default for FE without clusters is HC2 — needs verification |
+| Fixed Effects + cluster SEs | either | `lm_robust(clusters = cluster_var())` | CR2 | ⚠️ | ❌ | ❌ | Routes correctly now. Note: FE is via `factor()` in formula, not absorbed — coefficient list will be large |
+| HLM / Multilevel | — | 🚧 | — | 🚧 | 🚧 | 🚧 | UI option exists, routes nowhere |
+
+---
+
+## Logistic Outcome (`glm` / `glmRob`)
+
+| Configuration | Robust SEs | Model Function | SE Type | augment() | Diagnostics | AV Plots | Notes |
+|---|---|---|---|---|---|---|---|
+| No robust | OFF | `glm(..., family = "binomial")` | MLE | ✅ | ⚠️ | ⚠️ | Unchanged. Diagnostics run but residuals are not meaningful for logistic |
+| Robust logistic | ON | `robust::glmRob(..., method = "cubif")` | Mallows/cubif | ❌ | ❌ | ❌ | Unchanged. No augment support for `glmRob` |
+| Clustered logistic | any | 🚧 | — | — | — | — | Unchanged. `logistic()` reactive has no clustering path at all — `cluster_var()` is never passed to it |
+| Fixed effects logistic | any | 🚧 | — | — | — | — | `regFormula()` does append `factor(cluster_var)` for FE, so formula is correct — but clustering type and robust toggle are still ignored inside `logistic()` |
+
+---
+
+## Standard Error Types
+
+| SE Label | Estimator | When Active | HC Variant | Verified? |
+|---|---|---|---|---|
+| OLS | `lm()` | No robust, no clustering | N/A | ✅ |
+| HC2 | `lm_robust(clusters = NULL)` | Robust ON, no clustering | HC2 (estimatr default) | ⚠️ needs testing post-fix |
+| CR2 | `lm_robust(clusters = cluster_var())` | Cluster SEs selected (with or without robust toggle) | CR2 (estimatr default) | ⚠️ needs testing post-fix |
+| HC2 (FE) | `lm_robust(clusters = NULL)` | FE + robust, no clustering | HC2 (estimatr 2.0 FE default) | ⚠️ needs testing |
+| CR0 | — | FE + clustered | CR0 (estimatr 2.0 FE+cluster default, changed from CR2 in 1.x) | ⚠️ **breaking change from estimatr 1.x — see note** |
+| Mallows/cubif | `robust::glmRob()` | Logistic + robust | cubif | ✅ |
+
+**estimatr 2.0 breaking change note:** For fixed effects with clustering, estimatr 2.0 changed the default from CR2 to CR0, and issues a once-per-session warning. If you want CR2 back, pass `se_type = "CR2"` explicitly. Worth deciding which default you want and making it explicit in the code.
+
+---
+
+## End-to-End Summary
+
+| | Plain OLS | Robust OLS (HC2) | Clustered OLS (CR2) | Plain Logistic | Robust Logistic |
+|---|---|---|---|---|---|
+| Formula display | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Model fits | ✅ | ✅ | ✅ | ✅ | ✅ |
+| tab_model() summary | ✅ | ⚠️ | ⚠️ | ✅ | ⚠️ |
+| Main effect plot | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Marginal effects | ✅ | ⚠️ | ⚠️ | ✅ | ⚠️ |
+| Residual plot | ✅ | ❌ | ❌ | ⚠️ | ❌ |
+| Diagnostics | ✅ | ❌ | ❌ | ⚠️ | ❌ |
+| AV plots | ✅ | ❌ | ❌ | ⚠️ | ❌ |
+| Cook's distance | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Outlier brushing | ❌ | ❌ | ❌ | ❌ | ❌ |
+
+---
+
+## What Changed vs. Pre-Fix
+
+The fix converts three silent failures into correct behavior:
+- Robust ON + no clustering: was silently OLS, now correctly HC2
+- Cluster SEs + robust OFF: was silently OLS, now correctly CR2  
+- Cluster SEs + robust ON: behavior unchanged, was already the one working case
+
+The ❌ items in diagnostics/AV plots are now **honest failures** 
+(lm_robust class hitting lindia) rather than silent misfires 
+(plain lm being used when user asked for robust). That's progress.
 
 
 
