@@ -713,48 +713,7 @@ server <- function(input, output, session) {
    
    # Model Building
    linear <- reactive ({
-      # WHY IS THIS AND AND NOT OR. 
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      # PLEASE INVESTIGATE HERE
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      # WHY WAS THIS DECISION MADE
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      # TODO: FIX THIS
-      if (input$rbst & (input$clstr == "Cluster Standard Errors")) {
+    if (input$rbst | (input$clstr == "Cluster Standard Errors")) {
          lm_robust(regFormula(), clusters = cluster_var(), data = datasetInput())
       } else {
          lm(regFormula(), data = datasetInput())
@@ -951,7 +910,7 @@ server <- function(input, output, session) {
    
    # Model for Y ~ all but chosen X val
    partiallinear <- reactive ({
-      if (input$rbst & (input$clstr == "Cluster Standard Errors")) {
+      if (input$rbst | (input$clstr == "Cluster Standard Errors")) {
          lm_robust(partialformula(), clusters = cluster_var(), data = datasetInput())
       } else {
          lm(partialformula(), data = datasetInput())
