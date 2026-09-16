@@ -4,6 +4,168 @@ https://acm9q.shinyapps.io/Back_of_the_Envelope/
 
 Can we build a ~basic point-and-click regression analysis tool~ replacement to general purpose statistical analysis tools with R shiny? 
 
+# Back of the Envelope — To-Do List (revised September 2026)
+
+## Context
+estimatr 2.0.0 was released this week with native `broom::augment()` 
+support for `lm_robust`. This resolves the central blocking issue that 
+stalled the project in 2021. Code has not yet been updated to reflect this.
+
+---
+
+## 🔴 Critical Bugs (do these first)
+
+- [ ] Fix `& → |` bug in `linear()` model building block
+      — one character change, massive downstream consequences
+      — this is the original sin; everything else depends on it
+- [ ] Update `estimatr` to 2.0.0 (`remotes::install_github("DeclareDesign/estimatr")` 
+      until CRAN accepts it)
+- [ ] Replace `augment(fit)` calls with new 2.0 syntax (no `newdata=` required anymore)
+
+---
+
+## 🟠 Core Functionality (v1.0 blockers)
+
+### Model Diagnostics
+- [ ] Rewrite diagnostic plots using `augment(model())` now that 
+      `lm_robust` is supported — replaces all the `lindia` workarounds
+  - [ ] Histogram of residuals
+  - [ ] QQ plot  
+  - [ ] Residuals vs. fitted
+  - [ ] Cook's distance (now extractable cleanly via augment)
+- [ ] Fix missing data issue in residual plots — `drop_na()` is 
+      dropping too aggressively; should only drop on modeled variables
+
+### Added Variable Plots
+- [ ] Rewrite `gg_added_var()` using `augment()` — now unblocked
+- [ ] Handle missing data correctly in AV plot construction
+
+### Outlier Analysis
+- [ ] Fix `reactiveValues()` bug in brushing/leverage tab
+      (`vals` is declared as `reactive()` but mutated as if `reactiveValues()`)
+- [ ] Complete Cook's Distance plot (now unblocked via augment)
+- [ ] Leverage plot — interactive point exclusion 
+      (reference: https://gallery.shinyapps.io/106-plot-interaction-exclude/)
+- [ ] Decide: ship Cook's D only for v1.0, defer leverage interactivity?
+
+### Standard Errors
+- [ ] Verify robust SE and cluster SE are correctly specified after `& → |` fix
+- [ ] Test all model type combinations after estimatr 2.0 update
+- [ ] Update `geom_smooth()` calls to use `method = "lm_robust"` 
+      when `input$rbst == TRUE`
+
+---
+
+## 🟡 UI / Architecture (v1.0 quality-of-life)
+
+### Framework Migration
+- [ ] Migrate from `shinydashboard` + `shinydashboardPlus` to `bs4Dash`
+  - [ ] Swap library calls and fix renamed functions
+  - [ ] Replace `socialButton()` with `tags$a()` + fontawesome equivalents
+  - [ ] Replace `dashboardLabel()` with styled `span` equivalents
+  - [ ] `dropdownBlock()` is already custom — verify it survives migration
+
+### Code Modernization  
+- [ ] Replace deprecated `aes_string()` with `.data[[]]` or `aes()`
+- [ ] Replace deprecated `select_()` with `pick()` or `.data[[]]`
+- [ ] Replace `add_rownames()` with `tibble::rownames_to_column()`
+
+### Modular Overhaul
+- [ ] Refactor server into Shiny modules — one per tab
+      (reference: https://rviews.rstudio.com/2021/10/20/a-beginner-s-guide-to-shiny-modules/)
+- [ ] This is an architecture improvement but not a v1.0 blocker — 
+      consider doing during bs4Dash rewrite since you're touching everything anyway
+
+### Error Handling
+- [ ] Replace generic Shiny error messages with informative, 
+      friendly messages per error type
+- [ ] Add specific message for logistic regression residuals tab
+
+---
+
+## 🟢 Available Models Matrix (tracking tool)
+
+- [ ] Build a gt() table showing which model × feature combinations 
+      are supported, in-progress, or broken
+- [ ] Use double-headers via gt for model type × clustering type axes
+- [ ] Keep this current as fixes land — it's the scoreboard
+
+---
+
+## ✅ Confirmed Working (do not touch)
+
+- Model formula generation including fixed effects via `factor()`
+- `tab_model()` HTML output via sjPlot
+- Bivariate and multivariate main effect plots
+- Marginal effects plot
+- Correlation matrix
+- Descriptive statistics via gt
+- Dossier tab
+- Upload and data table display
+- Logistic regression model fitting
+- Basic robust SE specification (modulo the `& → |` bug)
+
+---
+
+## 🔵 v1.1 (post-ship, not blocking)
+- [ ] Model results stored somewhere so that a second model can be created and compared (incremental F, e.g.) This is important for several future features.
+- [ ] `{report}` package integration for model summary narrative
+      — now potentially unblocked by estimatr 2.0, needs testing
+- [ ] `broom::glance() %>% gt()` summary statistics panel
+- [ ] `{equatiomatic}` equation display
+- [ ] Linear Mixed Effects / HLM
+- [ ] Instrumental Variables via `iv_robust()` 
+      — estimatr 2.0 has augment support for this too
+- [ ] Incremental F test 
+- [ ] ANOVA table output tab
+- [ ] Bookmark state
+- [ ] Downloadable individual plots via `ggsave()`
+- [ ] Fix horizontal scroll on `dataTableOutput`
+
+---
+
+## 🔵 v1.2 (future)
+
+- [ ] Editable data tables / in-app variable transformations 
+      via `{datawizard}`
+- [ ] GLM linking function selection (Poisson etc.)
+- [ ] Multiple simultaneous model comparison
+- [ ] Data subsetting / dplyr-style filtering
+- [ ] Google Sheets support (non-trivial — see prior notes)
+- [ ] JSON support
+
+---
+
+## ⚫ Deep Future / Maybe Never
+
+- [ ] Binary outcome mixed effects
+- [ ] Multiple imputation (MICE)
+- [ ] Path analysis / mediation
+- [ ] Downloadable report (PDF/HTML/Word) — deprioritized; 
+      high pain, low user value
+- [ ] Plot ID variables instead of anonymous points
+
+---
+
+## Recommended Sequencing 
+
+1. `& → |` fix + estimatr 2.0 update
+2. Rewrite diagnostics and AV plots using new `augment()`
+3. Fix `reactiveValues()` for brushing
+4. bs4Dash migration (touches UI only, server intact)
+5. Deprecated tidy eval cleanup
+6. Modular refactor (can overlap with step 4)
+7. Ship v1.0
+
+
+
+
+
+
+
+
+
+
 
 # The goal:
 
