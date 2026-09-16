@@ -1,0 +1,75 @@
+---
+title: "Regression Report (Back of the Envelope)"
+date: "`r Sys.Date()`"
+output: 
+  papaja::apa6_html:
+    css: custom.css
+
+params:
+  formula_text: NA
+  desc_table: NA
+  corr_table: NA
+  main_plot: NA
+  model_table: NA
+  report_text: NA
+  qq_plot: NA
+  resid_plot: NA
+  cooks_plot: NA
+---
+
+```{r setup, include=FALSE}
+library(papaja)
+library(gt)
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Sample Description
+
+```{r results='asis'}
+gt::as_raw_html(params$desc_table)
+```
+
+## Correlations
+
+```{r results='asis'}
+cat(params$corr_table)
+```
+
+## Formula
+
+`r params$formula_text`
+
+## Regression Results
+
+### Regression Table
+
+```{r results='asis'}
+cat(params$model_table)
+```
+
+### Regression Narrative
+
+```{r results='asis'}
+cat(params$report_text)
+```
+
+## Main Effect
+
+```{r fig.width=6, fig.height=4}
+print(params$main_plot)
+```
+
+## Additional Analyses / Model Diagnostics
+
+```{r fig.width=6, fig.height=4}
+print(params$qq_plot)
+```
+
+```{r fig.width=6, fig.height=4}
+print(params$resid_plot)
+```
+
+```{r fig.width=6, fig.height=4}
+print(params$cooks_plot)
+```

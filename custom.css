@@ -1,0 +1,17 @@
+body { 
+  background-color: #FAF7F2; 
+  color: #2C1F0E; 
+  font-family: 'Times New Roman', Times, serif; 
+}
+h1, h2 { 
+  color: #C4793A; 
+}
+table { 
+  border-top: 2px solid #2C1F0E; 
+  border-bottom: 2px solid #2C1F0E; 
+  border-collapse: collapse; 
+  width: 100%; 
+}
+th, td { 
+  padding: 6px 10px; 
+}
