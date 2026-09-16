@@ -149,7 +149,7 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 
 ## Recommended Sequencing 
 
-1. `& → |` fix + estimatr 2.0 update
+~~1. `& → |` fix + estimatr 2.0 update~~
 2. Rewrite diagnostics and AV plots using new `augment()`
 3. Fix `reactiveValues()` for brushing
 4. bs4Dash migration (touches UI only, server intact)
