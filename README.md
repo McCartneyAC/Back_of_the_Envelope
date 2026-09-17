@@ -43,10 +43,10 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 ### Outlier Analysis
 - [ ] Fix `reactiveValues()` bug in brushing/leverage tab
       (`vals` is declared as `reactive()` but mutated as if `reactiveValues()`)
-- [ ] Complete Cook's Distance plot (now unblocked via augment)
+- [x] Complete Cook's Distance plot (now unblocked via augment)
 - [ ] Leverage plot — interactive point exclusion 
       (reference: https://gallery.shinyapps.io/106-plot-interaction-exclude/)
-- [ ] Decide: ship Cook's D only for v1.0, defer leverage interactivity?
+- [x] Decide: ship Cook's D only for v1.0, defer leverage interactivity?
 
 ### Standard Errors
 - [x] Verify robust SE and cluster SE are correctly specified after `& → |` fix
@@ -112,14 +112,14 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 - [x] `{report}` package integration for model summary narrative
       — now potentially unblocked by estimatr 2.0, needs testing
 - [ ] `broom::glance() %>% gt()` summary statistics panel
-- [ ] `{equatiomatic}` equation display
+- [x] `{equatiomatic}` equation display
 - [ ] Linear Mixed Effects / HLM
 - [ ] Instrumental Variables via `iv_robust()` 
       — estimatr 2.0 has augment support for this too
 - [ ] Incremental F test 
 - [ ] ANOVA table output tab
 - [ ] Bookmark state
-- [ ] Downloadable individual plots via `ggsave()`
+~~- [ ] Downloadable individual plots via `ggsave()`~~
 - [ ] Fix horizontal scroll on `dataTableOutput`
 
 ---
@@ -150,10 +150,10 @@ stalled the project in 2021. Code has not yet been updated to reflect this.
 ## Recommended Sequencing 
 
 ~~1. `& → |` fix + estimatr 2.0 update~~
-2. Rewrite diagnostics and AV plots using new `augment()`
+~~2. Rewrite diagnostics and AV plots using new `augment()`~~
 3. Fix `reactiveValues()` for brushing
-4. bs4Dash migration (touches UI only, server intact)
-5. Deprecated tidy eval cleanup
+~~4. bs4Dash migration (touches UI only, server intact)~~
+~~5. Deprecated tidy eval cleanup~~
 6. Modular refactor (can overlap with step 4)
 7. Ship v1.0
 
@@ -205,20 +205,28 @@ Key: ✅ works | ⚠️ partial / untested | ❌ broken | 🚧 not yet implement
 
 ---
 
-## End-to-End Summary
+## End-to-End Summary (updated)
 
-| | Plain OLS | Robust OLS (HC2) | Clustered OLS (CR2) | Plain Logistic | Robust Logistic |
-|---|---|---|---|---|---|
-| Formula display | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Model fits | ✅ | ✅ | ✅ | ✅ | ✅ |
-| tab_model() summary | ✅ | ⚠️ | ⚠️ | ✅ | ⚠️ |
-| Main effect plot | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Marginal effects | ✅ | ⚠️ | ⚠️ | ✅ | ⚠️ |
-| Residual plot | ✅ | ❌ | ❌ | ⚠️ | ❌ |
-| Diagnostics | ✅ | ❌ | ❌ | ⚠️ | ❌ |
-| AV plots | ✅ | ❌ | ❌ | ⚠️ | ❌ |
-| Cook's distance | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Outlier brushing | ❌ | ❌ | ❌ | ❌ | ❌ |
+| | Plain OLS | Robust OLS (HC2) | Clustered OLS (CR2) | Fixed Effects | Plain Logistic | Robust Logistic |
+|---|---|---|---|---|---|---|
+| Formula display | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Model fits | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| tab_model() summary | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Main effect plot | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Marginal effects | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Residual plot | ✅ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ |
+| Diagnostics (QQ, resid-fitted, hist) | ✅ | ✅ | ✅ | ✅ | ✅* | ✅* |
+| Cook's distance | ✅ | ✅ | ✅ | ✅ | ✅* | ✅* |
+| Studentized residuals | ✅ | ✅ | ✅ | ✅ | ✅* | ✅* |
+| AV plots | ✅ | ✅ | ✅ | ⚠️ untested | ✅ | ✅ |
+| {report} narrative | ✅ | ✅ | ✅ | ✅ | 🚧 linear only | 🚧 linear only |
+| {equatiomatic} (report only) | ✅ | ✅ | ✅ | ✅ | untested | untested |
+| Outlier brushing | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+
+* diagnostics for logistic route through diagnostic_model()'s glm() branch — 
+  technically produces a plot, but residual diagnostics on a logistic fit are 
+  statistically iffy regardless of whether the code runs. The FAQ already 
+  acknowledges this, so this is a known, documented limitation rather than a bug.
 
 ---
 
