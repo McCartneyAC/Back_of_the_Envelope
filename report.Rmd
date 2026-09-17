@@ -7,6 +7,7 @@ output:
 
 params:
   formula_text: NA
+  equation: NA
   desc_table: NA
   corr_table: NA
   main_plot: NA
@@ -38,7 +39,7 @@ cat(params$corr_table)
 
 ## Formula
 
-`r params$formula_text`
+`r params$equation`
 
 ## Regression Results
 

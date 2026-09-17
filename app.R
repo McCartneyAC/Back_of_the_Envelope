@@ -5,7 +5,7 @@
 library(shiny)
 library(bs4Dash)
 library(fresh)
-
+library(equatiomatic)
 library(shinyWidgets)
 library(DT)
 library(psych)
@@ -95,78 +95,8 @@ description<-function(data, group = NULL, fast = TRUE, ...) {
 }
 
 
-dropdownBlock <- function(..., id, icon = NULL, title = NULL, 
-                          badgeStatus = "danger") {
   
-  if (!is.null(badgeStatus)) 
-    validateStatus(badgeStatus)
-  items <- c(list(...))
   
-  # Make sure the items are li tags
-  #lapply(items, tagAssert, type = "li")
-  # items <- lapply(1:length(items), FUN = function(i) {
-  #   item <- items[[i]]
-  #   name <- item$name
-  #   if (name != "li") {
-  #     wrapper <- shiny::tags$li()
-  #     item <- shiny::tagAppendChild(wrapper, item)
-  #   }
-  # })
-  
-  dropdownClass <- paste0("dropdown")
-  
-  numItems <- length(items)
-  if (is.null(badgeStatus)) {
-    badge <- NULL
-  } else {
-    badge <- dashboardLabel(status = badgeStatus, numItems)
-  }
-  
-  shiny::tags$li(
-    shiny::singleton(
-      shiny::tags$head(
-        # custom javascript so that the dropdown
-        #is not hidden when the user click on it
-        shiny::tags$script(
-          shiny::HTML(
-            paste0(
-              "$(document).ready(function(){
-                $('#", id, "').find('ul').click(function(e){
-                  e.stopPropagation();
-                });
-              });
-              "
-            )
-          )
-        )
-      )
-    ),
-    class = dropdownClass,
-    id = id,
-    shiny::tags$a(
-      href = "#",
-      class = "dropdown-toggle",
-      `data-toggle` = "dropdown",
-      icon,
-      title, 
-      badge
-    ),
-    shiny::tags$ul(
-      class = "dropdown-menu",
-      style = "left: 0; right: auto;",
-      shiny::tags$li(
-        shiny::tags$ul(
-          class = "menu",
-          shiny::tags$div(
-            style = "margin-left: auto; margin-right: auto; width: 80%;",
-            items
-          )
-        )
-      )
-    )
-  )
-}
-
 
 # theme colors ------------------------------------------------------------
 
@@ -226,7 +156,7 @@ bote_theme <- create_theme(
 
 
 ui <- bs4DashPage(freshTheme = bote_theme,
-                  bs4DashNavbar(title = "Back of the Envelope",
+                  bs4DashNavbar(
                                 left_menu = tagList(
                                   downloadButton("downloadReport", "Download Report")
                                 )
@@ -238,6 +168,13 @@ ui <- bs4DashPage(freshTheme = bote_theme,
                   
                   
                   bs4DashSidebar(
+                    bs4DashBrand(
+                      title = "Back of the Envelope",
+                      color = "primary",
+                      href = NULL,
+                      image = "logo.png",
+                      opacity = 1
+                    ),
                     sidebarMenu(id = "sidebar",
                                 tags$br(),
                                 tags$h4("Information:"),
@@ -257,9 +194,9 @@ ui <- bs4DashPage(freshTheme = bote_theme,
                                 menuItem("Plots", tabName = "reg_plot", icon = icon("line-chart")),
                                 menuItem("Diagnostics", tabName = "reg_ddx", icon = icon("x-ray")),
                                 menuItem("Outliers", tabName = "reg_outlier", icon = icon("wrench"),
-                                         badgeLabel = "partial", badgeColor = "warning"), 
-                                menuItem("Mediation",tabName = "reg_path", icon = icon("project-diagram"),
-                                         badgeLabel = "future", badgeColor = "danger")
+                                         badgeLabel = "partial", badgeColor = "warning")
+                                #menuItem("Mediation",tabName = "reg_path", icon = icon("project-diagram"),
+                                #         badgeLabel = "future", badgeColor = "danger")
                     ), # sidebarmenu
                     tags$hr(),
                     tags$a(href = "mailto:mccartneyac@gmail.com", icon("envelope")),
@@ -271,7 +208,20 @@ ui <- bs4DashPage(freshTheme = bote_theme,
                     tags$p("Version 0.9.3")
                   ), #sidebar 
                   bs4DashBody(
-                    tags$head(tags$title("Back of the Envelope")),
+                    tags$head(tags$title("Back of the Envelope"),
+                      tags$style(HTML("
+      .brand-link, .brand-text {
+        color: #E8DDD0 !important;
+      }
+      .main-sidebar .brand-link {
+        background-color: #2C1F0E !important;
+        border-bottom: 1px solid #1E1509 !important;
+      }
+        .main-sidebar h4 {
+          color: #C9B49A !important;
+          padding-left: 15px;
+  }
+    "))),
                     tabItems(
                       
                       
@@ -526,14 +476,12 @@ ui <- bs4DashPage(freshTheme = bote_theme,
                                           ), #tabPanel
                                           tabPanel("Influence Index", 
                                                    box(
-                                                     tags$p("Leverage: extremity on X"),
-                                                     tags$p("Discrepancy: extremity on Y"),
-                                                     tags$p("Coming soon, I promise"),
-                                                     tags$p("First - Studentized Residuals"),
-                                                     tags$p("Second - hat values")#,
-                                                     # car::influenceIndexPlot(model())
-                                                   )#box
-                                          )#tabPanel
+                                                     #tags$p("Leverage: extremity on X"),
+                                                     #tags$p("Discrepancy: extremity on Y"),
+                                                     plotOutput("studentized_resid_plot")
+                                                   )
+                                          )
+
                               ) #tabset panel
                       ),# tab item.
                       tabItem(tabName = "reg_path", title = "Mediation Analysis", 
@@ -860,6 +808,33 @@ server <- function(input, output, session) {
     HTML(modeltab$knitr)
   })  
   
+  # diagnostic model
+  diag_formula <- reactive({
+    req(datasetInput())
+    if (input$clstr == "Fixed Effects") {
+      as.formula(paste(input$responsevar, ' ~ ', feats(), " + factor(", input$clust, ")"))
+    } else {
+      regFormula()
+    }
+  })
+  diagnostic_model <- reactive({
+    req(model())
+    if (input$reg_outcome == "logistic") {
+      glm(regFormula(), data = datasetInput(), family = "binomial")
+    } else {
+      lm(diag_formula(), data = datasetInput())
+    }
+  })
+
+  # equatiomatic for the markdown report. 
+  equation_obj <- reactive({
+    req(diagnostic_model())
+    tryCatch(
+      equatiomatic::extract_eq(diagnostic_model(), wrap = TRUE, terms_per_line = 4),
+      error = function(e) paste0("Formula: ", deparse(formula(model())))
+    )
+  })
+  
   # report the model via easystats
   report_narrative <- reactive({
     req(model())
@@ -867,7 +842,7 @@ server <- function(input, output, session) {
       return("<p>Narrative reporting is available for linear models.</p>")
     }
     dat <- as.data.frame(datasetInput())
-    diag_fit <- eval(bquote(lm(.(regFormula()), data = dat)))
+    diag_fit <- eval(bquote(lm(.(diag_formula()), data = dat)))
     tryCatch(
       gsub("\n", "<br>", paste(as.character(report::report(diag_fit)), collapse = " ")),
       error = function(e) paste0("<em>Report unavailable: ", conditionMessage(e), "</em>")
@@ -967,7 +942,7 @@ server <- function(input, output, session) {
     req(model())
     if (input$reg_outcome == "linear") {
       broom::augment(model()) %>%
-        ggplot(aes(x = .data[[indvariable1()]],, y = ".resid")) +
+        ggplot(aes(x = .data[[indvariable1()]], y = .resid)) +
         geom_point() +
         geom_smooth(method = "lm") +
         theme_light()
@@ -1024,8 +999,8 @@ server <- function(input, output, session) {
   
   cooks_plot_obj <- reactive({
     req(model())
-    diag_fit <- lm(regFormula(), data = datasetInput())
-    augmented <- broom::augment(diag_fit) %>% mutate(.rownum = row_number())
+    augmented <- broom::augment(diagnostic_model()) %>%
+      mutate(.rownum = row_number())
     threshold <- 4 / nrow(augmented)
     ggplot(augmented, aes(x = .rownum, y = .cooksd)) +
       geom_col(aes(fill = .cooksd > threshold)) +
@@ -1036,6 +1011,50 @@ server <- function(input, output, session) {
       theme_light()
   })
   output$cooks_d <- renderPlot({ cooks_plot_obj() })
+
+  studentized_resid_obj <- reactive({
+    req(model())
+    diag_fit <- lm(regFormula(), data = datasetInput())
+    
+    rstud <- rstudent(diag_fit)
+    n <- length(rstud)
+    df_resid <- diag_fit$df.residual - 1  # externally studentized: n - p - 1
+    
+    # two-tailed p-value from t-distribution, then Bonferroni-correct across all n tests
+    raw_p <- 2 * pt(-abs(rstud), df = df_resid)
+    bonf_p <- pmin(1, raw_p * n)
+    
+    df <- data.frame(
+      .rownum = seq_along(rstud),
+      .rstudent = as.numeric(rstud),
+      .bonf_p = bonf_p
+    )
+    df$.flagged <- df$.bonf_p < 0.05
+    
+    ggplot(df, aes(x = .rownum, y = .rstudent)) +
+      geom_col(aes(fill = .flagged)) +
+      geom_hline(yintercept = c(-2, 2), linetype = "dashed", color = "#B85450") +
+      scale_fill_manual(
+        values = c("FALSE" = "#8B7460", "TRUE" = "#C4793A"),
+        guide = "none"
+      ) +
+      ggrepel::geom_text_repel(
+        data = df %>% filter(.flagged),
+        aes(label = .rownum),
+        size = 3
+      ) +
+      labs(
+        title = "Studentized Residuals",
+        x = "Observation",
+        y = "Studentized Residual",
+        caption = "Dashed lines: +/-2 (rule of thumb). Colored bars: significant outliers (Bonferroni p < .05)"
+      ) +
+      theme_light()
+  })
+  
+  output$studentized_resid_plot <- renderPlot({
+    studentized_resid_obj()
+  })
   
   # AV PLOT CONSTRUCTION
   
@@ -1183,6 +1202,7 @@ server <- function(input, output, session) {
       
       params <- list(
         formula_text = deparse(formula(model())),
+        equation = equation_obj(),
         desc_table = desc(),
         corr_table = cortab_dl$knitr,
         main_plot = main_plot_obj(),
@@ -1206,7 +1226,7 @@ server <- function(input, output, session) {
   
   # details for brushing leverage -------------------------------------------
   
-  vals <- reactive({
+  vals <- reactiveValues({
     keeprows = rep(TRUE, nrow(datasetInput()))
   })
   
